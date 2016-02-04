@@ -1,0 +1,35 @@
+{
+  "name": "modpreneur/necktie-gateway",
+  "type": "project",
+  "require": {
+    "symfony/symfony": "^3.0",
+    "sensio/framework-extra-bundle": "^3.0",
+    "guzzlehttp/guzzle": "~6",
+    "videlalvaro/php-amqplib": "~2",
+    "sensio/distribution-bundle": "~5",
+    "symfony/console": "~3",
+    "symfony/validator": "^3.0"
+  },
+
+  "require-dev": {
+    "symfony/var-dumper": "~3"
+  },
+
+  "authors": [
+    {
+      "name": "Tomáš Jančar",
+      "email": "jan02@modpreneur.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php console.php cache:clear"
+    ]
+  },
+  "minimum-stability": "stable"
+}

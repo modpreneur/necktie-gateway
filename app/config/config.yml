@@ -1,0 +1,16 @@
+framework:
+    secret: S0ME_SECRET
+
+parameters:
+  rabbit_server: necktie.docker
+  rabbit_port: 5672
+  rabbit_user:  guest
+  rabbit_password: guest
+  rabbit_queues: ['newsletter', 'notification']
+
+
+services:
+
+  neckie.gateway.api_gateway:
+    class: App\Gateway\ApiGateway
+

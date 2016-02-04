@@ -1,0 +1,13 @@
+web_gateway:
+  extends:
+    service: web_gateway
+  tty: true
+  environment:
+    - DEBUG=true
+    - VIRTUAL_HOST=necktie.docker
+  privileged: true
+  hostname: necktie.gateway.docker
+  domainname: necktie.gateway.docker
+  privileged: true
+
+
