@@ -115,12 +115,16 @@ class ConsumerCommand extends ContainerAwareCommand
 
             $this->addRecord($responce);
             if ($responce['status'] == 'error') {
-                throw new \Exception($message['message']);
+                throw new \Exception($responce['message']);
             }
 
         } catch (\Exception $ex) {
 
-            $this->addRecord(['status' => 'error', 'message' => $ex->getMessage()]);
+            $this->addRecord([
+                'status' => 'error',
+                'url' => $message['url'],
+                'message' => $ex->getMessage()
+            ]);
 
             return false;
         }

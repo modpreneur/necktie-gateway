@@ -63,16 +63,17 @@ class ApiGateway
         }catch(\Exception $ex){
             return [
                 'status'  => 'error',
+                'url'     => $url,
                 'message' => $ex->getMessage(),
                 'error'   => $ex,
-                'url'     => $url
             ];
         }
 
         return [
             'status'  => 'ok',
+            'url'     => $url,
             'body'    => ((string) $responce->getBody() ),
-            'url'     => $url
+
         ];
     }
 
