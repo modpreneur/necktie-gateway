@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Gateway;
+namespace Necktie\Bundle\GatewayBundle\Gateway;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
@@ -44,16 +44,16 @@ class ApiGateway
      *
      * @throws \Exception
      */
-    public function request($metod, $url, array $header = [], $body = ""){
+    public function request($metHod, $url, array $header = [], $body = ""){
 
-        $this->checkMethod($metod);
+        $this->checkMethod($metHod);
         $header = $this->validateHeader($header);
 
         if( ($val =  $this->validateUrl($url)) ){
             throw new \Exception($val);
         }
 
-        $request = new Request($metod, $url, $header, $body);
+        $request = new Request($metHod, $url, $header, $body);
         $client = new Client();
 
         try{
@@ -64,13 +64,15 @@ class ApiGateway
             return [
                 'status'  => 'error',
                 'message' => $ex->getMessage(),
-                'error'   => $ex
+                'error'   => $ex,
+                'url'     => $url
             ];
         }
 
         return [
             'status'  => 'ok',
-            'body' => ((string) $responce->getBody() )
+            'body'    => ((string) $responce->getBody() ),
+            'url'     => $url
         ];
     }
 

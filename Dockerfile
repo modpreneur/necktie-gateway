@@ -11,7 +11,8 @@ RUN apt-get update && apt-get -y install \
     libpq5 \
     zlib1g-dev \
     wget\
-    libmcrypt-dev
+    libmcrypt-dev \
+    sqlite3
 
 # install postfix
 RUN echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt \

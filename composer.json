@@ -8,7 +8,9 @@
     "videlalvaro/php-amqplib": "~2",
     "sensio/distribution-bundle": "~5",
     "symfony/console": "~3",
-    "symfony/validator": "^3.0"
+    "symfony/validator": "^3.0",
+    "doctrine/orm": "~2",
+    "doctrine/doctrine-bundle": "~1"
   },
 
   "require-dev": {

@@ -2,15 +2,13 @@
 
 namespace Necktie\Gateway;
 
-use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Necktie\Bundle\GatewayBundle\GatewayBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Bundle\TwigBundle\TwigBundle;
-use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
+use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
@@ -27,7 +25,10 @@ class AppKernel  extends Kernel
     {
         $bundles = array(
             new FrameworkBundle(),
+            new GatewayBundle(),
+            new DoctrineBundle(),
         );
+
 
         return $bundles;
     }

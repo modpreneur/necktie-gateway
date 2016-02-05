@@ -1,16 +1,17 @@
+imports:
+   - { resource: parameters.yml }
+
 framework:
     secret: S0ME_SECRET
 
-parameters:
-  rabbit_server: necktie.docker
-  rabbit_port: 5672
-  rabbit_user:  guest
-  rabbit_password: guest
-  rabbit_queues: ['newsletter', 'notification']
-
-
-services:
-
-  neckie.gateway.api_gateway:
-    class: App\Gateway\ApiGateway
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        dbname:   %database_name%
+        path:     %database_path%
+        user:     %database_user%
+        password: %database_password%
+    orm:
+        auto_mapping: true
 

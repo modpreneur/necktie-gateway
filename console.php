@@ -16,6 +16,9 @@ set_time_limit(0);
  */
 $loader = require __DIR__.'/vendor/autoload.php';
 
+
+\Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
 $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(array('--no-debug', '')) && $env !== 'prod';
@@ -28,6 +31,6 @@ require_once __DIR__.'/app/AppKernel.php';
 $kernel = new \Necktie\Gateway\AppKernel($env, $debug);
 $application = new Application($kernel);
 
-$application->add(new \App\Command\NotificationCommand());
+$application->add(new \Necktie\Bundle\GatewayBundle\Command\ConsumerCommand());
 
 $application->run($input);

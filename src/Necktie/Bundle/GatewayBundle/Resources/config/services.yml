@@ -1,0 +1,6 @@
+services:
+
+  neckie.gateway.api_gateway:
+    class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
+
+
