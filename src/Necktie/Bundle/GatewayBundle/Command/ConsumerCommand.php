@@ -8,13 +8,20 @@ use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
 class ConsumerCommand extends ContainerAwareCommand
 {
 
-    protected $count = 0;
+    protected $maxMessagesPerProcess = 100;
+
+    protected $repeater = 0;
+
+    protected $counterMessages = 0;
+
+
 
     /** @var OutputInterface */
     protected $output;
@@ -22,16 +29,21 @@ class ConsumerCommand extends ContainerAwareCommand
 
     protected function configure()
     {
-        $this->setName('necktie:rabbit:consumer')->setDescription('Start waiting for messages.')->addArgument(
+        $this
+            ->setName('necktie:rabbit:consumer')->setDescription('Start waiting for messages.')->addArgument(
                 'consumer',
                 InputArgument::REQUIRED,
                 'Consumer name.'
             );
+
+        $this->addOption('max-messages', 'm', InputOption::VALUE_OPTIONAL, 'Set max messages per process.', 100);
     }
 
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->maxMessagesPerProcess = (int)$input->getOption('max-messages');
+
         $consumer = $input->getArgument('consumer');
         $this->output = $output;
 
@@ -51,7 +63,12 @@ class ConsumerCommand extends ContainerAwareCommand
         $callback = function ($msg) use ($output) {
             $r = $this->process($msg);
             $this->handleProcessMessage($msg, $r);
-            $output->writeln('['.$this->count.'] Message: '.$msg->body);
+            $output->writeln('['.$this->repeater.'] Message: '.$msg->body);
+            $this->counterMessages++;
+
+            if($this->counterMessages >= $this->maxMessagesPerProcess){
+                die(1);
+            }
         };
 
         $channel->basic_qos(null, 1, null);
@@ -73,13 +90,13 @@ class ConsumerCommand extends ContainerAwareCommand
             $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
         }
 
-        if (false == $processFlag && $this->count >= 10) {
+        if (false == $processFlag && $this->repeater >= 10) {
             $msg->delivery_info['channel']->basic_reject($msg->delivery_info['delivery_tag'], false);
-            $this->count = 0;
+            $this->repeater = 0;
         } elseif (false == $processFlag) {
             $msg->delivery_info['channel']->basic_reject($msg->delivery_info['delivery_tag'], true);
             sleep(rand(5, 10));
-            $this->count++;
+            $this->repeater++;
         }
 
     }
