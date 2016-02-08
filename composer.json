@@ -33,5 +33,15 @@
       "php console.php cache:clear"
     ]
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+
+  "config": {
+    "bin-dir": "bin"
+  },
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-bin-dir": "bin",
+    "symfony-var-dir": "var",
+    "symfony-tests-dir": "tests"
+  }
 }
