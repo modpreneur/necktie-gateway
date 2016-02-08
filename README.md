@@ -1,1 +1,1 @@
-# neckte-gateway
+# necktie-gateway
