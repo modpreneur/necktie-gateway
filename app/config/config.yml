@@ -15,3 +15,7 @@ doctrine:
     orm:
         auto_mapping: true
 
+
+services:
+
+

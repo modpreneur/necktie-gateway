@@ -3,102 +3,32 @@
 namespace Necktie\Bundle\GatewayBundle\Command;
 
 use Necktie\Bundle\GatewayBundle\Entity\SystemLog;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+
 use PhpAmqpLib\Message\AMQPMessage;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 
 
-class ConsumerCommand extends ContainerAwareCommand
+/**
+ * Class ConsumerCommand
+ * @package Necktie\Bundle\GatewayBundle\Command
+ */
+class ConsumerCommand extends BaseCommnad
 {
 
-    protected $maxMessagesPerProcess = 100;
-
-    protected $repeater = 0;
-
-    protected $counterMessages = 0;
+    protected $data = [];
 
 
+    protected function configure(){
+        parent::configure();
 
-    /** @var OutputInterface */
-    protected $output;
-
-
-    protected function configure()
-    {
         $this
-            ->setName('necktie:rabbit:consumer')->setDescription('Start waiting for messages.')->addArgument(
+            ->setName('necktie:rabbit:consumer')
+            ->setDescription('Start waiting for messages.')
+            ->addArgument(
                 'consumer',
                 InputArgument::REQUIRED,
                 'Consumer name.'
             );
-
-        $this->addOption('max-messages', 'm', InputOption::VALUE_OPTIONAL, 'Set max messages per process.', 100);
-    }
-
-
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $this->maxMessagesPerProcess = (int)$input->getOption('max-messages');
-
-        $consumer = $input->getArgument('consumer');
-        $this->output = $output;
-
-        $server = $this->getContainer()->getParameter('rabbit_server');
-        $port = $this->getContainer()->getParameter('rabbit_port');
-        $user = $this->getContainer()->getParameter('rabbit_user');
-        $password = $this->getContainer()->getParameter('rabbit_password');
-
-
-        $connection = new AMQPStreamConnection('necktie.docker', 5672, 'guest', 'guest');
-        $channel = $connection->channel();
-
-        $channel->queue_declare($consumer, false, true, false, false);
-
-        echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
-
-        $callback = function ($msg) use ($output) {
-            $r = $this->process($msg);
-            $this->handleProcessMessage($msg, $r);
-            $output->writeln('['.$this->repeater.'] Message: '.$msg->body);
-            $this->counterMessages++;
-
-            if($this->counterMessages >= $this->maxMessagesPerProcess){
-                die(1);
-            }
-        };
-
-        $channel->basic_qos(null, 1, null);
-        $channel->basic_consume($consumer, '', false, false, false, false, $callback);
-
-        while (count($channel->callbacks)) {
-            $channel->wait();
-        }
-    }
-
-
-    /**
-     * @param AMQPMessage $msg
-     * @param bool|string $processFlag
-     */
-    private function handleProcessMessage(AMQPMessage $msg, $processFlag)
-    {
-        if ($processFlag) {
-            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-        }
-
-        if (false == $processFlag && $this->repeater >= 10) {
-            $msg->delivery_info['channel']->basic_reject($msg->delivery_info['delivery_tag'], false);
-            $this->repeater = 0;
-        } elseif (false == $processFlag) {
-            $msg->delivery_info['channel']->basic_reject($msg->delivery_info['delivery_tag'], true);
-            sleep(rand(5, 10));
-            $this->repeater++;
-        }
-
     }
 
 
@@ -106,7 +36,7 @@ class ConsumerCommand extends ContainerAwareCommand
      * @param AMQPMessage $msg
      * @return bool
      */
-    private function process(AMQPMessage $msg)
+    public function process(AMQPMessage $msg)
     {
         $message = unserialize($msg->body);
 
@@ -131,6 +61,8 @@ class ConsumerCommand extends ContainerAwareCommand
                 );
 
             $this->addRecord($responce);
+            $this->data[] = $responce;
+
             if ($responce['status'] == 'error') {
                 throw new \Exception($responce['message']);
             }
@@ -173,5 +105,13 @@ class ConsumerCommand extends ContainerAwareCommand
         $em->persist($sys);
         $em->flush($sys);
     }
+
+
+    protected function close()
+    {
+        $sender = $this->getContainer()->get('necktie.sender');
+        $sender->sendToNecktie($this->data);
+    }
+
 
 }

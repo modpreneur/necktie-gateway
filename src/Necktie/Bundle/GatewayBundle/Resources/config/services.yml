@@ -1,6 +1,13 @@
 services:
 
+  necktie.gateway.connection:
+    class: PhpAmqpLib\Connection\AMQPLazyConnection
+    arguments: ["%rabbit_server%", "%rabbit_port%", "%rabbit_user%", "%rabbit_password%"]
+    lazy: true
+
   neckie.gateway.api_gateway:
     class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
 
-
+  necktie.sender:
+    class: Necktie\Bundle\GatewayBundle\NecktieSender
+    arguments: ["%necktie_url%", "%necktie_api%"]
