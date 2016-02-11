@@ -5,7 +5,7 @@ services:
     arguments: ["%rabbit_server%", "%rabbit_port%", "%rabbit_user%", "%rabbit_password%"]
     lazy: true
 
-  neckie.gateway.api_gateway:
+  necktie.gateway.api_gateway:
     class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
 
   necktie.sender:

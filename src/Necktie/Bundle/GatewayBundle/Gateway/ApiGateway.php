@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ApiGateway
 {
-    protected $allowedMethod = [ 'PUT', 'POST', 'DELETE' ];
+    protected $allowedMethod = [ 'GET', 'PUT', 'POST', 'DELETE' ];
 
     /**
      * @var ValidatorInterface
@@ -34,46 +34,52 @@ class ApiGateway
 
 
     /**
-     * @param str
-     * ing $metod
+     * @param $method
      * @param string $url
      * @param array $header
      * @param string $body
      *
+     * @param null $tag
+     * @param array $data
      * @return string
-     *
      * @throws \Exception
      */
-    public function request($metHod, $url, array $header = [], $body = ""){
+    public function request($method, $url, array $header = [], $body = "", $tag = null, array $data = []){
 
-        $this->checkMethod($metHod);
+        $this->checkMethod($method);
         $header = $this->validateHeader($header);
 
         if( ($val =  $this->validateUrl($url)) ){
             throw new \Exception($val);
         }
 
-        $request = new Request($metHod, $url, $header, $body);
+
+        $request = new Request($method, $url, $header, json_encode($body));
         $client = new Client();
 
         try{
-            $responce = $client->send($request, [
+
+            $response = $client->send($request, [
                 'verify' => false
             ]);
+
+
         }catch(\Exception $ex){
             return [
                 'status'  => 'error',
                 'url'     => $url,
                 'message' => $ex->getMessage(),
                 'error'   => $ex,
+                'data'    => $data,
             ];
         }
 
         return [
             'status'  => 'ok',
             'url'     => $url,
-            'body'    => ((string) $responce->getBody() ),
-
+            'body'    => ((string) $response->getBody()),
+            'tag'     => $tag,
+            'data'    => $data,
         ];
     }
 
@@ -100,7 +106,7 @@ class ApiGateway
             "content-Type" => "application/json"
         ]);
 
-        $header = $optionsResolver->resolve($header);
+        //$header = $optionsResolver->resolve($header);
 
         return $header;
     }

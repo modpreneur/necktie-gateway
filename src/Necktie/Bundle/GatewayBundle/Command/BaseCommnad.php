@@ -46,6 +46,12 @@ abstract class BaseCommnad extends ContainerAwareCommand
     /** @var int  */
     protected $idleTimeout = 0;
 
+    /** @var  AMQPMessage */
+    public $msg;
+
+    protected $data = [];
+
+
 
     function __destruct()
     {
@@ -54,6 +60,10 @@ abstract class BaseCommnad extends ContainerAwareCommand
 
         if($this->connection)
             $this->connection->close();
+
+        if(!empty($this->data)){
+            $this->close();
+        }
     }
 
 
@@ -141,16 +151,16 @@ abstract class BaseCommnad extends ContainerAwareCommand
 
         $channel->queue_declare($consumer, false, true, false, false);
 
-        echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+        $output->writeln('[' . (new \DateTime())->format(\DateTime::W3C) . '] <info>Waiting for messages. To exit press CTRL+C</info>');
 
         $callback = function ($msg) use ($output) {
+            $this->msg = $msg;
             $r = $this->process($msg);
             $this->handleProcessMessage($msg, $r);
             $output->writeln('['.$this->repeater.'] Message: '.$msg->body);
             $this->counterMessages++;
 
             if($this->counterMessages >= $this->maxMessagesPerProcess){
-                $output->writeln(1);
                 $this->close();
                 die(1);
             }
