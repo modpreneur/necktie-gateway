@@ -1,0 +1,16 @@
+
+parameters:
+  rabbit_server: 88.146.49.119
+  rabbit_port: 5672
+  rabbit_user:  guest
+  rabbit_password: guest
+
+  database_driver:   pdo_sqlite
+  database_host:     localhost
+  database_name:     necktie_gateway
+  database_path:     "%kernel.root_dir%/logs/necktie_gateway.db"
+  database_user:     root
+  database_password: 1234
+
+  necktie_url:  "http://http://88.146.49.119"
+  necktie_api:  "/app_dev.php/rabbitmq/results"
