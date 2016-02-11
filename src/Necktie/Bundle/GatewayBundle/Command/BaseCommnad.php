@@ -148,16 +148,13 @@ abstract class BaseCommnad extends ContainerAwareCommand
 
         $this->initConnection();
         $channel = $this->getChannel();
-
         $channel->queue_declare($consumer, false, true, false, false);
-
         $output->writeln('[' . (new \DateTime())->format(\DateTime::W3C) . '] <info>Waiting for messages. To exit press CTRL+C</info>');
 
         $callback = function ($msg) use ($output) {
             $this->msg = $msg;
             $r = $this->process($msg);
             $this->handleProcessMessage($msg, $r);
-            $output->writeln('['.$this->repeater.'] Message: '.$msg->body);
             $this->counterMessages++;
 
             if($this->counterMessages >= $this->maxMessagesPerProcess){
