@@ -1,17 +1,17 @@
 <?php
 
-namespace Necktie\Bundle\GatewayBundle;
+namespace Necktie\Bundle\BunnyBundle;
 
-use Necktie\Bundle\GatewayBundle\DependencyInjection\NecktieGatewayExtension;
+use Necktie\Bundle\BunnyBundle\DependencyInjection\BunnyBundleExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 
 /**
- * Class GatewayBundle
- * @package Necktie\Bundle\GatewayBundle
+ * Class BunnyBundle
+ * @package Necktie\Bundle\BunnyBundle
  */
-class GatewayBundle extends Bundle
+class BunnyBundle extends Bundle
 {
 
     /**
@@ -20,15 +20,15 @@ class GatewayBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-
     }
 
 
     /**
-     * @return NecktieGatewayExtension
+     * @return BunnyBundleExtension
      */
     public function getContainerExtension()
     {
-        return new NecktieGatewayExtension();
+        return new BunnyBundleExtension();
     }
+
 }

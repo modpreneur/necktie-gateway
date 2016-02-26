@@ -1,0 +1,6 @@
+services:
+
+    necktie.bunny.client:
+       class: Bunny\Client
+       arguments:
+           - { host: "%rabbit_url%", port: "%rabbit_port%", user: "%rabbit_user%", password: "%rabbit_password%", persistent: 2, path: '/' }

@@ -1,6 +1,6 @@
 
 parameters:
-  rabbit_server: 88.146.49.119
+  rabbit_url: 88.146.49.119
   rabbit_port: 5672
   rabbit_user:  guest
   rabbit_password: guest

@@ -3,10 +3,10 @@
 namespace Necktie\Gateway;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Necktie\Bundle\BunnyBundle\BunnyBundle;
 use Necktie\Bundle\GatewayBundle\GatewayBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
@@ -27,6 +27,7 @@ class AppKernel  extends Kernel
             new FrameworkBundle(),
             new GatewayBundle(),
             new DoctrineBundle(),
+            new BunnyBundle(),
         );
 
 

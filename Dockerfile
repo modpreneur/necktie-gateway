@@ -15,10 +15,10 @@ RUN apt-get update && apt-get -y install \
     sqlite3
 
 # install postfix
-RUN echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt \
- && echo "postfix postfix/mailname string modpreneur.com" >> preseed.txt \
- && debconf-set-selections preseed.txt \
- && DEBIAN_FRONTEND=noninteractive apt-get install -q -y postfix
+#RUN echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt \
+# && echo "postfix postfix/mailname string modpreneur.com" >> preseed.txt \
+# && debconf-set-selections preseed.txt \
+# && DEBIAN_FRONTEND=noninteractive apt-get install -q -y postfix
 
 RUN docker-php-ext-install curl json mbstring opcache pdo_pgsql zip mcrypt
 
@@ -30,6 +30,8 @@ RUN pecl install -o -f apcu-5.1.2 apcu_bc-beta \
     && docker-php-ext-configure bcmath \
     && docker-php-ext-install bcmath
 
+RUN pecl install xdebug-beta && \
+    docker-php-ext-enable xdebug
 
 # prepare php and apache
 RUN rm -rf /etc/apache2/sites-available/* /etc/apache2/sites-enabled/*
@@ -71,8 +73,13 @@ RUN apt-get update && apt-get -y install supervisor \
 
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN echo "export TERM=xterm" >> /etc/bash.bashrc
+RUN echo "alias composer=\"php -n /usr/bin/composer\"" >> /etc/bash.bashrc
 
-EXPOSE 22 80 9001
+EXPOSE 22 9608 9001
+
+RUN echo "/usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so" >> /usr/local/etc/php/php.ini
+RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/php.ini
+RUN echo "xdebug.remote_host=192.168.99.100" >> /usr/local/etc/php/php.ini
 
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["sh", "entrypoint.sh", "service postfix start"]

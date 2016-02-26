@@ -1,13 +1,30 @@
 services:
 
   necktie.gateway.connection:
-    class: PhpAmqpLib\Connection\AMQPLazyConnection
-    arguments: ["%rabbit_server%", "%rabbit_port%", "%rabbit_user%", "%rabbit_password%"]
+    class: PhpAmqpLib\Connection\AMQPConnection
+    arguments: ["%rabbit_url%", "%rabbit_port%", "%rabbit_user%", "%rabbit_password%"]
     lazy: true
+
 
   necktie.gateway.api_gateway:
     class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
 
+
   necktie.sender:
     class: Necktie\Bundle\GatewayBundle\NecktieSender
     arguments: ["%necktie_url%", "%necktie_api%"]
+
+
+  necktie.listener.message_processor:
+     class: Necktie\Bundle\GatewayBundle\EventListener\MessageProcessor
+     arguments:
+        - "@necktie.gateway.api_gateway"
+        - "@necktie.producer"
+     tags:
+         - { name: doctrine.event_listener, event: postPersist, priority: 2048 }
+
+
+  necktie.producer:
+    class: Necktie\Bundle\GatewayBundle\RabbitMQ\Producer
+    arguments:
+      - "@necktie.bunny.client"

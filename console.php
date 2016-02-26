@@ -31,6 +31,4 @@ require_once __DIR__.'/app/AppKernel.php';
 $kernel = new \Necktie\Gateway\AppKernel($env, $debug);
 $application = new Application($kernel);
 
-$application->add(new \Necktie\Bundle\GatewayBundle\Command\ConsumerCommand());
-
 $application->run($input);

@@ -1,5 +1,7 @@
 #!/bin/bash sh
 
+alias composer="php -n /usr/bin/composer"
+
 mkdir -p /var/app/app/cache
 mkdir -p /var/app/app/logs
 chmod -R 0777 /var/app/app/cache

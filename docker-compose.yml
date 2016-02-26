@@ -1,10 +1,10 @@
 web_gateway:
   build: .
   ports:
-    - "8000:8000"
+    - "9608:9608"
     - "9001:9001"
   expose:
-    - "8000"
+    - "9608"
     - "9001"
   volumes:
     - .:/var/app
