@@ -69,7 +69,7 @@ class ApiGateway
                 'status'  => 'error',
                 'url'     => $url,
                 'message' => $ex->getMessage(),
-                'error'   => $ex,
+                'error'   => $ex->getMessage(),
                 'data'    => $data,
             ];
         }

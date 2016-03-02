@@ -33,11 +33,13 @@
   "scripts": {
     "post-install-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-      "php console.php cache:clear"
+      "php console.php cache:clear",
+      "php console.php doctrine:schema:update"
     ],
     "post-update-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-      "php console.php cache:clear"
+      "php console.php cache:clear",
+      "php console.php doctrine:schema:update"
     ]
   },
   "minimum-stability": "stable",

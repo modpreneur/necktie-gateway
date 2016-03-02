@@ -52,11 +52,10 @@ class Producer
             try{
                 $this->client->connect();
             }catch(\Exception $ex){
-
+                // @todo 
             }
 
             $this->channel = $this->client->channel();
-
             $this->channel->queueDeclare($queueName);
             $this->channel->exchangeDeclare($exchange);
             $this->channel->queueBind($queueName, $exchange);

@@ -137,7 +137,8 @@ class MessageProcessor
                     'status' => 'error',
                     'url' => $message['url'],
                     'message' => $ex->getMessage(),
-                ]
+                ],
+                500
             );
 
             return false;
@@ -149,18 +150,18 @@ class MessageProcessor
 
     /**
      * @param array $data
+     * @param int $level
      */
-    public function addRecord($data)
+    public function addRecord($data, $level = 200)
     {
         $em = $this->manager;
+
         $this->producer->publish('gateway', $data, 'gateway_exchange');
 
         if (isset($data['status']) && $data['status'] == 'ok') {
             $log = json_encode($data);
-            $level = 200;
         } else {
             $log = json_encode($data);
-            $level = 500;
         }
 
         $sys = new SystemLog();
