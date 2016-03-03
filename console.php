@@ -16,6 +16,8 @@ set_time_limit(0);
  */
 $loader = require __DIR__.'/vendor/autoload.php';
 
+var_dump(222);
+
 
 \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

@@ -4,10 +4,10 @@ web_gateway:
   tty: true
   environment:
     - DEBUG=true
-    - VIRTUAL_HOST=necktie.docker
+    - VIRTUAL_HOST=gateway.docker
   privileged: true
-  hostname: necktie.gateway.docker
-  domainname: necktie.gateway.docker
+  hostname: gateway.docker
+  domainname: gateway.docker
   privileged: true
 
 
