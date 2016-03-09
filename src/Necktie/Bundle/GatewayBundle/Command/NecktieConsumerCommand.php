@@ -22,8 +22,6 @@ class NecktieConsumerCommand extends BaseConsumerCommand
         $this
             ->setName('necktie:rabbit:consumer')
             ->setDescription('Rabbit consumer.');
-
-        exit;
     }
 
 

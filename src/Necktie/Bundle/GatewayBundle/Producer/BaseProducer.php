@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Necktie\Bundle\GatewayBundle\RabbitMQ;
+namespace Necktie\Bundle\GatewayBundle\Producer;
 
 
 use Bunny\Channel;
@@ -12,7 +12,7 @@ use Bunny\Client;
  * Class Producer
  * @package Necktie\Bundle\GatewayBundle\RabbitMQ
  */
-class Producer
+class BaseProducer
 {
     /**
      * @var Client

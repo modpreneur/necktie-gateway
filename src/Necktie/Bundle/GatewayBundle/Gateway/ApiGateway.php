@@ -23,13 +23,26 @@ class ApiGateway
      */
     protected $validator;
 
+    /** @var ClientFactoryInterface  */
+    protected $clientFactory;
+
 
     /**
      * ApiGateway constructor.
+     * @param ClientFactoryInterface $clientFactory
      */
-    public function __construct()
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
         $this->validator = ( new ValidatorBuilder() )->getValidator();
+        $this->clientFactory = $clientFactory;
+    }
+
+
+    /**
+     * @return Client
+     */
+    protected function getClient(){
+        return $this->clientFactory->createClient();
     }
 
 
@@ -47,15 +60,13 @@ class ApiGateway
     public function request($method, $url, array $header = [], $body = "", $tag = null, array $data = []){
 
         $this->checkMethod($method);
-        $header = $this->validateHeader($header);
 
         if( ($val =  $this->validateUrl($url)) ){
             throw new \Exception($val);
         }
 
-
         $request = new Request($method, $url, $header, json_encode($body));
-        $client = new Client();
+        $client  = $this->getClient();
 
         try{
 
@@ -92,23 +103,6 @@ class ApiGateway
         if( !in_array(strtoupper($method), $this->allowedMethod) ){
             throw new \Exception('Allowed methods are: ' . join(', ', $this->allowedMethod));
         }
-    }
-
-
-    /**
-     * @param array $header
-     * @return array
-     */
-    protected function validateHeader(array $header): array {
-        $optionsResolver = new OptionsResolver;
-        $optionsResolver->setDefaults([
-            "accept"       => "application/json",
-            "content-Type" => "application/json"
-        ]);
-
-        //$header = $optionsResolver->resolve($header);
-
-        return $header;
     }
 
 

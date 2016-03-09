@@ -6,9 +6,20 @@ services:
     lazy: true
 
 
+  necktie.gateway.logger:
+    class: Necktie\Bundle\GatewayBundle\Logger\Logger
+    arguments:
+      - "@doctrine.orm.entity_manager"
+
+
+  necktie.client.factory:
+    class: Necktie\Bundle\GatewayBundle\Gateway\ClientFactory
+
+
   necktie.gateway.api_gateway:
     class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
-
+    arguments:
+       - "@necktie.client.factory"
 
   necktie.sender:
     class: Necktie\Bundle\GatewayBundle\NecktieSender
@@ -25,6 +36,6 @@ services:
 
 
   necktie.producer:
-    class: Necktie\Bundle\GatewayBundle\RabbitMQ\Producer
+    class: Necktie\Bundle\GatewayBundle\Producer\BaseProducer
     arguments:
       - "@necktie.bunny.client"

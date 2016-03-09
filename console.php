@@ -16,10 +16,9 @@ set_time_limit(0);
  */
 $loader = require __DIR__.'/vendor/autoload.php';
 
-var_dump(222);
-
-
 \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+\Doctrine\DBAL\Types\Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
+
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
@@ -34,3 +33,6 @@ $kernel = new \Necktie\Gateway\AppKernel($env, $debug);
 $application = new Application($kernel);
 
 $application->run($input);
+
+$entityManager = $application->getKernel()->getContainer()->get('doctrine.orm.entity_manager');
+$entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('uuid', 'uuid');

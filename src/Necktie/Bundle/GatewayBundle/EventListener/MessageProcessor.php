@@ -9,7 +9,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Necktie\Bundle\GatewayBundle\Entity\Message;
 use Necktie\Bundle\GatewayBundle\Entity\SystemLog;
 use Necktie\Bundle\GatewayBundle\Gateway\ApiGateway;
-use Necktie\Bundle\GatewayBundle\RabbitMQ\Producer;
+use Necktie\Bundle\GatewayBundle\Producer\BaseProducer as Producer;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
@@ -148,32 +148,7 @@ class MessageProcessor
     }
 
 
-    /**
-     * @param array $data
-     * @param int $level
-     */
-    public function addRecord($data, $level = 200)
-    {
-        $em = $this->manager;
-
-        $this->producer->publish('gateway', $data, 'gateway_exchange');
-
-        if (isset($data['status']) && $data['status'] == 'ok') {
-            $log = json_encode($data);
-        } else {
-            $log = json_encode($data);
-        }
-
-        $sys = new SystemLog();
-        $sys->setCreatedValue();
-
-        $sys->setLevel($level);
-        $sys->setLog($log);
-        $sys->setUrl($data['url']);
-
-        $em->persist($sys);
-        $em->flush($sys);
-    }
+   
 
 
     public function setOutput($output)

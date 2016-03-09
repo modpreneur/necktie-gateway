@@ -3,6 +3,7 @@
 namespace Necktie\Bundle\GatewayBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\GeneratedValue;
 
 
 /**
@@ -12,29 +13,28 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SystemLog
 {
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid")
+     * @GeneratedValue(strategy="NONE")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $log;
 
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $level;
 
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
+    
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -42,17 +42,20 @@ class SystemLog
     private $url;
 
 
-
     /**
-     * @ORM\PrePersist
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
      */
-    public function setCreatedValue()
-    {
-        $this->modified = new \DateTime();
+    private $createdAt;
 
-        $this->created = new \DateTime();
+
+    public function __construct()
+    {
+        $this->id = \Ramsey\Uuid\Uuid::uuid4();
+        $this->setCreatedAt(new \DateTime());
     }
 
+    
 
     /**
      * Get id
@@ -155,6 +158,24 @@ class SystemLog
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
     }
 
 
