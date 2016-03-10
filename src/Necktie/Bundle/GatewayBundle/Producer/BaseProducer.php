@@ -69,9 +69,6 @@ class BaseProducer
      * @param string $exchange
      */
     public function publish($queueName, $data, $exchange = "necktie_exchange"){
-        var_dump($queueName);
-        var_dump($exchange);
-
         $this->connectToQueue($queueName, $exchange);
         $this->channel->publish(serialize($data), [], $exchange, '', false);
     }

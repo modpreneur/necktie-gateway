@@ -129,10 +129,9 @@ class MessageProcessor
             );
 
             $this->logger->addRecord($response);
-            $this->producer->publish('gateway', $response, 'gateway_exchange');
+            
             
             $this->data[] = $response;
-
             $data   = [];
             $data[] = $response;
 
@@ -140,16 +139,22 @@ class MessageProcessor
                 throw new \Exception($response['message']);
             }
 
+            $this->producer->publish('gateway', $data, 'gateway_exchange');
+
         } catch (\Exception $ex) {
+
+            $error = [
+                'status' => 'error',
+                'url' => $message['url'],
+                'message' => $ex->getMessage(),
+            ];
+
             $this->logger->addRecord(
-                [
-                    'status' => 'error',
-                    'url' => $message['url'],
-                    'message' => $ex->getMessage(),
-                ],
+                $error,
                 500
             );
 
+            $this->producer->publish('gateway', $error, 'gateway_exchange');
             return false;
         }
 
