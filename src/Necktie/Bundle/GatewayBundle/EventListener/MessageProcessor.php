@@ -9,6 +9,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Necktie\Bundle\GatewayBundle\Entity\Message;
 use Necktie\Bundle\GatewayBundle\Entity\SystemLog;
 use Necktie\Bundle\GatewayBundle\Gateway\ApiGateway;
+use Necktie\Bundle\GatewayBundle\Logger\Logger;
 use Necktie\Bundle\GatewayBundle\Producer\BaseProducer as Producer;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -26,27 +27,32 @@ class MessageProcessor
     /** @var ApiGateway */
     protected $api;
 
-    /** @var EntityManager */
-    private $manager;
-
     /** @var array */
     private $data = [];
 
     /** @var Producer */
     private $producer;
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    /** @var  EntityManager */
+    private $manager;
 
 
     /**
      * MessageProcessor constructor.
      * @param ApiGateway $api
      * @param Producer $producer
-     * @param EntityManager $manager
+     * @param Logger $logger
+     * @internal param EntityManager $manager
      */
-    public function __construct(ApiGateway $api, Producer $producer, EntityManager $manager = null)
+    public function __construct(ApiGateway $api, Producer $producer, Logger $logger)
     {
         $this->api      = $api;
-        $this->manager  = $manager;
         $this->producer = $producer;
+        $this->logger   = $logger;
     }
 
 
@@ -57,6 +63,7 @@ class MessageProcessor
     {
         $em = $arg->getEntityManager();
         $this->manager = $em;
+        $this->logger->setManager($em);
         $entity = $arg->getEntity();
 
         if ($entity instanceof Message) {
@@ -121,7 +128,9 @@ class MessageProcessor
                 $attributes
             );
 
-            $this->addRecord($response);
+            $this->logger->addRecord($response);
+            $this->producer->publish('gateway', $response, 'gateway_exchange');
+            
             $this->data[] = $response;
 
             $data   = [];
@@ -132,7 +141,7 @@ class MessageProcessor
             }
 
         } catch (\Exception $ex) {
-            $this->addRecord(
+            $this->logger->addRecord(
                 [
                     'status' => 'error',
                     'url' => $message['url'],
@@ -147,8 +156,6 @@ class MessageProcessor
         return true;
     }
 
-
-   
 
 
     public function setOutput($output)

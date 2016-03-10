@@ -8,8 +8,6 @@ services:
 
   necktie.gateway.logger:
     class: Necktie\Bundle\GatewayBundle\Logger\Logger
-    arguments:
-      - "@doctrine.orm.entity_manager"
 
 
   necktie.client.factory:
@@ -21,6 +19,7 @@ services:
     arguments:
        - "@necktie.client.factory"
 
+
   necktie.sender:
     class: Necktie\Bundle\GatewayBundle\NecktieSender
     arguments: ["%necktie_url%", "%necktie_api%"]
@@ -31,6 +30,7 @@ services:
      arguments:
         - "@necktie.gateway.api_gateway"
         - "@necktie.producer"
+        - "@necktie.gateway.logger"
      tags:
          - { name: doctrine.event_listener, event: postPersist, priority: 2048 }
 

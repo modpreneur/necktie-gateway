@@ -14,4 +14,10 @@ RUN apt-get install wget  \
     && chmod +x phpunit.phar \
     && mv phpunit.phar /usr/local/bin/phpunit
 
+EXPOSE 8666
+
+
+RUN rm /etc/supervisor/conf.d/supervisord.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 ENTRYPOINT ["sh", "entrypoint.sh", "service postfix start"]

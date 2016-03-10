@@ -23,10 +23,20 @@ class Logger
      * Logger constructor.
      * @param EntityManager $manager
      */
-    public function __construct(EntityManager $manager)
+    public function __construct(EntityManager $manager = null)
     {
         $this->manager = $manager;
     }
+
+
+    /**
+     * @param EntityManager $manager
+     */
+    public function setManager($manager)
+    {
+        $this->manager = $manager;
+    }
+
 
 
     /**
@@ -38,7 +48,7 @@ class Logger
         $em = $this->manager;
         
         $sys = new SystemLog();
-        $sys->setCreatedValue();
+        $sys->setCreatedAt(new \DateTime());
 
         $sys->setLevel($level);
         $sys->setLog(json_encode($data));

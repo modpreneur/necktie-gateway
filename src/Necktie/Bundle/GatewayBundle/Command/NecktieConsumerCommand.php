@@ -35,6 +35,7 @@ class NecktieConsumerCommand extends BaseConsumerCommand
     {
         $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
         $em->beginTransaction();
+        $output->writeln('Consumer command');
 
         try {
             $message = new \Necktie\Bundle\GatewayBundle\Entity\Message();
@@ -46,6 +47,7 @@ class NecktieConsumerCommand extends BaseConsumerCommand
             $em->flush($message);
             $em->commit();
 
+            
         } catch (\Exception $ex) {
             $em->rollback();
             $output->writeln('['.(new \DateTime())->format(\DateTime::W3C).'] <error>'.$ex->getMessage().'</error>');

@@ -137,9 +137,9 @@ class SystemLog
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
 
@@ -158,15 +158,6 @@ class SystemLog
     public function setUrl($url)
     {
         $this->url = $url;
-    }
-
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
     }
 
 

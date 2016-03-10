@@ -3,9 +3,11 @@ web_gateway:
   ports:
     - "9608:9608"
     - "9001:9001"
+    - "8666:8666"
   expose:
     - "9608"
     - "9001"
+    - "8666"
   volumes:
     - .:/var/app
   environment:
