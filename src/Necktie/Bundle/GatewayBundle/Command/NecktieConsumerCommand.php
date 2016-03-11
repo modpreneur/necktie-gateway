@@ -4,9 +4,9 @@ namespace Necktie\Bundle\GatewayBundle\Command;
 
 
 use Bunny\Message;
-use Necktie\Bundle\BunnyBundle\Command\BaseConsumerCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Trinity\Bundle\BunnyBundle\Command\BaseConsumerCommand;
 
 
 /**

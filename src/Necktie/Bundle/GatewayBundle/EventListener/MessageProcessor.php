@@ -7,7 +7,6 @@ namespace Necktie\Bundle\GatewayBundle\EventListener;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Necktie\Bundle\GatewayBundle\Entity\Message;
-use Necktie\Bundle\GatewayBundle\Entity\SystemLog;
 use Necktie\Bundle\GatewayBundle\Gateway\ApiGateway;
 use Necktie\Bundle\GatewayBundle\Logger\Logger;
 use Necktie\Bundle\GatewayBundle\Producer\BaseProducer as Producer;
@@ -129,17 +128,15 @@ class MessageProcessor
             );
 
             $this->logger->addRecord($response);
-            
-            
+
             $this->data[] = $response;
-            $data   = [];
-            $data[] = $response;
 
             if ($response['status'] == 'error') {
                 throw new \Exception($response['message']);
             }
 
-            $this->producer->publish('gateway', $data, 'gateway_exchange');
+            $this->producer->publish('gateway', $response, 'gateway_exchange');
+
 
         } catch (\Exception $ex) {
 

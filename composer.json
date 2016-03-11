@@ -5,7 +5,7 @@
     "symfony/symfony": "^3.0",
     "sensio/framework-extra-bundle": "^3.0",
     "guzzlehttp/guzzle": "~6",
-    "videlalvaro/php-amqplib": "~2",
+    "php-amqplib/php-amqplib": "~2",
     "sensio/distribution-bundle": "~5",
     "symfony/console": "~3",
     "symfony/validator": "^3.0",
@@ -13,7 +13,8 @@
     "doctrine/doctrine-bundle": "~1",
     "incenteev/composer-parameter-handler": "~2.1",
     "bunny/bunny": "@dev",
-    "ramsey/uuid-doctrine": "^1.1"
+    "ramsey/uuid-doctrine": "^1.1",
+    "trinity/bunny": "@dev"
   },
 
   "require-dev": {
