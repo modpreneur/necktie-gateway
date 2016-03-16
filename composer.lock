@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.15.9",
+            "version": "3.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5f27941e2f1ac1700e667cfcf9d9da44c1d9b612"
+                "reference": "202a3abc5d3262c170a4a8407c9998096e33af1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5f27941e2f1ac1700e667cfcf9d9da44c1d9b612",
-                "reference": "5f27941e2f1ac1700e667cfcf9d9da44c1d9b612",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/202a3abc5d3262c170a4a8407c9998096e33af1e",
+                "reference": "202a3abc5d3262c170a4a8407c9998096e33af1e",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-03-11 00:44:20"
+            "time": "2016-03-15 23:35:49"
         },
         {
             "name": "bunny/bunny",
@@ -1245,16 +1245,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "f078eba3bcf140fd69b5fcc3ea5ac809abf729dc"
+                "reference": "b3313b618f4edd76523572531d5d7e22fe747430"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/f078eba3bcf140fd69b5fcc3ea5ac809abf729dc",
-                "reference": "f078eba3bcf140fd69b5fcc3ea5ac809abf729dc",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/b3313b618f4edd76523572531d5d7e22fe747430",
+                "reference": "b3313b618f4edd76523572531d5d7e22fe747430",
                 "shasum": ""
             },
             "require": {
@@ -1289,7 +1289,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-02-29 17:25:04"
+            "time": "2016-03-11 19:54:08"
         },
         {
             "name": "php-amqplib/php-amqplib",
@@ -1664,16 +1664,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.4",
+            "version": "v5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "2c167426fc24f9de116345195bc1697a748ee847"
+                "reference": "3a160355bb1364da55ed9e415c1aa1fa8d457b6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/2c167426fc24f9de116345195bc1697a748ee847",
-                "reference": "2c167426fc24f9de116345195bc1697a748ee847",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/3a160355bb1364da55ed9e415c1aa1fa8d457b6f",
+                "reference": "3a160355bb1364da55ed9e415c1aa1fa8d457b6f",
                 "shasum": ""
             },
             "require": {
@@ -1712,7 +1712,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-02-12 16:21:30"
+            "time": "2016-03-15 16:21:41"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2239,12 +2239,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/modpreneur/trinity-bunny.git",
-                "reference": "a482513effd8a2cfafbbf6552b2ac3313f290c94"
+                "reference": "5b086666904800de5bbd58bbcb88bd4ef07388aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modpreneur/trinity-bunny/zipball/a482513effd8a2cfafbbf6552b2ac3313f290c94",
-                "reference": "a482513effd8a2cfafbbf6552b2ac3313f290c94",
+                "url": "https://api.github.com/repos/modpreneur/trinity-bunny/zipball/5b086666904800de5bbd58bbcb88bd4ef07388aa",
+                "reference": "5b086666904800de5bbd58bbcb88bd4ef07388aa",
                 "shasum": ""
             },
             "require": {
@@ -2290,7 +2290,7 @@
                 }
             ],
             "description": "Trinity Bunny bundle",
-            "time": "2016-03-11 12:10:31"
+            "time": "2016-03-16 14:18:31"
         },
         {
             "name": "twig/twig",

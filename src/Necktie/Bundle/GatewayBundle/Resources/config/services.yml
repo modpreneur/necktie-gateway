@@ -36,6 +36,7 @@ services:
 
 
   necktie.producer:
-    class: Necktie\Bundle\GatewayBundle\Producer\BaseProducer
+    class: Necktie\Bundle\GatewayBundle\Producer\Producer
     arguments:
       - "@necktie.bunny.client"
+

@@ -44,4 +44,10 @@ class AppKernel  extends Kernel
 
     protected function configureRoutes(RouteCollectionBuilder $routes) {}
 
+
+    public function getCacheDir()
+    {
+        return dirname(__DIR__).'/var/'.$this->environment.'/cache';
+    }
+
 }

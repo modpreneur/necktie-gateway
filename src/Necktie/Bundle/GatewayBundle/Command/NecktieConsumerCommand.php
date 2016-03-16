@@ -2,18 +2,16 @@
 
 namespace Necktie\Bundle\GatewayBundle\Command;
 
-
 use Bunny\Message;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Trinity\Bundle\BunnyBundle\Command\BaseConsumerCommand;
-
+use Trinity\Bundle\BunnyBundle\Command\AbstractConsumerCommand;
 
 /**
  * Class NecktieConsumerCommand
  * @package Necktie\Bundle\GatewayBundle\Command
  */
-class NecktieConsumerCommand extends BaseConsumerCommand
+class NecktieConsumerCommand extends AbstractConsumerCommand
 {
 
     protected function configure(){
@@ -34,6 +32,10 @@ class NecktieConsumerCommand extends BaseConsumerCommand
     public function consume(Message $msg, InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+
+        $p = $this->getContainer()->get('necktie.listener.message_processor');
+        $p->setOutput($output);
+
         $em->beginTransaction();
         $output->writeln('Consumer command');
 

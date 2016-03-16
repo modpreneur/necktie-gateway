@@ -9,8 +9,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Necktie\Bundle\GatewayBundle\Entity\Message;
 use Necktie\Bundle\GatewayBundle\Gateway\ApiGateway;
 use Necktie\Bundle\GatewayBundle\Logger\Logger;
-use Necktie\Bundle\GatewayBundle\Producer\BaseProducer as Producer;
 use Symfony\Component\Console\Output\OutputInterface;
+use Trinity\Bundle\BunnyBundle\Producer\BaseProducer as Producer;
 
 
 /**
