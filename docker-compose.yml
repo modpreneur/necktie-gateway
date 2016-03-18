@@ -10,8 +10,8 @@ web_gateway:
     - "8666"
   volumes:
     - .:/var/app
-  environment:
-      XDEBUG_CONFIG: remote_host=10.0.1.16
+#  environment:
+#      XDEBUG_CONFIG: remote_host=10.0.1.16
 
 
 

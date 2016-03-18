@@ -13,10 +13,4 @@ chmod +x /var/app/docker/supervisor-manager.sh
 
 composer run-script post-install-cmd --no-interaction
 
-service postfix start
 exec apache2-foreground
-
-
-
-
-
