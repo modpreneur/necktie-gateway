@@ -12,7 +12,7 @@
     "doctrine/orm": "~2",
     "doctrine/doctrine-bundle": "~1",
     "incenteev/composer-parameter-handler": "~2.1",
-    "bunny/bunny": "@dev",
+    "bunny/bunny": "~0.2",
     "ramsey/uuid-doctrine": "^1.1",
     "trinity/bunny": "@dev"
   },
@@ -37,26 +37,31 @@
   "scripts": {
     "post-install-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-      "php console.php cache:clear",
-      "php console.php doctrine:schema:update --force"
+      "php bin/console cache:clear",
+      "php bin/console doctrine:schema:update --force",
+      "chmod -R 777 /var/app/var/cache"
     ],
     "post-update-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-      "php console.php cache:clear",
-      "php console.php doctrine:schema:update --force"
+      "php bin/console cache:clear",
+      "php bin/console doctrine:schema:update --force",
+      "chmod -R 777 /var/app/var/cache"
     ]
   },
   "minimum-stability": "stable",
 
   "config": {
-    "bin-dir": "bin"
+    "bin-dir": "bin",
+    "prestissimo": {
+      "maxConnections": 6,
+      "minConnections": 3
+    }
   },
   "extra": {
     "symfony-app-dir": "app",
     "symfony-bin-dir": "bin",
     "symfony-var-dir": "var",
     "symfony-tests-dir": "tests",
-
     "incenteev-parameters": {
       "file": "app/config/parameters.yml",
       "env-map": {

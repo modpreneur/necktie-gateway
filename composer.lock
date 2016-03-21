@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "efc5e75a83e57103740d7488aad086d4",
-    "content-hash": "5577fa4db6c4e75d30134e84766d7714",
+    "hash": "9f79654ac2e6f9cfcaa8572e974e8362",
+    "content-hash": "634d99ecf2d2f7d97ded874d8e1c2302",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.16.0",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "202a3abc5d3262c170a4a8407c9998096e33af1e"
+                "reference": "4853bf1f865f6c6df44db0cd5664319ae806f319"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/202a3abc5d3262c170a4a8407c9998096e33af1e",
-                "reference": "202a3abc5d3262c170a4a8407c9998096e33af1e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4853bf1f865f6c6df44db0cd5664319ae806f319",
+                "reference": "4853bf1f865f6c6df44db0cd5664319ae806f319",
                 "shasum": ""
             },
             "require": {
@@ -85,11 +85,11 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-03-15 23:35:49"
+            "time": "2016-03-17 23:57:52"
         },
         {
             "name": "bunny/bunny",
-            "version": "dev-master",
+            "version": "v0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakubkulhan/bunny.git",
@@ -1245,16 +1245,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v1.2.2",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "b3313b618f4edd76523572531d5d7e22fe747430"
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/b3313b618f4edd76523572531d5d7e22fe747430",
-                "reference": "b3313b618f4edd76523572531d5d7e22fe747430",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c7e26a21ba357863de030f0b9e701c7d04593774",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774",
                 "shasum": ""
             },
             "require": {
@@ -1289,7 +1289,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-03-11 19:54:08"
+            "time": "2016-03-18 20:34:03"
         },
         {
             "name": "php-amqplib/php-amqplib",
@@ -2239,12 +2239,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/modpreneur/trinity-bunny.git",
-                "reference": "5b086666904800de5bbd58bbcb88bd4ef07388aa"
+                "reference": "ea3648866d8128e7fabcd27da615c56d4f27320e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modpreneur/trinity-bunny/zipball/5b086666904800de5bbd58bbcb88bd4ef07388aa",
-                "reference": "5b086666904800de5bbd58bbcb88bd4ef07388aa",
+                "url": "https://api.github.com/repos/modpreneur/trinity-bunny/zipball/ea3648866d8128e7fabcd27da615c56d4f27320e",
+                "reference": "ea3648866d8128e7fabcd27da615c56d4f27320e",
                 "shasum": ""
             },
             "require": {
@@ -2290,7 +2290,7 @@
                 }
             ],
             "description": "Trinity Bunny bundle",
-            "time": "2016-03-16 14:18:31"
+            "time": "2016-03-16 14:47:22"
         },
         {
             "name": "twig/twig",
@@ -2358,7 +2358,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bunny/bunny": 20,
         "trinity/bunny": 20
     },
     "prefer-stable": false,
