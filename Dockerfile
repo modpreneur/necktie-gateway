@@ -1,6 +1,9 @@
-FROM modpreneur/apache-framework:0.2
+FROM modpreneur/apache-framework:0.3
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
+
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/supervisor-manager.sh /opt/supervisor-manager.sh
 
 # Install app
 ADD . /var/app

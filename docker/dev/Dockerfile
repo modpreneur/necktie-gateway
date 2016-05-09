@@ -1,6 +1,9 @@
-FROM modpreneur/apache-framework:0.2
+FROM modpreneur/apache-framework:0.3
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
+
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/supervisor-manager.sh /opt/supervisor-manager.sh
 
 # Install app
 ADD . /var/app
@@ -21,7 +24,6 @@ RUN composer global require codeception/codeception \
     && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/php.ini \
     && echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/php.ini \
     && echo "alias composer=\"php -n -d extension=mbstring.so -d extension=zip.so -d extension=bcmath.so /usr/bin/composer\"" >> /etc/bash.bashrc
-
 
 # terminal env for nano
 ENV TERM xterm
