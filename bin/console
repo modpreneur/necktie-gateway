@@ -36,4 +36,3 @@ $application = new Application($kernel);
 $application->run($input);
 
 $entityManager = $application->getKernel()->getContainer()->get('doctrine.orm.entity_manager');
-$entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('uuid', 'uuid');

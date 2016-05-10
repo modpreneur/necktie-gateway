@@ -16,7 +16,7 @@ class SystemLog
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="uuid")
+     * @ORM\Column(type="integer")
      * @GeneratedValue(strategy="NONE")
      * @ORM\GeneratedValue(strategy="AUTO")
      */

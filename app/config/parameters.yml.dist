@@ -6,9 +6,8 @@ parameters:
   rabbit_password: guest
 
   database_driver:   pdo_sqlite
-  database_host:     localhost
-  database_name:     necktie_gateway
-  database_path:     '%kernel.root_dir%/../var/necktie_gateway.db'
+  database_host:     mysql
+  database_name:     gateway
   database_user:     root
   database_password: 1234
 

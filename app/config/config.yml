@@ -9,7 +9,6 @@ doctrine:
         driver:   %database_driver%
         host:     %database_host%
         dbname:   %database_name%
-        path:     %database_path%
         user:     %database_user%
         password: %database_password%
     orm:

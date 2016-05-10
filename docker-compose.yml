@@ -5,11 +5,29 @@ gateway:
     - "9608:9608"
     - "9001:9001"
     - "8666:8666"
+    - "9080:80"
   expose:
     - "9608"
     - "9001"
     - "8666"
+    - "9080"
   volumes:
     - .:/var/app
   environment:
       XDEBUG_CONFIG: remote_host=10.0.1.16
+
+  links:
+    - mysql:mysql
+
+mysql:
+    image: centurylink/mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_DATABASE=gateway
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - EXPLICIT_DEFAULTS_FOR_TIMESTAMP=1
+

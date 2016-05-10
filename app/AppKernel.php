@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 use Trinity\Bundle\BunnyBundle\BunnyBundle;
@@ -17,10 +18,10 @@ use Trinity\Bundle\BunnyBundle\BunnyBundle;
  * Class AppKernel
  * @package Necktie\Gateway
  */
-class AppKernel  extends Kernel
+class AppKernel extends Kernel
 {
-
     use MicroKernelTrait;
+
 
     public function registerBundles()
     {
@@ -38,11 +39,8 @@ class AppKernel  extends Kernel
 
     protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config/config.yml');
+        $loader->load(__DIR__.'/config/config.yml');
     }
-
-
-    protected function configureRoutes(RouteCollectionBuilder $routes) {}
 
 
     public function getCacheDir()
@@ -50,9 +48,26 @@ class AppKernel  extends Kernel
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
+
     public function getLogDir()
     {
         return dirname(__DIR__).'/var/logs';
+    }
+
+
+    protected function configureRoutes(RouteCollectionBuilder $routes)
+    {
+        $routes->add('/', 'kernel:indexAction', 'homepage');
+    }
+
+
+    /*
+     * Check service?
+     *
+     */
+    public function indexAction()
+    {
+        return new JsonResponse('Ok');
     }
 
 }

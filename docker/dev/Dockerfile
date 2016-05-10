@@ -2,8 +2,19 @@ FROM modpreneur/apache-framework:0.3
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
 
+
+RUN docker-php-ext-install pdo pdo_mysql
+
+RUN  apt-get install python-setuptools -y \
+  && easy_install supervisor
+
+RUN mkdir /etc/supervisor
+RUN echo_supervisord_conf > /etc/supervisor/supervisord.conf
+
+
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/supervisor-manager.sh /opt/supervisor-manager.sh
+RUN chmod +x /opt/supervisor-manager.sh
 
 # Install app
 ADD . /var/app
