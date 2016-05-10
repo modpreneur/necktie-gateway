@@ -10,6 +10,7 @@ composer run-script post-install-cmd --no-interaction
 chmod -R 0777 /var/app/var/logs
 chmod -R 0777 /var/app/var/cache
 
+chmod +x /opt/supervisor-manager.sh
 /opt/supervisor-manager.sh start
 
 exec apache2-foreground
