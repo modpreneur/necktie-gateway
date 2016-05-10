@@ -11,6 +11,7 @@ doctrine:
         dbname:   %database_name%
         user:     %database_user%
         password: %database_password%
+        port:     %database_port%
     orm:
         auto_mapping: true
 
