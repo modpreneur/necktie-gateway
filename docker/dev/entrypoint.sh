@@ -12,4 +12,6 @@ chmod -R 0777 /var/app/var/cache
 
 /opt/supervisor-manager.sh start
 
+composer install
+
 exec apache2-foreground
