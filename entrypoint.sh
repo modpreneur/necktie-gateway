@@ -11,6 +11,7 @@ chmod -R 0777 /var/app/var/logs
 chmod -R 0777 /var/app/var/cache
 
 chmod +x /opt/supervisor-manager.sh
-/opt/supervisor-manager.sh start
+exec /opt/supervisor-manager.sh start
 
 exec apache2-foreground
+

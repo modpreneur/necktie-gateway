@@ -5,6 +5,7 @@ MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
 RUN  apt-get install python-setuptools -y \
   && easy_install supervisor
 
+RUN mkdir /etc/supervisor
 RUN echo_supervisord_conf > /etc/supervisor/supervisord.conf
 
 
