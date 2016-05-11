@@ -19,7 +19,7 @@ STARTUP_TIME=1
 PIDFILE=/var/app/supervisord.pid
 
 # Config of supervisor
-CONFIG=/etc/supervisor/supervisord.conf
+CONFIG=/etc/supervisor/conf.d/supervisord.conf
 
 # Daemon to start
 DAEMON=supervisord

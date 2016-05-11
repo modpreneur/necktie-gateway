@@ -9,7 +9,7 @@ RUN  apt-get install python-setuptools -y \
   && easy_install supervisor
 
 RUN mkdir /etc/supervisor
-RUN echo_supervisord_conf > /etc/supervisor/supervisord.conf
+RUN echo_supervisord_conf > /etc/supervisord.conf
 
 
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -22,6 +22,7 @@ ADD . /var/app
 RUN echo "export PHP_IDE_CONFIG=\"serverName=necktie\"" >> /etc/bash.bashrc
 
 EXPOSE 8666
+EXPOSE 9002
 
 RUN apt-get -y install \
     nano \

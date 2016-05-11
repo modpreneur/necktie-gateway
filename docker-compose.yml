@@ -3,24 +3,23 @@ gateway:
   dockerfile: docker/dev/Dockerfile
   ports:
     - "9608:9608"
-    - "9001:9001"
+    - "9002:9002"
     - "8666:8666"
     - "9080:80"
   expose:
     - "9608"
-    - "9001"
+    - "9002"
     - "8666"
     - "9080"
   volumes:
     - .:/var/app
   environment:
       XDEBUG_CONFIG: remote_host=10.0.1.16
-
   links:
-    - mysql:mysql
+    - mysql_database:mysql_database
 
-mysql:
-    image: centurylink/mysql
+mysql_database:
+    image: mysql
     ports:
       - "3307:3306"
     expose:
@@ -29,5 +28,5 @@ mysql:
       - MYSQL_DATABASE=gateway
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pass
-      - EXPLICIT_DEFAULTS_FOR_TIMESTAMP=1
+      - MYSQL_ROOT_PASSWORD=pass
 
