@@ -22,7 +22,7 @@ ADD . /var/app
 RUN echo "export PHP_IDE_CONFIG=\"serverName=necktie\"" >> /etc/bash.bashrc
 
 EXPOSE 8666
-EXPOSE 9002
+EXPOSE 9005
 
 RUN apt-get -y install \
     nano \

@@ -3,7 +3,7 @@ gateway:
   dockerfile: docker/dev/Dockerfile
   ports:
     - "9608:9608"
-    - "9005:9002"
+    - "9005:9005"
     - "8666:8666"
     - "9080:80"
   expose:
