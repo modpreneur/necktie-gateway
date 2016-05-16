@@ -13,7 +13,6 @@ RUN echo_supervisord_conf > /etc/supervisord.conf
 
 
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-RUN chmod +x /opt/supervisor-manager.sh
 
 # Install app
 ADD . /var/app
