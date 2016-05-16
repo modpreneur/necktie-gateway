@@ -5,12 +5,11 @@ parameters:
   rabbit_user:  guest
   rabbit_password: guest
 
-  database_driver:   pdo_sqlite
+  database_driver:   pdo_mysql
   database_host:     mysql_database
   database_name:     gateway
   database_user:     user
   database_password: pass
-  database_port:     3307
 
   necktie_url:  "http://http://88.146.49.119"
   necktie_api:  "/app_dev.php/rabbitmq/results"

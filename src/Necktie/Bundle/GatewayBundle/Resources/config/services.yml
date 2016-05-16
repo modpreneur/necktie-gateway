@@ -1,11 +1,5 @@
 services:
 
-  necktie.gateway.connection:
-    class: PhpAmqpLib\Connection\AMQPConnection
-    arguments: ["%rabbit_url%", "%rabbit_port%", "%rabbit_user%", "%rabbit_password%"]
-    lazy: true
-
-
   necktie.gateway.logger:
     class: Necktie\Bundle\GatewayBundle\Logger\Logger
 

@@ -3,7 +3,6 @@
 namespace Necktie\Bundle\GatewayBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\GeneratedValue;
 
 
 /**
@@ -17,7 +16,6 @@ class SystemLog
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @GeneratedValue(strategy="NONE")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -51,7 +49,6 @@ class SystemLog
 
     public function __construct()
     {
-        $this->id = \Ramsey\Uuid\Uuid::uuid4();
         $this->setCreatedAt(new \DateTime());
     }
 

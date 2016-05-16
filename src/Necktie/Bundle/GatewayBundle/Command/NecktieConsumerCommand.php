@@ -46,6 +46,7 @@ class NecktieConsumerCommand extends AbstractConsumerCommand
             $message->setDeliveryTag($msg->deliveryTag);
 
             $em->persist($message);
+
             $em->flush($message);
             $em->commit();
 
