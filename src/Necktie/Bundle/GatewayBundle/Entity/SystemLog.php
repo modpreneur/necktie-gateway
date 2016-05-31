@@ -32,7 +32,7 @@ class SystemLog
      */
     private $level;
 
-    
+
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -52,7 +52,6 @@ class SystemLog
         $this->setCreatedAt(new \DateTime());
     }
 
-    
 
     /**
      * Get id
@@ -62,6 +61,17 @@ class SystemLog
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * Get log
+     *
+     * @return string
+     */
+    public function getLog()
+    {
+        return $this->log;
     }
 
 
@@ -80,13 +90,13 @@ class SystemLog
 
 
     /**
-     * Get log
+     * Get level
      *
      * @return string
      */
-    public function getLog()
+    public function getLevel()
     {
-        return $this->log;
+        return $this->level;
     }
 
 
@@ -101,17 +111,6 @@ class SystemLog
         $this->level = $level;
 
         return $this;
-    }
-
-
-    /**
-     * Get level
-     *
-     * @return string
-     */
-    public function getLevel()
-    {
-        return $this->level;
     }
 
 
@@ -141,6 +140,15 @@ class SystemLog
 
 
     /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+
+    /**
      * @return string
      */
     public function getUrl()
@@ -155,15 +163,6 @@ class SystemLog
     public function setUrl($url)
     {
         $this->url = $url;
-    }
-
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
     }
 
 

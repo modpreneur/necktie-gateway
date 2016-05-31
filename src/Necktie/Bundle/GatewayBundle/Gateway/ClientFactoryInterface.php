@@ -16,7 +16,7 @@ interface ClientFactoryInterface
     /**
      * @return Client
      */
-    function createClient();
+    public function createClient();
 
 
 }

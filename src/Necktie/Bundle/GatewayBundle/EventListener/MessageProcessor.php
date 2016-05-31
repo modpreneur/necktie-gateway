@@ -4,20 +4,21 @@
 namespace Necktie\Bundle\GatewayBundle\EventListener;
 
 
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Necktie\Bundle\GatewayBundle\Entity\Message;
 use Necktie\Bundle\GatewayBundle\Gateway\ApiGateway;
 use Necktie\Bundle\GatewayBundle\Logger\Logger;
 use Symfony\Component\Console\Output\OutputInterface;
-use Trinity\Bundle\BunnyBundle\Producer\BaseProducer as Producer;
+use Trinity\Bundle\BunnyBundle\Producer\Producer as BaseProducer;
 
 
 /**
  * Class MessageProcessor
  * @package Necktie\Bundle\GatewayBundle\EventListener
  */
-class MessageProcessor
+class MessageProcessor implements EventSubscriber
 {
 
     /** @var  OutputInterface */
@@ -29,7 +30,7 @@ class MessageProcessor
     /** @var array */
     private $data = [];
 
-    /** @var Producer */
+    /** @var BaseProducer */
     private $producer;
     /**
      * @var Logger
@@ -43,15 +44,29 @@ class MessageProcessor
     /**
      * MessageProcessor constructor.
      * @param ApiGateway $api
-     * @param Producer $producer
+     * @param BaseProducer $producer
      * @param Logger $logger
      * @internal param EntityManager $manager
      */
-    public function __construct(ApiGateway $api, Producer $producer, Logger $logger)
+    public function __construct(ApiGateway $api, BaseProducer $producer, Logger $logger)
     {
-        $this->api      = $api;
+        $this->api = $api;
         $this->producer = $producer;
-        $this->logger   = $logger;
+        $this->logger = $logger;
+    }
+
+
+
+    /**
+     * Returns an array of events this subscriber wants to listen to.
+     *
+     * @return array
+     */
+    public function getSubscribedEvents()
+    {
+        return [
+            'postPersist',
+        ];
     }
 
 
@@ -118,24 +133,19 @@ class MessageProcessor
         }
 
         try {
-            $response = $this->api->request(
-                $message['method'],
-                $message['url'],
-                $header,
-                $body,
-                $tag,
-                $attributes
-            );
 
+            $response = $this->api->request($message['method'], $message['url'], $header, $body, $tag, $attributes);
+            
             $this->logger->addRecord($response);
 
             $this->data[] = $response;
 
             if ($response['status'] == 'error') {
+                echo $response['message'].PHP_EOL;
                 throw new \Exception($response['message']);
             }
 
-            $this->producer->publish('gateway', $response, 'gateway_exchange');
+            $this->producer->publish(serialize($response), 'necktie_exchange');
 
 
         } catch (\Exception $ex) {
@@ -146,18 +156,15 @@ class MessageProcessor
                 'message' => $ex->getMessage(),
             ];
 
-            $this->logger->addRecord(
-                $error,
-                500
-            );
+            $this->logger->addRecord($error, 500);
 
-            $this->producer->publish('gateway', $error, 'gateway_exchange');
+            $this->producer->publish(serialize($error), 'necktie_exchange');
+
             return false;
         }
 
         return true;
     }
-
 
 
     public function setOutput($output)

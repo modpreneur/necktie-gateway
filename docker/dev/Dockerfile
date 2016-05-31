@@ -11,7 +11,6 @@ RUN  apt-get install python-setuptools -y \
 RUN mkdir /etc/supervisor
 RUN echo_supervisord_conf > /etc/supervisord.conf
 
-
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Install app

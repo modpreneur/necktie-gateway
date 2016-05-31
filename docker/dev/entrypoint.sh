@@ -7,6 +7,7 @@ chmod -R 0777 /var/app/var/logs
 chmod -R 0777 /var/app/var/cache
 
 supervisord -c /etc/supervisor/conf.d/supervisord.conf
+supervisorctl -c /etc/supervisor/conf.d/supervisord.conf reload
 
 composer install
 composer run-script post-install-cmd --no-interaction

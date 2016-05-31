@@ -1,36 +1,58 @@
 services:
 
-  necktie.gateway.logger:
+  gateway.logger:
     class: Necktie\Bundle\GatewayBundle\Logger\Logger
 
 
-  necktie.client.factory:
-    class: Necktie\Bundle\GatewayBundle\Gateway\ClientFactory
-
-
-  necktie.gateway.api_gateway:
-    class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
+  gateway.bunny.setup:
+    class: Necktie\Bundle\GatewayBundle\Services\RabbitMQ\RabbitSetup
     arguments:
-       - "@necktie.client.factory"
+       - "@necktie.bunny.client"
 
 
-  necktie.sender:
-    class: Necktie\Bundle\GatewayBundle\NecktieSender
-    arguments: ["%necktie_url%", "%necktie_api%"]
+  gateway.consumer.command_consumer:
+      class: Trinity\Bundle\BunnyBundle\Consumer\CommandConsumer
+      arguments:
+          - "@event_dispatcher"
+          - "@gateway.bunny.setup"
 
 
-  necktie.listener.message_processor:
-     class: Necktie\Bundle\GatewayBundle\EventListener\MessageProcessor
-     arguments:
-        - "@necktie.gateway.api_gateway"
-        - "@necktie.producer"
-        - "@necktie.gateway.logger"
-     tags:
-         - { name: doctrine.event_listener, event: postPersist, priority: 2048 }
+  ###########################
+
+  gateway.client.factory:
+      class: Necktie\Bundle\GatewayBundle\Gateway\ClientFactory
 
 
-  necktie.producer:
-    class: Necktie\Bundle\GatewayBundle\Producer\Producer
-    arguments:
-      - "@necktie.bunny.client"
+  gateway.gateway.api_gateway:
+      class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
+      arguments:
+         - "@gateway.client.factory"
 
+
+  gateway.producer:
+      class: Necktie\Bundle\GatewayBundle\Producer\Producer
+      arguments:
+        - "@gateway.bunny.setup"
+
+
+  gateway.gateway.logger:
+      class: Necktie\Bundle\GatewayBundle\Logger\Logger
+
+
+  gateway.consumer.listener:
+      class: Necktie\Bundle\GatewayBundle\EventListener\MessagesListener
+      arguments:
+        - "@doctrine.orm.entity_manager"
+      tags:
+        - { name: kernel.event_listener, event: trinity.bunny.rabbitMessageConsumed, method: onConsume }
+
+
+
+  gateway.listener.message_processor:
+       class: Necktie\Bundle\GatewayBundle\EventListener\MessageProcessor
+       arguments:
+          - "@gateway.gateway.api_gateway"
+          - "@gateway.producer"
+          - "@gateway.gateway.logger"
+       tags:
+          - { name: doctrine.event_subscriber, connection: default }

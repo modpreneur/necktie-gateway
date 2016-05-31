@@ -1,0 +1,4 @@
+
+gateway:
+    path : /
+    defaults:  { _controller: GatewayBundle:Home:index }

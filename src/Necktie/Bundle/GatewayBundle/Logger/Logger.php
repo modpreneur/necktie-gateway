@@ -38,7 +38,6 @@ class Logger
     }
 
 
-
     /**
      * @param array $data
      * @param int $level
@@ -46,7 +45,7 @@ class Logger
     public function addRecord($data, $level = 200)
     {
         $em = $this->manager;
-        
+
         $sys = new SystemLog();
         $sys->setCreatedAt(new \DateTime());
 

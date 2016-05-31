@@ -5,12 +5,9 @@ namespace Necktie\Gateway;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Necktie\Bundle\GatewayBundle\GatewayBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
 use Trinity\Bundle\BunnyBundle\BunnyBundle;
 
 
@@ -20,32 +17,35 @@ use Trinity\Bundle\BunnyBundle\BunnyBundle;
  */
 class AppKernel extends Kernel
 {
-    use MicroKernelTrait;
-
 
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             new FrameworkBundle(),
-            new GatewayBundle(),
             new DoctrineBundle(),
             new BunnyBundle(),
-        );
+            new TwigBundle(),
+            new GatewayBundle(),
+        ];
 
-
+        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
+            $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+        }
         return $bundles;
     }
 
 
-    protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
+    public function getRootDir()
     {
-        $loader->load(__DIR__.'/config/config.yml');
+        return __DIR__;
     }
 
 
     public function getCacheDir()
     {
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+        return dirname(__DIR__).'/var/cache/'.$this->environment;
     }
 
 
@@ -55,19 +55,13 @@ class AppKernel extends Kernel
     }
 
 
-    protected function configureRoutes(RouteCollectionBuilder $routes)
-    {
-        $routes->add('/', 'kernel:indexAction', 'homepage');
-    }
-
-
-    /*
-     * Check service?
+    /**
+     * Loads the container configuration.
      *
+     * @param LoaderInterface $loader A LoaderInterface instance
      */
-    public function indexAction()
+    public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        return new JsonResponse('Ok');
+        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
-
 }

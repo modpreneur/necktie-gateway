@@ -17,7 +17,8 @@ class ClientFactory implements ClientFactoryInterface
     /**
      * @return Client
      */
-    public function createClient(){
+    public function createClient()
+    {
 
         return new Client();
 

@@ -3,6 +3,11 @@ imports:
 
 framework:
     secret: S0ME_SECRET
+    templating:
+            engines: ['twig']
+
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
 
 doctrine:
     dbal:
@@ -14,6 +19,9 @@ doctrine:
     orm:
         auto_mapping: true
 
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
 
 services:
 

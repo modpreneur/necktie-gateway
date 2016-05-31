@@ -53,19 +53,20 @@ class Message
 
 
     /**
-     * @return mixed
-     */
-    public function getData(){
-        return unserialize($this->message);
-    }
-
-
-    /**
      * @param string $message
      */
     public function setMessage($message)
     {
         $this->message = $message;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return unserialize($this->message);
     }
 
 
@@ -104,7 +105,6 @@ class Message
         $this->deliveryTag = $deliveryTag;
     }
 
-    
 
     /**
      * @return mixed

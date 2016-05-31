@@ -4,10 +4,10 @@ namespace Necktie\Bundle\GatewayBundle\Gateway;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use Symfony\Component\Validator\ValidatorBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Necktie\Bundle\GatewayBundle\Exceptions\URLException;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\ValidatorBuilder;
 
 
 /**
@@ -16,14 +16,12 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ApiGateway
 {
-    protected $allowedMethod = [ 'GET', 'PUT', 'POST', 'DELETE' ];
-
     /**
      * @var ValidatorInterface
      */
     protected $validator;
 
-    /** @var ClientFactoryInterface  */
+    /** @var ClientFactoryInterface */
     protected $clientFactory;
 
 
@@ -33,7 +31,7 @@ class ApiGateway
      */
     public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->validator = ( new ValidatorBuilder() )->getValidator();
+        $this->validator = (new ValidatorBuilder())->getValidator();
         $this->clientFactory = $clientFactory;
     }
 
@@ -41,7 +39,8 @@ class ApiGateway
     /**
      * @return Client
      */
-    protected function getClient(){
+    protected function getClient()
+    {
         return $this->clientFactory->createClient();
     }
 
@@ -55,27 +54,28 @@ class ApiGateway
      * @param null $tag
      * @param array $data
      * @return string
-     * @throws \Exception
+     * @throws URLException
      */
-    public function request($method, $url, array $header = [], $body = "", $tag = null, array $data = []){
-
-        $this->checkMethod($method);
-
-        if( ($val =  $this->validateUrl($url)) ){
-            throw new \Exception($val);
+    public function request($method, $url, array $header = [], $body = "", $tag = null, array $data = [])
+    {
+        if (($val = $this->validateUrl($url))) {
+            throw new URLException($val);
         }
 
         $request = new Request($method, $url, $header, json_encode($body));
         $client  = $this->getClient();
 
-        try{
+        try {
 
             $response = $client->send($request, [
-                'verify' => false
+                'verify' => false,
             ]);
 
 
-        }catch(\Exception $ex){
+        } catch (\Exception $ex) {
+
+            echo 'API[ERROR] ('.$url.'):'.$ex->getMessage().PHP_EOL;
+
             return [
                 'status'  => 'error',
                 'url'     => $url,
@@ -85,24 +85,15 @@ class ApiGateway
             ];
         }
 
+        echo 'API[OK] ('.$url.')'.PHP_EOL;
+
         return [
-            'status'  => 'ok',
-            'url'     => $url,
-            'body'    => ((string) $response->getBody()),
-            'tag'     => $tag,
-            'data'    => $data,
+            'status' => 'ok',
+            'url' => $url,
+            'body' => (string)$response->getBody(),
+            'tag' => $tag,
+            'data' => $data,
         ];
-    }
-
-
-    /**
-     * @param string $method
-     * @throws \Exception
-     */
-    protected function checkMethod($method){
-        if( !in_array(strtoupper($method), $this->allowedMethod) ){
-            throw new \Exception('Allowed methods are: ' . join(', ', $this->allowedMethod));
-        }
     }
 
 
@@ -110,11 +101,9 @@ class ApiGateway
      * @param string $url
      * @return string
      */
-    protected function validateUrl($url){
-        return (string)  $this->validator->validate(
-            $url,
-            new Url()
-        );
+    protected function validateUrl($url)
+    {
+        return (string)$this->validator->validate($url, new Url());
     }
 
 }
