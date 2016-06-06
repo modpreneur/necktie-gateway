@@ -4,6 +4,7 @@ parameters:
   rabbit_port: 5672
   rabbit_user:  guest
   rabbit_password: guest
+  rabbit_vhost: "/"
 
   database_driver:   pdo_mysql
   database_host:     mysql_database

@@ -1,10 +1,11 @@
 <?php
 
 $loader = require __DIR__.'/../vendor/autoload.php';
-require __DIR__.'/../app/AppKernel.php';
+//require __DIR__.'/../app/AppKernel.php';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\HttpFoundation\Request;
+
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

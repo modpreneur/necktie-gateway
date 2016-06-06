@@ -23,6 +23,38 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
+
+bunny:
+    host:     "%rabbit_url%"           # default: 127.0.0.1
+    port:     "%rabbit_port%"          # default: 5672
+    vhost:    "%rabbit_vhost%"         # default: /
+    user:     "%rabbit_user%"          # default: guest
+    password: "%rabbit_password%"      # default: guest
+
+    # make heartbeat as long as longest message processing time in any consumer might take
+    heartbeat: 120 # in seconds = 2 minutes, default: 60 seconds
+
+    exchanges:
+      gateway_exchange:
+        durable: true
+        type: topic
+
+      necktie_exchange:
+        durable: true
+        type: topic
+
+    queues:
+      queue_gateway:
+        durable: false
+        bindings:
+          - exchange: gateway_exchange
+
+      queue_necktie:
+        durable: true
+        bindings:
+          - exchange: necktie_exchange
+
+
 services:
 
 

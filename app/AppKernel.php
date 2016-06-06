@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use Trinity\Bundle\BunnyBundle\BunnyBundle;
+use Trinity\Bundle\BunnyBundle\TrinityBunnyBundle;
 
 
 /**
@@ -23,9 +23,9 @@ class AppKernel extends Kernel
         $bundles = [
             new FrameworkBundle(),
             new DoctrineBundle(),
-            new BunnyBundle(),
             new TwigBundle(),
             new GatewayBundle(),
+            new TrinityBunnyBundle(),
         ];
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

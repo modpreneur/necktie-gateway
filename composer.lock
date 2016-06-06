@@ -4,101 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6e4a963b6541fae2e32ee12d0cf73d50",
-    "content-hash": "8edeadd92005dcdfc00c84d505e10f6b",
+    "hash": "79bb7db17d1e9cb7f51a9245b65bdf4f",
+    "content-hash": "725ed038500f19ac1ef2f74a65f009ab",
     "packages": [
         {
-            "name": "aws/aws-sdk-php",
-            "version": "3.18.14",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9398db378231fe723583fb8d7a919c1806f02be3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9398db378231fe723583fb8d7a919c1806f02be3",
-                "reference": "9398db378231fe723583fb8d7a919c1806f02be3",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "~5.3|~6.0.1|~6.1",
-                "guzzlehttp/promises": "~1.0",
-                "guzzlehttp/psr7": "~1.0",
-                "mtdowling/jmespath.php": "~2.2",
-                "php": ">=5.5"
-            },
-            "require-dev": {
-                "andrewsville/php-token-reflection": "^1.4",
-                "aws/aws-php-sns-message-validator": "~1.0",
-                "behat/behat": "~3.0",
-                "doctrine/cache": "~1.4",
-                "ext-dom": "*",
-                "ext-json": "*",
-                "ext-openssl": "*",
-                "ext-pcre": "*",
-                "ext-simplexml": "*",
-                "ext-spl": "*",
-                "nette/neon": "^2.3",
-                "phpunit/phpunit": "~4.0|~5.0",
-                "psr/cache": "^1.0"
-            },
-            "suggest": {
-                "aws/aws-php-sns-message-validator": "To validate incoming SNS notifications",
-                "doctrine/cache": "To use the DoctrineCacheAdapter",
-                "ext-curl": "To send requests using cURL",
-                "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aws\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Amazon Web Services",
-                    "homepage": "http://aws.amazon.com"
-                }
-            ],
-            "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
-            "homepage": "http://aws.amazon.com/sdkforphp",
-            "keywords": [
-                "amazon",
-                "aws",
-                "cloud",
-                "dynamodb",
-                "ec2",
-                "glacier",
-                "s3",
-                "sdk"
-            ],
-            "time": "2016-05-26 20:43:24"
-        },
-        {
             "name": "bunny/bunny",
-            "version": "v0.2.2",
+            "version": "v0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakubkulhan/bunny.git",
-                "reference": "e580aad5c83ee923d5f9a9bb4dfd772ec821df63"
+                "reference": "7f035cb4877a75c9b1346a300127947b4ca47402"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakubkulhan/bunny/zipball/e580aad5c83ee923d5f9a9bb4dfd772ec821df63",
-                "reference": "e580aad5c83ee923d5f9a9bb4dfd772ec821df63",
+                "url": "https://api.github.com/repos/jakubkulhan/bunny/zipball/7f035cb4877a75c9b1346a300127947b4ca47402",
+                "reference": "7f035cb4877a75c9b1346a300127947b4ca47402",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +68,7 @@
                 "react-php",
                 "reactphp"
             ],
-            "time": "2016-03-07 16:28:04"
+            "time": "2016-05-31 14:37:53"
         },
         {
             "name": "doctrine/annotations",
@@ -500,16 +420,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "1.6.2",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "e9c2ccf573b59b7cea566390f34254fed3c20ed9"
+                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/e9c2ccf573b59b7cea566390f34254fed3c20ed9",
-                "reference": "e9c2ccf573b59b7cea566390f34254fed3c20ed9",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/fd51907c6c76acaa8a5234822a4f901c1500afc1",
+                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1",
                 "shasum": ""
             },
             "require": {
@@ -526,13 +446,14 @@
                 "phpunit/phpunit": "~4",
                 "satooshi/php-coveralls": "~0.6.1",
                 "symfony/phpunit-bridge": "~2.7|~3.0",
+                "symfony/property-info": "~2.8|~3.0",
                 "symfony/validator": "~2.2|~3.0",
                 "symfony/yaml": "~2.2|~3.0",
                 "twig/twig": "~1.10"
             },
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle.",
-                "symfony/web-profiler-bundle": "to use the data collector"
+                "symfony/web-profiler-bundle": "To use the data collector."
             },
             "type": "symfony-bundle",
             "extra": {
@@ -575,7 +496,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-01-10 17:21:44"
+            "time": "2016-04-21 19:55:56"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1187,61 +1108,6 @@
                 "sql"
             ],
             "time": "2014-01-12 16:20:24"
-        },
-        {
-            "name": "mtdowling/jmespath.php",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jmespath/jmespath.php.git",
-                "reference": "192f93e43c2c97acde7694993ab171b3de284093"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/192f93e43c2c97acde7694993ab171b3de284093",
-                "reference": "192f93e43c2c97acde7694993ab171b3de284093",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "bin": [
-                "bin/jp.php"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JmesPath\\": "src/"
-                },
-                "files": [
-                    "src/JmesPath.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Declaratively specify how to extract elements from a JSON document",
-            "keywords": [
-                "json",
-                "jsonpath"
-            ],
-            "time": "2016-01-05 18:25:05"
         },
         {
             "name": "paragonie/random_compat",
@@ -1877,6 +1743,46 @@
             "time": "2015-11-07 08:07:40"
         },
         {
+            "name": "skrz/autowiring-bundle",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/skrz/autowiring-bundle.git",
+                "reference": "44c30b867b6b94b6c7f558ea4d5d271e0eec7fac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/skrz/autowiring-bundle/zipball/44c30b867b6b94b6c7f558ea4d5d271e0eec7fac",
+                "reference": "44c30b867b6b94b6c7f558ea4d5d271e0eec7fac",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "~1.2",
+                "php": ">=5.4",
+                "symfony/config": "~2.7|~3.0",
+                "symfony/dependency-injection": "~2.7|~3.0",
+                "symfony/http-kernel": "~2.7|~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Skrz\\Bundle\\AutowiringBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Kulhan",
+                    "email": "jakub.kulhan@gmail.com"
+                }
+            ],
+            "description": "Symfony bundle providing autowiring/autoscanning capabilities to DI container",
+            "time": "2016-04-08 13:40:45"
+        },
+        {
             "name": "symfony/polyfill-intl-icu",
             "version": "v1.2.0",
             "source": {
@@ -2296,63 +2202,42 @@
             "time": "2016-05-30 07:24:54"
         },
         {
-            "name": "trinity/bunny",
+            "name": "trinity/bunny-bundle",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/modpreneur/trinity-bunny.git",
-                "reference": "9e8fad254784b373d0a21c9a2d7a5e7aa153192f"
+                "url": "https://github.com/modpreneur/trinity-bunny-bundle.git",
+                "reference": "a706d4cbec67dfb6aabdf99d8880a063c21ab0f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modpreneur/trinity-bunny/zipball/9e8fad254784b373d0a21c9a2d7a5e7aa153192f",
-                "reference": "9e8fad254784b373d0a21c9a2d7a5e7aa153192f",
+                "url": "https://api.github.com/repos/modpreneur/trinity-bunny-bundle/zipball/a706d4cbec67dfb6aabdf99d8880a063c21ab0f9",
+                "reference": "a706d4cbec67dfb6aabdf99d8880a063c21ab0f9",
                 "shasum": ""
             },
             "require": {
-                "aws/aws-sdk-php": "~3.11",
-                "bunny/bunny": "~0.2",
-                "doctrine/doctrine-bundle": "~1.6",
-                "doctrine/orm": "~2.5",
-                "php": ">=7",
-                "sensio/framework-extra-bundle": "^3.0",
-                "symfony/symfony": "~2.8 | ~3.0"
+                "bunny/bunny": "~0.2.2",
+                "php": ">=5.4",
+                "skrz/autowiring-bundle": "~1.1",
+                "symfony/console": "3.1.*"
             },
             "require-dev": {
-                "fzaninotto/faker": "~1.5",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~5.1",
-                "symfony/browser-kit": "~2.8|~3.0",
-                "symfony/form": "~3",
-                "symfony/validator": "~3",
-                "symfony/var-dumper": "~3.0"
+                "phpunit/phpunit": "~4.6",
+                "symfony/framework-bundle": "~2.7|~3.0",
+                "symfony/yaml": "~2.7|~3.0"
             },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
+            "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Trinity\\Bundle\\BunnyBundle\\": "BunnyBundle"
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                    "Trinity\\Bundle\\BunnyBundle\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Trinity Team",
-                    "email": "info@modpreneur.com"
-                }
-            ],
-            "description": "Trinity Bunny bundle",
-            "time": "2016-05-31 07:12:38"
+            "description": "Symfony bundle that makes using RabbitMQ easy. Without meta classes.",
+            "time": "2016-06-06 12:42:11"
         },
         {
             "name": "twig/twig",
@@ -2420,7 +2305,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "trinity/bunny": 20
+        "trinity/bunny-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

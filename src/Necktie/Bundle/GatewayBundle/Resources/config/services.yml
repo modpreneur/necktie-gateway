@@ -1,58 +1,65 @@
 services:
 
-  gateway.logger:
-    class: Necktie\Bundle\GatewayBundle\Logger\Logger
+    gw.logger:
+        class: Necktie\Bundle\GatewayBundle\Logger\Logger
+        arguments:
+          - "@doctrine.orm.entity_manager"
 
 
-  gateway.bunny.setup:
-    class: Necktie\Bundle\GatewayBundle\Services\RabbitMQ\RabbitSetup
-    arguments:
-       - "@necktie.bunny.client"
+    gw.client_factory:
+        class: Necktie\Bundle\GatewayBundle\Gateway\ClientFactory
 
 
-  gateway.consumer.command_consumer:
-      class: Trinity\Bundle\BunnyBundle\Consumer\CommandConsumer
-      arguments:
-          - "@event_dispatcher"
-          - "@gateway.bunny.setup"
-
-
-  ###########################
-
-  gateway.client.factory:
-      class: Necktie\Bundle\GatewayBundle\Gateway\ClientFactory
-
-
-  gateway.gateway.api_gateway:
+    gw.api:
       class: Necktie\Bundle\GatewayBundle\Gateway\ApiGateway
       arguments:
-         - "@gateway.client.factory"
+          - "@gw.client_factory"
 
 
-  gateway.producer:
-      class: Necktie\Bundle\GatewayBundle\Producer\Producer
-      arguments:
-        - "@gateway.bunny.setup"
+    gw.consumer:
+          class: Necktie\Bundle\GatewayBundle\Consumer\GatewayConsumer
+          arguments:
+            - "@gw.proxy.consumer"
 
 
-  gateway.gateway.logger:
-      class: Necktie\Bundle\GatewayBundle\Logger\Logger
+    gw.producer:
+          class: Necktie\Bundle\GatewayBundle\Producer\NecktieProducer
 
 
-  gateway.consumer.listener:
-      class: Necktie\Bundle\GatewayBundle\EventListener\MessagesListener
+    ### proxy
+    gw.proxy.producer:
+        class: Necktie\Bundle\GatewayBundle\Proxy\ProducerProxy
+        arguments:
+          - "@kernel"
+
+
+    gw.proxy.consumer:
+        class: Necktie\Bundle\GatewayBundle\Proxy\ConsumerProxy
+        arguments:
+          - "@event_dispatcher"
+
+
+    gw.message.logger:
+      class: Necktie\Bundle\GatewayBundle\Message\MessagesLogger
       arguments:
         - "@doctrine.orm.entity_manager"
-      tags:
-        - { name: kernel.event_listener, event: trinity.bunny.rabbitMessageConsumed, method: onConsume }
 
 
+    gw.message.processor:
+        class:  Necktie\Bundle\GatewayBundle\Message\MessageProcessor
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@gw.api"
+            - "@gw.logger"
+            - "@gw.proxy.producer"
 
-  gateway.listener.message_processor:
-       class: Necktie\Bundle\GatewayBundle\EventListener\MessageProcessor
-       arguments:
-          - "@gateway.gateway.api_gateway"
-          - "@gateway.producer"
-          - "@gateway.gateway.logger"
-       tags:
-          - { name: doctrine.event_subscriber, connection: default }
+
+    gw.message.listener:
+        class: Necktie\Bundle\GatewayBundle\EventListener\MessagesListener
+        arguments:
+          - "@gw.message.logger"
+          - "@gw.message.processor"
+        tags:
+            - { name: kernel.event_listener, event: message.consume, priority: 10 }
+
+

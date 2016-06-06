@@ -4,53 +4,47 @@
 namespace Necktie\Bundle\GatewayBundle\EventListener;
 
 
-use Doctrine\ORM\EntityManager;
-use Necktie\Bundle\GatewayBundle\Entity\Message;
-use Trinity\Bundle\BunnyBundle\Event\RabbitMessageConsumedEvent;
+use Necktie\Bundle\GatewayBundle\Event\MessageEvent;
+use Necktie\Bundle\GatewayBundle\Message\MessageProcessor;
+use Necktie\Bundle\GatewayBundle\Message\MessagesLogger;
+
 
 class MessagesListener
 {
 
-    /** @var  EntityManager */
-    protected $em;
+    /**
+     * @var MessagesLogger
+     */
+    private $logger;
+    /**
+     * @var MessageProcessor
+     */
+    private $messageProcessor;
 
 
     /**
      * MessagesListener constructor.
-     * @param EntityManager $em
+     * @param MessagesLogger $logger
+     * @param MessageProcessor $messageProcessor
      */
-    public function __construct(EntityManager $em)
+    public function __construct(MessagesLogger $logger, MessageProcessor $messageProcessor)
     {
-        $this->em = $em;
+
+        $this->logger = $logger;
+        $this->messageProcessor = $messageProcessor;
     }
 
 
-    public function onConsume(RabbitMessageConsumedEvent $consumedEvent)
+    /**
+     * @param MessageEvent $consumedEvent
+     * @throws \Exception
+     */
+    public function onMessageConsume(MessageEvent $consumedEvent)
     {
+        echo 'Consume message from '.$consumedEvent->getQueue().PHP_EOL;
 
-        echo 'Consume message from '.$consumedEvent->getSourceQueue().PHP_EOL;
-
-        $msg = $consumedEvent->getMessage();
-        $em = $this->em;
-
-        $em->beginTransaction();
-        try {
-            // @todo log content
-            $message = new Message();
-            $message->setMessage($msg->content);
-            $message->setDeliveredAt(new \DateTime());
-            $message->setDeliveryTag($msg->deliveryTag);
-
-            $em->persist($message);
-            $em->flush($message);
-            $em->commit();
-            echo 'Loged message from '.$consumedEvent->getSourceQueue().PHP_EOL;
-
-        } catch (\Exception $ex) {
-            $em->rollback();
-            //@todo - log error
-            throw $ex;
-        }
+        $this->logger->saveMessage($consumedEvent);
+        $this->messageProcessor->process($consumedEvent);
 
     }
 

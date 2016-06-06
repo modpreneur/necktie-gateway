@@ -14,7 +14,7 @@
     "incenteev/composer-parameter-handler": "~2.1",
     "bunny/bunny": "~0.2",
     "ramsey/uuid-doctrine": "^1.1",
-    "trinity/bunny": "@dev"
+    "trinity/bunny-bundle": "dev-master"
   },
 
   "require-dev": {
@@ -28,7 +28,12 @@
     }
   ],
   "autoload": {
-    "psr-4": { "": "" },
+    "files": [
+      "app/AppKernel.php"
+    ],
+    "psr-4": {
+      "": "src"
+    },
     "classmap": [""],
     "exclude-from-classmap": [
       "/Tests/"
