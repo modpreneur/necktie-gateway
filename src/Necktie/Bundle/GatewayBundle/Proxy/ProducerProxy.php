@@ -4,7 +4,7 @@
 namespace Necktie\Bundle\GatewayBundle\Proxy;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -41,17 +41,25 @@ class ProducerProxy implements ProducerInterface
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
-        $command = 'bunny:producer ';
+        $command = 'bunny:producer';
 
-        $input = $queueName ? $command.$queueName.' '.'\''.$data.'\'' : $command.$data;
+        $arguments = [
+            'command' => $command,
+            'producer-name' => $queueName,
+            'message' => $data,
+        ];
 
-        $input = new StringInput($input);
+        $input = new ArrayInput($arguments);
         $output = new BufferedOutput();
 
         // error
         $application->run($input, $output);
 
+        $output = $output->fetch();
+
+        var_dump($output);
+
         // todo - log outout !!!
-        return $output->fetch();
+        return $output;
     }
 }

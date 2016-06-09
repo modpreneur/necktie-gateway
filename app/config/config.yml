@@ -40,8 +40,8 @@ bunny:
         type: topic
 
       necktie_exchange:
-        durable: true
-        type: topic
+        durable: false
+        type: direct
 
     queues:
       queue_gateway:
@@ -53,6 +53,7 @@ bunny:
         durable: true
         bindings:
           - exchange: necktie_exchange
+
 
 
 services:
