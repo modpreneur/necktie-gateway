@@ -6,8 +6,8 @@ mkdir -p /var/app/var/logs
 chmod -R 0777 /var/app/var/logs
 chmod -R 0777 /var/app/var/cache
 
-supervisord -c /etc/supervisor/conf.d/supervisord.conf
-supervisorctl -c /etc/supervisor/conf.d/supervisord.conf reload
+supervisord -c /var/app/supervisor/supervisord.conf
+supervisorctl -c /var/app/supervisor/supervisord.conf status
 
 composer install
 composer run-script post-install-cmd --no-interaction
