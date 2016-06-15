@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function indexAction()
     {
-        $process = new Process('supervisorctl status');
+        $process = new Process('supervisorctl -c /var/app/supervisor/supervisord.conf status');
         $process->run();
 
         if (!$process->isSuccessful()) {
