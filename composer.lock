@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "79bb7db17d1e9cb7f51a9245b65bdf4f",
+    "hash": "65fcb6b029de3134aba25ab83ea80df2",
     "content-hash": "725ed038500f19ac1ef2f74a65f009ab",
     "packages": [
         {
@@ -2068,16 +2068,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "e71d4713c506686e6cf027af44c97ee5d94c7db4"
+                "reference": "6e1b1497276f8477e9d89b1b6398cf7c7dcebd7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/e71d4713c506686e6cf027af44c97ee5d94c7db4",
-                "reference": "e71d4713c506686e6cf027af44c97ee5d94c7db4",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/6e1b1497276f8477e9d89b1b6398cf7c7dcebd7d",
+                "reference": "6e1b1497276f8477e9d89b1b6398cf7c7dcebd7d",
                 "shasum": ""
             },
             "require": {
@@ -2199,7 +2199,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-05-30 07:24:54"
+            "time": "2016-06-15 05:59:11"
         },
         {
             "name": "trinity/bunny-bundle",
@@ -2207,24 +2207,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/modpreneur/trinity-bunny-bundle.git",
-                "reference": "a706d4cbec67dfb6aabdf99d8880a063c21ab0f9"
+                "reference": "3325f154a757e9675e21580130d4dee3eae11759"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modpreneur/trinity-bunny-bundle/zipball/a706d4cbec67dfb6aabdf99d8880a063c21ab0f9",
-                "reference": "a706d4cbec67dfb6aabdf99d8880a063c21ab0f9",
+                "url": "https://api.github.com/repos/modpreneur/trinity-bunny-bundle/zipball/3325f154a757e9675e21580130d4dee3eae11759",
+                "reference": "3325f154a757e9675e21580130d4dee3eae11759",
                 "shasum": ""
             },
             "require": {
                 "bunny/bunny": "~0.2.2",
                 "php": ">=5.4",
                 "skrz/autowiring-bundle": "~1.1",
-                "symfony/console": "3.1.*"
+                "symfony/console": "~3"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.6",
-                "symfony/framework-bundle": "~2.7|~3.0",
-                "symfony/yaml": "~2.7|~3.0"
+                "symfony/framework-bundle": "~2.7|~3",
+                "symfony/yaml": "~2.7|~3"
             },
             "type": "library",
             "autoload": {
@@ -2237,7 +2237,7 @@
                 "MIT"
             ],
             "description": "Symfony bundle that makes using RabbitMQ easy. Without meta classes.",
-            "time": "2016-06-06 12:42:11"
+            "time": "2016-06-08 15:43:03"
         },
         {
             "name": "twig/twig",

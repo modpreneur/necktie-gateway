@@ -57,8 +57,6 @@ class ProducerProxy implements ProducerInterface
 
         $output = $output->fetch();
 
-        var_dump($output);
-
         // todo - log outout !!!
         return $output;
     }
