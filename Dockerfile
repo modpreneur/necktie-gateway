@@ -10,8 +10,7 @@ RUN  apt-get install python-setuptools -y \
 # Install app
 ADD . /var/app
 
-EXPOSE 8666
-EXPOSE 9005
+EXPOSE 80 8666 9005
 
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["sh", "entrypoint.sh"]
