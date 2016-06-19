@@ -7,7 +7,6 @@ use Bunny\Message as BunnyMessage;
 use Necktie\Bundle\GatewayBundle\Proxy\ConsumerProxy;
 use Trinity\Bundle\BunnyBundle\Annotation\Consumer;
 
-
 /**
  * @Consumer(
  *     queue="queue_gateway",
@@ -42,8 +41,18 @@ class GatewayConsumer
      */
     public function handleMessage($message, BunnyMessage $bunnyMessage, Channel $channel)
     {
-        $this->consumerProxy->handleMessage('queue_gateway', $message, $bunnyMessage->deliveryTag);
-        $channel->ack($bunnyMessage);
+
+        // @todo(@jancar) -> max repeat for nack
+
+        try{
+            $this->consumerProxy->handleMessage('queue_gateway', $message, $bunnyMessage->deliveryTag);
+            $channel->ack($bunnyMessage);
+        }catch (\Exception $ex){
+
+            // @todo - log exception
+            $channel->nack($bunnyMessage);
+        }
+
     }
 
 }

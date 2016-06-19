@@ -82,7 +82,26 @@
         "database_port": "SYMFONY__DATABASE_PORT",
         "database_name": "SYMFONY__DATABASE_NAME",
         "database_user": "SYMFONY__DATABASE_USER",
-        "database_password": "SYMFONY__DATABASE_PASSWORD"
+        "database_password": "SYMFONY__DATABASE_PASSWORD",
+
+        "locale": "SYMFONY__LOCALE",
+        "secret": "SYMFONY__SECRET",
+
+        "rabbit_url": "SYMFONY__RABBIT_URL",
+        "rabbit_port": "SYMFONY__RABBIT_PORT",
+        "rabbit_user": "SYMFONY__RABBIT_USER",
+        "rabbit_password": "SYMFONY__RABBIT_PASSWORD",
+
+        "supervisor_host": "SYMFONY__SUPERVISOR_HOST",
+        "supervisor_port": "SYMFONY__SUPERVISOR_PORT",
+        "supervisor_user": "SYMFONY__SUPERVISOR_USER",
+        "supervisor_password": "SYMFONY__SUPERVISOR_PASSWORD",
+
+        "rabbit_vhost": "SYMFONY__RABBIT_VHOST",
+
+        "debug_toolbar": "SYMFONY__DEBUG_TOOLBAR",
+        "debug_redirects": "SYMFONY__DEBUG_REDIRECTS",
+        "use_assetic_controller": "SYMFONY__ASSETIC_CONTROLLER"
       }
     }
   }
