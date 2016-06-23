@@ -1,9 +1,11 @@
 <?php
 
-
 namespace Necktie\Bundle\GatewayBundle\Proxy;
 
-
+/**
+ * Interface ProducerInterface
+ * @package Necktie\Bundle\GatewayBundle\Proxy
+ */
 interface ProducerInterface
 {
 

@@ -5,7 +5,6 @@ namespace Necktie\Bundle\GatewayBundle\Proxy;
 use Necktie\Bundle\GatewayBundle\Event\MessageEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-
 /**
  * Class ConsumerProxy
  * @package Necktie\Bundle\GatewayBundle\Proxy

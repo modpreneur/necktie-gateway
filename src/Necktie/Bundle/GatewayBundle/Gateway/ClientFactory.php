@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Necktie\Bundle\GatewayBundle\Gateway;
 
-
 use GuzzleHttp\Client;
-
 
 /**
  * Class ClientFactory
@@ -19,7 +16,6 @@ class ClientFactory implements ClientFactoryInterface
      */
     public function createClient()
     {
-
         return new Client();
 
     }

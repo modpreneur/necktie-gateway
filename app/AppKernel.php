@@ -4,12 +4,14 @@ namespace Necktie\Gateway;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Necktie\Bundle\GatewayBundle\GatewayBundle;
+use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
+use Symfony\Bundle\DebugBundle\DebugBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Trinity\Bundle\BunnyBundle\TrinityBunnyBundle;
-
 
 /**
  * Class AppKernel
@@ -28,11 +30,12 @@ class AppKernel extends Kernel
             new TrinityBunnyBundle(),
         ];
 
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
-            $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+        if (in_array($this->getEnvironment(), ['dev', 'test'])) {
+            $bundles[] = new DebugBundle();
+            $bundles[] = new WebProfilerBundle();
+            $bundles[] = new SensioDistributionBundle();
         }
+
         return $bundles;
     }
 

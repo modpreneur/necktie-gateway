@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Necktie\Bundle\GatewayBundle\Proxy;
 
 /**
@@ -9,7 +8,6 @@ namespace Necktie\Bundle\GatewayBundle\Proxy;
  */
 interface ConsumerInterface
 {
-
     public function handleMessage(string $queueName, string $handleMessage, string $deliveryTag);
 
 }

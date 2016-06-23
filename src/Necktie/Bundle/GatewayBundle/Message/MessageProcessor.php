@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Necktie\Bundle\GatewayBundle\Message;
-
 
 use Doctrine\ORM\EntityManager;
 use Necktie\Bundle\GatewayBundle\Event\MessageEvent;
@@ -10,7 +8,10 @@ use Necktie\Bundle\GatewayBundle\Gateway\ApiGateway;
 use Necktie\Bundle\GatewayBundle\Logger\Logger;
 use Necktie\Bundle\GatewayBundle\Proxy\ProducerProxy;
 
-
+/**
+ * Class MessageProcessor
+ * @package Necktie\Bundle\GatewayBundle\Message
+ */
 class MessageProcessor
 {
 
@@ -28,6 +29,8 @@ class MessageProcessor
      * @var ApiGateway
      */
     private $gateway;
+
+
     /**
      * @var ProducerProxy
      */
@@ -92,10 +95,10 @@ class MessageProcessor
 
             $this->logger->addRecord($response);
 
-            $this->data[] = $response;
+            //$this->data[] = $response;
 
             if ($response['status'] == 'error') {
-                echo $response['message'].PHP_EOL;
+                echo $response['message'] . PHP_EOL;
                 throw new \Exception($response['message']);
             }
 
