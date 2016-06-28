@@ -7,3 +7,8 @@ gateway:
 gateway_restart:
      path : /restart
      defaults:  { _controller: GatewayBundle:Home:restart }
+
+
+gateway_run:
+     path : /run
+     defaults:  { _controller: GatewayBundle:Home:run }
