@@ -41,7 +41,6 @@ class GatewayConsumer
      */
     public function handleMessage($message, BunnyMessage $bunnyMessage, Channel $channel)
     {
-
         // @todo(@jancar) -> max repeat for nack
 
         try{
