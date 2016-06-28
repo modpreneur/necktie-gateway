@@ -2,3 +2,8 @@
 gateway:
     path : /
     defaults:  { _controller: GatewayBundle:Home:index }
+
+
+gateway_restart:
+     path : /restart
+     defaults:  { _controller: GatewayBundle:Home:restart }

@@ -28,4 +28,20 @@ class HomeController extends Controller
         return new JsonResponse($r);
     }
 
+
+    public function restartAction(){
+        $process = new Process('supervisorctl -c /var/app/supervisor/supervisord.conf restart all');
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        $r = $process->getOutput();
+
+        $r = explode(PHP_EOL, $r);
+
+        return new JsonResponse($r);
+    }
+
 }
