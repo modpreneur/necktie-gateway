@@ -67,7 +67,7 @@ class AppKernel extends Kernel
     {
         $config = 'config';
         if($this->getEnvironment() !== 'prod'){
-            $config .=  $this->getEnvironment();
+            $config .= '_' . $this->getEnvironment();
         }
 
         $loader->load($this->getRootDir().'/config/'. $config .'.yml');
