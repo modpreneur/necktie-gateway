@@ -47,8 +47,10 @@ class GatewayConsumer
             $this->consumerProxy->handleMessage('queue_gateway', $message, $bunnyMessage->deliveryTag);
             $channel->ack($bunnyMessage);
         }catch (\Exception $ex){
-
+            echo $ex->getMessage();
             // @todo - log exception
+
+            echo $ex->getMessage();
             $channel->nack($bunnyMessage);
         }
 
