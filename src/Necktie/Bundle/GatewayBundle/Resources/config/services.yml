@@ -2,8 +2,6 @@ services:
 
     gw.logger:
         class: Necktie\Bundle\GatewayBundle\Logger\Logger
-        arguments:
-          - "@doctrine.orm.entity_manager"
 
 
     gw.client_factory:
