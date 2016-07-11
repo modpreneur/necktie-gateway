@@ -44,7 +44,6 @@ class Logger
      */
     public function addRecord($data, $level = 200)
     {
-        /**
         $em = $this->manager;
 
         $sys = new SystemLog();
@@ -56,7 +55,6 @@ class Logger
 
         $em->persist($sys);
         $em->flush($sys);
-         **/
     }
 
 }

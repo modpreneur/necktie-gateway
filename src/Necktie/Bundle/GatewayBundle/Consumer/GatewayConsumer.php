@@ -2,6 +2,7 @@
 
 namespace Necktie\Bundle\GatewayBundle\Consumer;
 
+use Bunny\Client;
 use Bunny\Channel;
 use Bunny\Message as BunnyMessage;
 use Necktie\Bundle\GatewayBundle\Proxy\ConsumerProxy;
@@ -38,8 +39,9 @@ class GatewayConsumer
      * @param $message
      * @param BunnyMessage $bunnyMessage
      * @param Channel $channel
+     * @param Client $client
      */
-    public function handleMessage($message, BunnyMessage $bunnyMessage, Channel $channel)
+    public function handleMessage($message, BunnyMessage $bunnyMessage, Channel $channel, Client $client)
     {
         // @todo(@jancar) -> max repeat for nack
 

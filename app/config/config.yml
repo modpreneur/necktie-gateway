@@ -9,6 +9,13 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
 
+
+
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+
 doctrine:
     dbal:
         driver:   %database_driver%
@@ -19,9 +26,6 @@ doctrine:
     orm:
         auto_mapping: true
 
-twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
 
 
 bunny:

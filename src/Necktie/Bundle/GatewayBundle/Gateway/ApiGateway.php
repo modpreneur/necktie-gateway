@@ -9,7 +9,6 @@ use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ValidatorBuilder;
 
-
 /**
  * Class ApiGateway
  * @package App\Gateway
@@ -71,10 +70,9 @@ class ApiGateway
                 'verify' => false,
             ]);
 
-
         } catch (\Exception $ex) {
 
-            echo 'API[ERROR] ('.$url.'):'.$ex->getMessage().PHP_EOL;
+            echo 'API[ERROR] ('.$url.'):' . $ex->getMessage() . PHP_EOL;
 
             return [
                 'status'  => 'error',
@@ -85,12 +83,12 @@ class ApiGateway
             ];
         }
 
-        echo 'API[OK] ('.$url.')'.PHP_EOL;
+        echo 'API[OK] ('.$url.')' . PHP_EOL;
 
         return [
             'status' => 'ok',
             'url' => $url,
-            'body' => (string)$response->getBody(),
+            'body' => (string)$response->getBody()->getContents(), // todo here
             'tag' => $tag,
             'data' => $data,
         ];
