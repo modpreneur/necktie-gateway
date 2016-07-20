@@ -1,3 +1,4 @@
+
 services:
 
     gw.logger:
@@ -52,6 +53,9 @@ services:
             - "@gw.api"
             - "@gw.logger"
             - "@gw.proxy.producer"
+        calls:
+            - [ addProcessor, ['@gw.processor.http'] ]
+            - [ addProcessor, ['@gw.processor.aweber'] ]
 
 
     gw.message.listener:
@@ -61,5 +65,18 @@ services:
           - "@gw.message.processor"
         tags:
             - { name: kernel.event_listener, event: message.consume, priority: 10 }
+
+
+    gw.processor.http:
+      class: Necktie\Bundle\GatewayBundle\Gateway\RequestProcessor\HTTPProcessor
+      arguments:
+        - "@gw.api"
+        - "@gw.logger"
+
+
+    gw.processor.aweber:
+      class: Necktie\Bundle\GatewayBundle\Gateway\RequestProcessor\AWeberProcessor
+      arguments:
+        - "@gw.logger"
 
 

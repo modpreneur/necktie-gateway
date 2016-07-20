@@ -14,11 +14,12 @@
     "incenteev/composer-parameter-handler": "~2.1",
     "bunny/bunny": "~0.2",
     "ramsey/uuid-doctrine": "^1.1",
-    "trinity/bunny-bundle": "dev-master"
+    "trinity/bunny-bundle": "dev-master",
+    "aweber/aweber": "~1"
   },
 
   "require-dev": {
-    "symfony/var-dumper": "~3"
+      "lusitanian/oauth": "~0.3"
   },
 
   "authors": [
@@ -41,22 +42,22 @@
   },
   "scripts": {
     "post-install-cmd": [
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
       "php bin/console doctrine:schema:create"
     ],
     "post-update-cmd": [
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
-      "php bin/console doctrine:schema:create"
+      "php bin/console doctrine:schema:update"
     ]
   },
 

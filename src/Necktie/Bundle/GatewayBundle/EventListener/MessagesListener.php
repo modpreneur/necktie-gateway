@@ -1,14 +1,15 @@
 <?php
 
-
 namespace Necktie\Bundle\GatewayBundle\EventListener;
-
 
 use Necktie\Bundle\GatewayBundle\Event\MessageEvent;
 use Necktie\Bundle\GatewayBundle\Message\MessageProcessor;
 use Necktie\Bundle\GatewayBundle\Message\MessagesLogger;
 
-
+/**
+ * Class MessagesListener
+ * @package Necktie\Bundle\GatewayBundle\EventListener
+ */
 class MessagesListener
 {
 
@@ -16,6 +17,7 @@ class MessagesListener
      * @var MessagesLogger
      */
     private $logger;
+
     /**
      * @var MessageProcessor
      */
@@ -29,8 +31,7 @@ class MessagesListener
      */
     public function __construct(MessagesLogger $logger, MessageProcessor $messageProcessor)
     {
-
-        $this->logger = $logger;
+        $this->logger           = $logger;
         $this->messageProcessor = $messageProcessor;
     }
 
@@ -41,7 +42,7 @@ class MessagesListener
      */
     public function onMessageConsume(MessageEvent $consumedEvent)
     {
-        echo 'Consume message from '.$consumedEvent->getQueue().PHP_EOL;
+        echo 'Consume message from ' . $consumedEvent->getQueue() . PHP_EOL;
 
         $this->logger->saveMessage($consumedEvent);
         $this->messageProcessor->process($consumedEvent);

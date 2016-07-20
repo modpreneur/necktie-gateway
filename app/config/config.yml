@@ -6,9 +6,10 @@ framework:
     templating:
             engines: ['twig']
 
+    session:
+
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
-
 
 
 twig:
@@ -58,8 +59,4 @@ bunny:
         bindings:
           - exchange: necktie_exchange
 
-
-
 services:
-
-
