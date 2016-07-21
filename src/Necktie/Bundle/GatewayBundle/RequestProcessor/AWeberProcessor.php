@@ -31,7 +31,7 @@ class AWeberProcessor extends BaseProcessor
         }
 
         if(array_key_exists('type', $message) && $message['type'] === 'unsubscribe') {
-            return $this->delete($account, $message['attributes']['listId'], $message['attributes']['userId']);
+            return $this->delete($account, $message['attributes']['listId'], $message['attributes']['userId'], $message['tag'], $message['attributes']);
         }
     }
 
@@ -50,17 +50,33 @@ class AWeberProcessor extends BaseProcessor
         $list  = $lists[0];
 
         $subscribers = $list->subscribers;
-        $response    = $subscribers->create($data);
+        try {
+            $response = $subscribers->create($data);
 
-        echo 'API OK - AWeber';
-        return [
-            'status'     => 'ok',
-            'id'         => $data['email'],
-            'url'        => '',
-            'response'   => $response,
-            'tag'        => $tag,
-            'attributes' => $attributes,
-        ];
+            echo 'API OK - AWeber';
+            return [
+                'status'     => 'ok',
+                'id'         => $data['email'],
+                'url'        => '',
+                'response'   => $response,
+                'tag'        => $tag,
+                'attributes' => $attributes,
+            ];
+
+        } catch (\Exception $ex){
+            $response = $ex->getMessage();
+
+            echo 'API ERROR - AWeber ' . $ex->getMessage() . PHP_EOL;
+            echo 'Email: ' . $data['email'] . PHP_EOL;
+            return [
+                'status'     => 'error',
+                'id'         => $data['email'],
+                'url'        => '',
+                'response'   => $response,
+                'tag'        => $tag,
+                'attributes' => $attributes,
+            ];
+        }
     }
 
 
@@ -88,13 +104,30 @@ class AWeberProcessor extends BaseProcessor
      * @param $account
      * @param string $listID
      * @param string $userID
+     * @param string $tag
+     * @param $attributes
+     * @return array
      */
-    public function delete($account, string $listID, string $userID)
+    public function delete($account, string $listID, string $userID, string $tag, $attributes)
     {
         $lists = $account->lists->find(array('id' => $listID));
         $list  = $lists[0];
 
-        $list->subscribers->find(['email' => $userID])[0]->delete();
+        try {
+            $res = $list->subscribers->find(['email' => $userID])[0]->delete();
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+            $res =  $ex->getMessage();
+        }
+
+        echo 'API OK - AWeber' . PHP_EOL;
+        return [
+            'status'     => 'ok',
+            'url'        => '',
+            'response'   => $res,
+            'tag'        => $tag,
+            'attributes' => $attributes,
+        ];
     }
 
 }
