@@ -23,15 +23,15 @@ class AWeberProcessor extends BaseProcessor
         $account = $aweber->getAccount($accessKey, $accessSecret);
 
         if(array_key_exists('type', $message) && $message['type'] === 'subscribe') {
-            return $this->subscribe($account, $message['listID'], $message['data']);
+            return $this->subscribe($account, $message['attributes']['listId'], $message['data'], $message['tag'], $message['attributes']);
         }
 
         if(array_key_exists('type', $message) && $message['type'] === 'update') {
-            return $this->update($account, $message['userID'], $message['data']);
+            return $this->update($account, $message['attributes']['userId'], $message['data']);
         }
 
         if(array_key_exists('type', $message) && $message['type'] === 'unsubscribe') {
-            return $this->delete($account, $message['listID'], $message['userID']);
+            return $this->delete($account, $message['attributes']['listId'], $message['attributes']['userId']);
         }
     }
 
@@ -40,9 +40,11 @@ class AWeberProcessor extends BaseProcessor
      * @param $account
      * @param string $listID
      * @param array $data
+     * @param $tag
+     * @param $attributes
      * @return array
      */
-    public function subscribe($account, string $listID, array $data) : array
+    public function subscribe($account, string $listID, array $data, $tag, $attributes) : array
     {
         $lists = $account->lists->find(array('id' => $listID));
         $list  = $lists[0];
@@ -51,7 +53,14 @@ class AWeberProcessor extends BaseProcessor
         $response    = $subscribers->create($data);
 
         echo 'API OK - AWeber';
-        return ['id' => $data['email'], 'response' => $response ];
+        return [
+            'status'     => 'ok',
+            'id'         => $data['email'],
+            'url'        => '',
+            'response'   => $response,
+            'tag'        => $tag,
+            'attributes' => $attributes,
+        ];
     }
 
 
@@ -85,7 +94,7 @@ class AWeberProcessor extends BaseProcessor
         $lists = $account->lists->find(array('id' => $listID));
         $list  = $lists[0];
 
-        $list->find(['email' => $userID])[0]->delete();
+        $list->subscribers->find(['email' => $userID])[0]->delete();
     }
 
 }

@@ -61,7 +61,8 @@ class HTTPProcessor extends BaseProcessor
                 ->gateway
                 ->request(
                     $message['method'],
-                    $message['url'], $header,
+                    $message['url'],
+                    $header,
                     $body,
                     $tag,
                     $attributes
@@ -70,20 +71,28 @@ class HTTPProcessor extends BaseProcessor
             $this->logger->addRecord($response);
 
             if ($response['status'] == 'error') {
-                echo $response['message'] . PHP_EOL;
-                throw new \Exception($response['message']);
+                echo $response['response'] . PHP_EOL;
+                throw new \Exception($response['response']);
             }
 
-            return $response;
+            return [
+                'status'     => $response['status'],
+                'response'   => $response['response'],
+                'url'        => $message['url'],
+                'tag'        => $tag,
+                'attributes' => $attributes
+            ];
         } catch (\Exception $ex) {
-            $error = [
-                'status'  => 'error',
-                'url'     => $message['url'],
-                'message' => $ex->getMessage(),
+
+            $error =  [
+                'status'     => 'error',
+                'response'   => $ex->getMessage(),
+                'url'        => $message['url'],
+                'tag'        => $tag,
+                'attributes' => $attributes
             ];
 
             $this->logger->addRecord($error, 500);
-
             return $error;
         }
     }

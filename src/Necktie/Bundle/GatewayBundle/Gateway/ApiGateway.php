@@ -75,22 +75,22 @@ class ApiGateway
             echo 'API[ERROR] ('.$url.'):' . $ex->getMessage() . PHP_EOL;
 
             return [
-                'status'  => 'error',
-                'url'     => $url,
-                'message' => $ex->getMessage(),
-                'error'   => $ex->getMessage(),
-                'data'    => $data,
+                'status'   => 'error',
+                'url'      => $url,
+                'response' => $ex->getMessage(),
+                'error'    => $ex->getMessage(),
+                'data'     => $data,
             ];
         }
 
         echo 'API[OK] ('.$url.')' . PHP_EOL;
 
         return [
-            'status' => 'ok',
-            'url' => $url,
-            'body' => (string)$response->getBody()->getContents(), // todo here
-            'tag' => $tag,
-            'data' => $data,
+            'status'   => 'ok',
+            'url'      => $url,
+            'response' => (string)$response->getBody()->getContents(), // todo here
+            'tag'      => $tag,
+            'data'     => $data,
         ];
     }
 
