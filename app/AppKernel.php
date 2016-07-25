@@ -3,8 +3,9 @@
 namespace Necktie\Gateway;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Necktie\Bundle\GatewayBundle\GatewayBundle;
+use Necktie\GatewayBundle\GatewayBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
+use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
@@ -28,6 +29,7 @@ class AppKernel extends Kernel
             new TwigBundle(),
             new GatewayBundle(),
             new TrinityBunnyBundle(),
+            new SensioFrameworkExtraBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {
