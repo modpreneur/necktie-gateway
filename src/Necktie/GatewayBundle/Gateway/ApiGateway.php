@@ -55,7 +55,7 @@ class ApiGateway
      * @return string
      * @throws URLException
      */
-    public function request($method, $url, array $header = [], $body = "", $tag = null, array $data = [])
+    public function request($method, $url, array $header = [], $body = '', $tag = null, array $data = [])
     {
         if (($val = $this->validateUrl($url))) {
             throw new URLException($val);
@@ -98,6 +98,7 @@ class ApiGateway
     /**
      * @param string $url
      * @return string
+     * @throws \Symfony\Component\Validator\Exception\ConstraintDefinitionException
      */
     protected function validateUrl($url)
     {

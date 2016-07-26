@@ -15,12 +15,12 @@ class Configuration implements ConfigurationInterface
 
     /**
      * {@inheritdoc}
+     * @throws \RuntimeException
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('necktie_gateway');
-
+        $treeBuilder->root('necktie_gateway');
 
         return $treeBuilder;
     }

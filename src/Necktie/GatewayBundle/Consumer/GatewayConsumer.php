@@ -19,10 +19,22 @@ use Trinity\Bundle\BunnyBundle\Annotation\Consumer;
 class GatewayConsumer
 {
 
+    const QUEUE_NAME = 'queue_gateway';
+
     /**
      * @var ConsumerProxy
      */
     protected $consumerProxy;
+
+    /**
+     * @var int
+     */
+    protected $errors = 0;
+
+    /**
+     * @var int
+     */
+    protected $maxRepeat = 20;
 
 
     /**
@@ -43,19 +55,22 @@ class GatewayConsumer
      */
     public function handleMessage($message, BunnyMessage $bunnyMessage, Channel $channel, Client $client)
     {
-        // @todo(@jancar) -> max repeat for nack
-
         try{
-            $this->consumerProxy->handleMessage('queue_gateway', $message, $bunnyMessage->deliveryTag);
+            $this->errors = 0;
+
+            $this->consumerProxy->handleMessage(self::QUEUE_NAME, $message, $bunnyMessage->deliveryTag);
             $channel->ack($bunnyMessage);
         }catch (\Exception $ex){
-            echo $ex->getMessage();
-            // @todo - log exception
+            $this->errors++;
 
             echo $ex->getMessage();
+
+            if ($this->errors > $this->maxRepeat) {
+                $channel->reject($bunnyMessage);
+                return;
+            }
+
             $channel->nack($bunnyMessage);
         }
-
     }
-
 }

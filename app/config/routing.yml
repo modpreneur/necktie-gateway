@@ -12,3 +12,8 @@ gateway_restart:
 gateway_run:
      path : /run
      defaults:  { _controller: GatewayBundle:Home:run }
+
+
+payment:
+    resource: "@GatewayBundle/Controller"
+    type:     annotation

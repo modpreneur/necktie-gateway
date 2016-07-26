@@ -53,19 +53,4 @@ class HomeController extends Controller
 
         return new JsonResponse($r);
     }
-
-
-    /**
-     * @return JsonResponse
-     */
-    public function runAction(){
-        $process = new Process('php /var/app/bin/console bunny:consumer gateway --env=prod');
-        $process->run();
-
-        $r = $process->getOutput();
-        $r = explode(PHP_EOL, $r);
-
-        return new JsonResponse($r);
-    }
-
 }

@@ -1,12 +1,13 @@
 <?php
 
-
 namespace Necktie\GatewayBundle\Event;
-
 
 use Symfony\Component\EventDispatcher\Event;
 
-
+/**
+ * Class MessageEvent
+ * @package Necktie\GatewayBundle\Event
+ */
 class MessageEvent extends Event
 {
 
@@ -17,6 +18,9 @@ class MessageEvent extends Event
      */
     protected $content;
 
+    /**
+     * @var string
+     */
     protected $deliveryTag;
 
 

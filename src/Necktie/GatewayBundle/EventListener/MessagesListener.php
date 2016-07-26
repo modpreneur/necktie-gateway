@@ -12,7 +12,6 @@ use Necktie\GatewayBundle\Message\MessagesLogger;
  */
 class MessagesListener
 {
-
     /**
      * @var MessagesLogger
      */
@@ -48,5 +47,4 @@ class MessagesListener
         $this->messageProcessor->process($consumedEvent);
 
     }
-
 }

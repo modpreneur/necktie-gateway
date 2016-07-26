@@ -41,6 +41,8 @@ class Logger
     /**
      * @param array $data
      * @param int $level
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\ORMInvalidArgumentException
      */
     public function addRecord($data, $level = 200)
     {

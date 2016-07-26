@@ -32,6 +32,7 @@ class ProducerProxy implements ProducerInterface
      * @param string $data
      * @param string $queueName
      * @return string
+     * @throws \Exception
      */
     public function publish(string $data, string $queueName = '')
     {
@@ -47,7 +48,7 @@ class ProducerProxy implements ProducerInterface
             'message' => $data,
         ];
 
-        $input = new ArrayInput($arguments);
+        $input  = new ArrayInput($arguments);
         $output = new BufferedOutput();
 
         // error

@@ -2,6 +2,7 @@
 
 namespace Necktie\GatewayBundle\Gateway\RequestProcessor;
 
+use Exception;
 use Necktie\GatewayBundle\Gateway\ApiGateway;
 use Necktie\GatewayBundle\Logger\Logger;
 
@@ -72,7 +73,7 @@ class HTTPProcessor extends BaseProcessor
 
             if ($response['status'] == 'error') {
                 echo $response['response'] . PHP_EOL;
-                throw new \Exception($response['response']);
+                throw new Exception($response['response']);
             }
 
             return [
@@ -82,7 +83,7 @@ class HTTPProcessor extends BaseProcessor
                 'tag'        => $tag,
                 'attributes' => $attributes
             ];
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
 
             $error =  [
                 'status'     => 'error',

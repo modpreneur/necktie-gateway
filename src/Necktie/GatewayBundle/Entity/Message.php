@@ -1,10 +1,8 @@
 <?php
 
-
 namespace Necktie\GatewayBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  *

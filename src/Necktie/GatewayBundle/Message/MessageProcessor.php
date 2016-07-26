@@ -26,7 +26,7 @@ class MessageProcessor
     private $producer;
 
 
-    /** @var  BaseProcessor */
+    /** @var  BaseProcessor[] */
     protected $processors = [];
 
 

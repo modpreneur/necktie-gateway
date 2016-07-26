@@ -14,8 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PaymentController extends Controller
 {
-
-
+    
     /**
      * @Route("/cb/ipn/{vendor}")
      * @param Request $request
