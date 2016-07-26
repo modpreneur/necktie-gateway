@@ -35,7 +35,7 @@
     "psr-4": {
       "": "src"
     },
-    "classmap": ["src"],
+    "classmap": ["src", "vendor/aweber"],
     "exclude-from-classmap": [
       "/Tests/"
     ]

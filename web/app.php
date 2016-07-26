@@ -3,7 +3,6 @@
 $loader = require __DIR__.'/../vendor/autoload.php';
 //require __DIR__.'/../app/AppKernel.php';
 
-require_once __DIR__ . '/../vendor/aweber/aweber/aweber_api/aweber.php';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Debug\Debug;
