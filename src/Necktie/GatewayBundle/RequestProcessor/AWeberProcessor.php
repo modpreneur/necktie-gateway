@@ -84,19 +84,27 @@ class AWeberProcessor extends BaseProcessor
      * @param $account
      * @param string $userID
      * @param array $data
+     * @return array
      */
     public function update($account, string $userID, array $data)
     {
-        // ? search by tag
-        $params            = array('email' => $userID);
+        $params            = array('status' => 'subscribed', 'id' => $userID);
         $found_subscribers = $account->findSubscribers($params);
 
+        $i = 0;
+
         foreach($found_subscribers as $subscriber) {
+
             foreach ($data as $key => $value) {
                 $subscriber->{$key} = $value;
                 $subscriber->save();
+                $i++;
             }
         }
+
+        echo 'API OK - AWeber, user was updated in ' . $i . ' lists.' ;
+
+        return [];
     }
 
 
@@ -110,19 +118,23 @@ class AWeberProcessor extends BaseProcessor
      */
     public function delete($account, string $listID, string $userID, string $tag, $attributes)
     {
-        $lists = $account->lists->find(array('id' => $listID));
-        $list  = $lists[0];
-
+        $status = '';
         try {
-            $res = $list->subscribers->find(['email' => $userID])[0]->delete();
+            $acu  = $account->url;
+            $user = $account->loadFromUrl("$acu/lists/$listID/subscribers/$userID");
+            $res  = $user;
+            $user->delete();
+            echo 'API OK - AWeber' . PHP_EOL;
+            $status = 'ok';
+
         } catch (\Exception $ex) {
-            echo $ex->getMessage();
+            $status = 'error';
+            echo 'API ERROR - AWeber ' . $ex->getMessage() . PHP_EOL;
             $res =  $ex->getMessage();
         }
 
-        echo 'API OK - AWeber' . PHP_EOL;
         return [
-            'status'     => 'ok',
+            'status'     => $status,
             'url'        => '',
             'response'   => $res,
             'tag'        => $tag,

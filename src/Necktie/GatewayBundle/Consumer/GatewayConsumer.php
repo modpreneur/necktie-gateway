@@ -58,8 +58,8 @@ class GatewayConsumer
         try{
             $this->errors = 0;
 
-            $this->consumerProxy->handleMessage(self::QUEUE_NAME, $message, $bunnyMessage->deliveryTag);
             $channel->ack($bunnyMessage);
+            $this->consumerProxy->handleMessage(self::QUEUE_NAME, $message, $bunnyMessage->deliveryTag);
         }catch (\Exception $ex){
             $this->errors++;
 
