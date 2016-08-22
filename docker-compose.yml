@@ -1,23 +1,26 @@
-gateway:
-  build: .
-  dockerfile: docker/dev/Dockerfile
-  ports:
-    - "9608:9608"
-    - "9005:9005"
-    - "8666:8666"
-    - "9080:80"
-  expose:
-    - "9608"
-    - "9005"
-    - "8666"
-    - "9080"
-  volumes:
-    - .:/var/app
-  links:
-    - mysql_database:mysql_database
+version: '2'
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: docker/dev/Dockerfile
+    links:
+      - mysql_database:mysql_database
+    ports:
+      - "9608:9608"
+      - "9005:9005"
+      - "8666:8666"
+      - "9080:80"
+    expose:
+      - "9608"
+      - "9005"
+      - "8666"
+      - "9080"
+    volumes:
+      - .:/var/app
 
 
-mysql_database:
+  mysql_database:
     image: mysql
     ports:
       - "3307:3306"
