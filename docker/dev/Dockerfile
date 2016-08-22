@@ -1,9 +1,6 @@
-FROM modpreneur/apache-framework:0.4
+FROM modpreneur/apache-framework:0.7
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
-
-
-RUN docker-php-ext-install pdo pdo_mysql
 
 RUN  apt-get install python-setuptools -y \
   && easy_install supervisor
