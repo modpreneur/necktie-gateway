@@ -18,7 +18,7 @@ class PaymentController extends Controller
     /**
      * @Route("/{paySystem}/{type}/{vendor}")
      * @param Request $request
-     * @parem string $paySystem
+     * @param string $paySystem
      * @param string $type
      * @param string $vendor
      * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -26,19 +26,16 @@ class PaymentController extends Controller
      */
     public function indexAction(Request $request, string $paySystem, string $type, string $vendor)
     {
+        $content = [
+            'content' => $request->getContent(),
+            'vendor'  => $vendor,
+            'notificationType' => $type,    //ipn or webhook
+            'paySystem' => $paySystem,
+            'method'  => $request->getMethod(), // should be only POST
+        ];
         $this->get('payment.producer')->publish(
-            serialize(
-                [
-                    'content' => $request->getContent(),
-                    'vendor'  => $vendor,
-                    'notificationType' => $type,    //ipn or webhook
-                    'paySystem' => $paySystem,
-                    'method'  => $request->getMethod(),
-                ]
-            )
+            serialize($content)
         );
-
-        return $this->json(['status' => 'ok'], 200);
+        return $this->json(['message' => 'OK'], 200);
     }
-
 }

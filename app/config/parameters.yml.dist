@@ -12,5 +12,5 @@ parameters:
   database_user:     user
   database_password: pass
 
-  necktie_url:  "http://http://88.146.49.119"
+  necktie_url:  "http://88.146.49.119"
   necktie_api:  "/app_dev.php/rabbitmq/results"
