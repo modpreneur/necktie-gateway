@@ -2,8 +2,8 @@
 parameters:
   rabbit_url: 88.146.49.119
   rabbit_port: 5672
-  rabbit_user:  guest
-  rabbit_password: guest
+  rabbit_user:  necktie_3579e8eebbfe38627597d57c79826097408d5c9e012cd21a792c3360a4073251
+  rabbit_password: b1d237e227dee2ae7544fdad33d3970f06a82914a271b79a8d2e178cec84465e
   rabbit_vhost: "/"
 
   database_driver:   pdo_mysql
