@@ -1,12 +1,13 @@
-FROM modpreneur/necktie
+FROM modpreneur/apache-framework:0.9
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
 
 RUN  apt-get install python-setuptools -y \
   && easy_install supervisor
 
-# Install app
 ADD . /var/app
+
+RUN composer install --no-dev --optimize-autoloader --no-scripts --prefer-dist --no-interaction
 
 EXPOSE 80 8666 9005
 

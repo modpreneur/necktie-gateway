@@ -1,0 +1,26 @@
+version: '2'
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - mysql_database:mysql_database
+    ports:
+      - "9608:9608"
+      - "9005:9005"
+      - "8666:8666"
+      - "9080:80"
+    expose:
+      - "9608"
+      - "9005"
+      - "8666"
+      - "9080"
+    volumes:
+      - .:/var/app
+
+
+  mysql_database:
+    extends:
+      file: docker-compose.yml
+      service: mysql_database
