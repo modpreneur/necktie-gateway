@@ -1,4 +1,4 @@
-FROM modpreneur/apache-framework:0.7
+FROM modpreneur/necktie
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
 
