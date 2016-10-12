@@ -63,16 +63,17 @@ class ApiGateway
 
         $request = new Request($method, $url, $header, json_encode($body));
         $client  = $this->getClient();
+        $datetime = (new \DateTime())->format(DATE_W3C);
+
 
         try {
-
             $response = $client->send($request, [
                 'verify' => false,
             ]);
 
         } catch (\Exception $ex) {
 
-            echo 'API[ERROR] ('.$url.'):' . $ex->getMessage() . PHP_EOL;
+            echo 'API[ERROR][' . $datetime .'][' . $method . '] ('.$url.'):' . $ex->getMessage() . PHP_EOL;
 
             return [
                 'status'   => 'error',
@@ -83,7 +84,7 @@ class ApiGateway
             ];
         }
 
-        echo 'API[OK] ('.$url.')' . PHP_EOL;
+        echo 'API[OK][' . $datetime .'][' . $method . '] ('.$url.')' . PHP_EOL;
 
         return [
             'status'   => 'ok',
