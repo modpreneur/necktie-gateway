@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ..
+cd /var/app
 composer update
 
 /var/app/bin/console doctrine:schema:update --force
