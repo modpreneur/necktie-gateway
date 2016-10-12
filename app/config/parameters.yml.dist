@@ -14,3 +14,5 @@ parameters:
 
   necktie_url:  "http://88.146.49.119"
   necktie_api:  "/app_dev.php/rabbitmq/results"
+
+  secret: secret
