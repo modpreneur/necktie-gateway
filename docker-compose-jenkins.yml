@@ -20,7 +20,7 @@ services:
       - .:/var/app
 
     external_links:
-      - rabbit_mq:rabbit_mq
+      - necktietests_rabbit_mq_1:rabbit_mq
 
 
   mysql_database:
@@ -34,6 +34,7 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pass
       - MYSQL_ROOT_PASSWORD=pass
+
 
 networks:
   default:

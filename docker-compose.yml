@@ -20,7 +20,7 @@ services:
       - .:/var/app
 
     external_links:
-      - rabbit_mq:rabbit_mq
+      - necktie_rabbit_mq_1:rabbit_mq
 
 
   mysql_database:
