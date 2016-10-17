@@ -73,7 +73,7 @@ class HTTPProcessor extends BaseProcessor
 
             if ($response['status'] == 'error') {
                 echo $response['response'] . PHP_EOL;
-                $this->logger->addError($response);
+                $this->logger->addRecord($response);
                 throw new \RuntimeException($response['response']);
             }
 
@@ -94,7 +94,7 @@ class HTTPProcessor extends BaseProcessor
                 'attributes' => $attributes
             ];
 
-            $this->logger->addError($error, 500);
+            $this->logger->addRecord($error, 500);
             return $error;
         }
     }
