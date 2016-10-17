@@ -19,6 +19,9 @@ services:
     volumes:
       - .:/var/app
 
+    external_links:
+      - rabbit_mq:rabbit_mq
+
 
   mysql_database:
     image: mysql
@@ -32,3 +35,7 @@ services:
       - MYSQL_PASSWORD=pass
       - MYSQL_ROOT_PASSWORD=pass
 
+networks:
+  default:
+    external:
+      name: necktie_default
