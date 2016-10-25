@@ -1,4 +1,4 @@
-FROM modpreneur/apache-framework:0.9
+FROM modpreneur/apache-framework:1.0
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
 
