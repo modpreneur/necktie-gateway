@@ -1,4 +1,4 @@
-FROM modpreneur/necktie-dev
+FROM modpreneur/necktie-dev:1.0.16
 
 MAINTAINER Tomáš Jančar <jancar@modpreneur.com>
 
@@ -13,7 +13,6 @@ RUN echo "export PHP_IDE_CONFIG=\"serverName=necktie.gateway\"" >> /etc/bash.bas
 
 EXPOSE 8666
 EXPOSE 9005
-
 
 # terminal env for nano
 ENV TERM xterm
