@@ -30,7 +30,8 @@ class HTTPProcessor extends BaseProcessor
     }
 
 
-    public function process(array $message = []){
+    public function process(array $message = [])
+    {
 
         if (isset($message['header'])) {
             $header = $message['header'];
@@ -57,7 +58,6 @@ class HTTPProcessor extends BaseProcessor
         }
 
         try {
-
             $response = $this
                 ->gateway
                 ->request(
@@ -85,7 +85,6 @@ class HTTPProcessor extends BaseProcessor
                 'attributes' => $attributes
             ];
         } catch (Exception $ex) {
-
             $error =  [
                 'status'     => 'error',
                 'response'   => $ex->getMessage(),

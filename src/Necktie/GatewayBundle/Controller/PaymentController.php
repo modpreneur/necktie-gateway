@@ -33,9 +33,52 @@ class PaymentController extends Controller
             'paySystem' => $paySystem,
             'method'  => $request->getMethod(), // should be only POST
         ];
-        $this->get('payment.producer')->publish(
-            serialize($content)
-        );
+
+        $message = [
+            'method' => $request->getMethod(),
+            'url' => '',
+            'header' => '',
+            'body' => $content,
+            'tag' => '',
+            'attributes' => ''
+
+        ];
+
+        switch ($vendor) {
+            case 'v1':
+                $message['url'] = 'abc';
+                $this->get('payment_redirect.producer')->publish(
+                    serialize($message)
+                );
+                break;
+            case 'v2':
+                $message['url'] = 'abc1';
+                $this->get('payment_redirect.producer')->publish(
+                    serialize($message)
+                );
+                $message['url'] = 'abc2';
+                $this->get('payment_redirect.producer')->publish(
+                    serialize($message)
+                );
+                break;
+            case 'v3':
+                $message['url'] = 'abc3';
+                $this->get('payment_redirect.producer')->publish(
+                    serialize($message)
+                );
+                $message['url'] = 'abc4';
+                $this->get('payment_redirect.producer')->publish(
+                    serialize($message)
+                );
+                $message['url'] = 'abc5';
+                $this->get('payment_redirect.producer')->publish(
+                    serialize($message)
+                );
+                break;
+        }
+//        $this->get('payment.producer')->publish(
+//            serialize($content)
+//        );
         return $this->json(['message' => 'OK'], 200);
     }
 }

@@ -30,6 +30,7 @@ doctrine:
         dbname:   %database_name%
         user:     %database_user%
         password: %database_password%
+        unix_socket: "/Applications/MAMP/tmp/mysql/mysql.sock"
     orm:
         auto_mapping: true
 
@@ -58,6 +59,10 @@ bunny:
         durable: false
         type: direct
 
+      payment_redirect_exchange:
+        durable: true
+        type: direct
+
     queues:
       queue_gateway:
         durable: false
@@ -70,6 +75,11 @@ bunny:
           - exchange: necktie_exchange
 
       queue_payment:
+          durable: true
+          bindings:
+            - exchange: payment_exchange
+
+      queue_payment_redirect:
           durable: true
           bindings:
             - exchange: payment_exchange

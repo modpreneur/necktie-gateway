@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: pocitacapple
+ * Date: 12/12/16
+ * Time: 14:22
+ */
 
 namespace Necktie\GatewayBundle\Producer;
 
@@ -7,11 +13,11 @@ use Trinity\Bundle\BunnyBundle\Annotation\Producer;
 
 /**
  * @Producer(
- *     exchange="payment_exchange",
+ *     exchange="payment_redirect_exchange",
  *     contentType="application/json"
  * )
  */
-class PaymentProducer extends AbstractProducer
+class PaymentRedirectProducer extends AbstractProducer
 {
 
 }

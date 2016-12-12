@@ -31,6 +31,10 @@ services:
         class: Necktie\GatewayBundle\Producer\PaymentProducer
 
 
+    payment_redirect.producer:
+        class: Necktie\GatewayBundle\Producer\PaymentRedirectProducer
+
+
     ### proxy
     gw.proxy.producer:
         class: Necktie\GatewayBundle\Proxy\ProducerProxy
