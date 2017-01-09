@@ -1,6 +1,7 @@
 version: '2'
 services:
   gateway:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -21,6 +22,7 @@ services:
 
 
   mysql_database:
+    restart: always
     extends:
       file: docker-compose.yml
       service: mysql_database
