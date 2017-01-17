@@ -6,6 +6,7 @@ services:
       dockerfile: docker/dev/Dockerfile
     links:
       - mysql_database:mysql_database
+      - rabbit_mq
     ports:
       - "9608:9608"
       - "9005:9005"
@@ -19,8 +20,8 @@ services:
     volumes:
       - .:/var/app
 
-    external_links:
-      - necktie_rabbit_mq_1:rabbit_mq
+#    external_links:
+#      - necktie_rabbit_mq_1:rabbit_mq
 
 
   mysql_database:
@@ -35,7 +36,16 @@ services:
       - MYSQL_PASSWORD=pass
       - MYSQL_ROOT_PASSWORD=pass
 
-networks:
-  default:
-    external:
-      name: necktie_default
+
+  rabbit_mq:
+    build:
+        context: ./docker/rabbitMQ/
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+
+#networks:
+#  default:
+#    external:
+#      name: necktie_default

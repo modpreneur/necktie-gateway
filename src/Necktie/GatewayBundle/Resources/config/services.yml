@@ -64,6 +64,9 @@ services:
         calls:
             - [ addProcessor, ['@gw.processor.http'] ]
             - [ addProcessor, ['@gw.processor.aweber'] ]
+            - [ addProcessor, ['@gw.processor.httpcheck'] ]
+
+
 
 
     gw.message.listener:
@@ -87,4 +90,9 @@ services:
       arguments:
         - "@gw.logger"
 
-
+    gw.processor.httpcheck:
+      class: Necktie\GatewayBundle\Gateway\RequestProcessor\HTTPCheckProcessor
+      arguments:
+        - "@doctrine.orm.entity_manager"
+        - "@gw.api"
+        - "@gw.logger"

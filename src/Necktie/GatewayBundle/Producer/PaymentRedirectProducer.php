@@ -13,7 +13,7 @@ use Trinity\Bundle\BunnyBundle\Annotation\Producer;
 
 /**
  * @Producer(
- *     exchange="payment_redirect_exchange",
+ *     exchange="gateway_exchange",
  *     contentType="application/json"
  * )
  */

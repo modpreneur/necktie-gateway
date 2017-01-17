@@ -82,6 +82,6 @@ bunny:
       queue_payment_redirect:
           durable: true
           bindings:
-            - exchange: payment_exchange
+            - exchange: payment_redirect_exchange
 
 services:

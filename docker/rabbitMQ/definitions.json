@@ -1,0 +1,56 @@
+{
+  "bindings": [],
+  "exchanges": [],
+  "parameters": [],
+  "permissions": [
+    {
+      "configure": ".*",
+      "read": ".*",
+      "user": "admin_009494ffbe4f02380e72c0f4dc422aefb3cc91989e5d0f457ed974e9ce6645a9",
+      "vhost": "/",
+      "write": ".*"
+    },
+    {
+      "configure": ".*",
+      "read": ".*",
+      "user": "venice_8d1ded86c2a9865b3fa72e3e859a23021447cfb67984d6ab363a6cf9bdf7d836",
+      "vhost": "/",
+      "write": ".*"
+    },
+    {
+      "configure": ".*",
+      "read": ".*",
+      "user": "necktie_3579e8eebbfe38627597d57c79826097408d5c9e012cd21a792c3360a4073251",
+      "vhost": "/",
+      "write": ".*"
+    }
+  ],
+  "policies": [],
+  "queues": [],
+  "rabbit_version": "3.6.5",
+  "users": [
+    {
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "name": "necktie_3579e8eebbfe38627597d57c79826097408d5c9e012cd21a792c3360a4073251",
+      "password_hash": "99l4aGPdQTQwStAbXdYKwMjcM9K/NWS72ea1erxxZKQ9Cm2T",
+      "tags": "management"
+    },
+    {
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "name": "venice_8d1ded86c2a9865b3fa72e3e859a23021447cfb67984d6ab363a6cf9bdf7d836",
+      "password_hash": "TtYljozR6nPBKZlESMpwOQdvxniDVbS7wRFVj5aCOh0We+y7",
+      "tags": ""
+    },
+    {
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "name": "admin_009494ffbe4f02380e72c0f4dc422aefb3cc91989e5d0f457ed974e9ce6645a9",
+      "password_hash": "6qsmzRxvpzz4vTndtWxbOKWzVy6Ox0PvAea5Srdr41NpqI5g",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ]
+}

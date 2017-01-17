@@ -2,6 +2,10 @@
 
 namespace Necktie\GatewayBundle\Controller;
 
+use Necktie\GatewayBundle\Entity\Ipn;
+use Necktie\GatewayBundle\Entity\VendorIpn;
+use Necktie\GatewayBundle\Entity\VendorUrl;
+use OAuth\Common\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,54 +35,47 @@ class PaymentController extends Controller
             'vendor'  => $vendor,
             'notificationType' => $type,    //ipn or webhook
             'paySystem' => $paySystem,
-            'method'  => $request->getMethod(), // should be only POST
+//            'method'  => $request->getMethod(), // should be only POST
+            'method'  => 'POST', // should be only POST
         ];
 
-        $message = [
-            'method' => $request->getMethod(),
-            'url' => '',
-            'header' => '',
-            'body' => $content,
-            'tag' => '',
-            'attributes' => ''
+        $em = $this->getDoctrine()->getManager();
+        $ipn = new Ipn($request->getContent());
+        $em->persist($ipn);
+        $em->flush();
 
-        ];
 
-        switch ($vendor) {
-            case 'v1':
-                $message['url'] = 'abc';
-                $this->get('payment_redirect.producer')->publish(
-                    serialize($message)
-                );
-                break;
-            case 'v2':
-                $message['url'] = 'abc1';
-                $this->get('payment_redirect.producer')->publish(
-                    serialize($message)
-                );
-                $message['url'] = 'abc2';
-                $this->get('payment_redirect.producer')->publish(
-                    serialize($message)
-                );
-                break;
-            case 'v3':
-                $message['url'] = 'abc3';
-                $this->get('payment_redirect.producer')->publish(
-                    serialize($message)
-                );
-                $message['url'] = 'abc4';
-                $this->get('payment_redirect.producer')->publish(
-                    serialize($message)
-                );
-                $message['url'] = 'abc5';
-                $this->get('payment_redirect.producer')->publish(
-                    serialize($message)
-                );
-                break;
+        $this->getDoctrine()->getManager();
+        $vendorUrls = $em->getRepository('GatewayBundle:VendorUrl')->findBy(
+            ['vendor' => $vendor],
+            ['priority' => 'DESC']
+        );
+//        $vendorUrls = $em->getRepository('GatewayBundle:VendorUrl')->findAll();
+//        dump($vendorUrls);
+        $this->get('gw.message.processor')->addProcessor($this->get('gw.processor.httpcheck'));
+        /** @var VendorUrl $vendorUrl */
+        foreach ($vendorUrls as $vendorUrl) {
+            $vendorIpn = new VendorIpn($vendorUrl, $ipn);
+            $em->persist($vendorIpn);
+            $em->flush();
+
+            $message = [
+                'method' => 'POST',
+//            'method'  => $request->getMethod(), // should be only POST,
+                'url' => $vendorUrl->getUrl(),
+                'header' => [],
+                'body' => $content,
+                'tag' => '',
+                'attributes' => ['vendorIpnId' => $vendorIpn->getId()],
+                'processorName' => 'HTTPCheckProcessor'
+            ];
+            $this->get('payment_redirect.producer')->publish(
+                serialize($message)
+            );
+
         }
-//        $this->get('payment.producer')->publish(
-//            serialize($content)
-//        );
-        return $this->json(['message' => 'OK'], 200);
+
+        return $this->json(['message' => 'OK '], 200);
+//        return $this->json($message, 200);
     }
 }

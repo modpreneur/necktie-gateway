@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Necktie\GatewayBundle\Event\MessageEvent;
 use Necktie\GatewayBundle\Gateway\ApiGateway;
 use Necktie\GatewayBundle\Gateway\RequestProcessor\BaseProcessor;
+use Necktie\GatewayBundle\Gateway\RequestProcessor\HTTPCheckProcessor;
 use Necktie\GatewayBundle\Logger\Logger;
 use Necktie\GatewayBundle\Proxy\ProducerProxy;
 
@@ -64,7 +65,6 @@ class MessageProcessor
     protected function execute(array $message)
     {
         $processor = null;
-
         if(array_key_exists('processorName', $message)){
             /** @var BaseProcessor $processor */
             $processor = $this->processors[$message['processorName']];
@@ -72,8 +72,13 @@ class MessageProcessor
             $processor = $this->processors['HTTPProcessor'];
         }
 
+
+
         $response = $processor->process($message);
-        $this->producer->publish(serialize($response), 'necktie');
+        $this->logger->addRecord($error, 209);
+        if ($response['status'] === 'error' && array_key_exists('repeat', $response) && $response['repeat'] === true) {
+            $this->producer->publish(serialize($message), 'paymentredirect');
+       }
     }
 
 }
