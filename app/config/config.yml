@@ -35,7 +35,6 @@ doctrine:
         auto_mapping: true
 
 
-
 bunny:
     host:     "%rabbit_url%"           # default: 127.0.0.1
     port:     "%rabbit_port%"          # default: 5672
@@ -49,7 +48,7 @@ bunny:
     exchanges:
       gateway_exchange:
         durable: true
-        type: topic
+        type: fanout
 
       necktie_exchange:
         durable: false
@@ -61,13 +60,15 @@ bunny:
 
       payment_redirect_exchange:
         durable: true
-        type: direct
+        type: fanout
 
     queues:
       queue_gateway:
-        durable: false
+        durable: true
         bindings:
           - exchange: gateway_exchange
+        arguments:
+          x-dead-letter-exchange : 'payment_redirect_exchange' # Exchange used to transfer the message from A to B.
 
       queue_necktie:
         durable: true
@@ -75,13 +76,16 @@ bunny:
           - exchange: necktie_exchange
 
       queue_payment:
-          durable: true
-          bindings:
-            - exchange: payment_exchange
+        durable: true
+        bindings:
+          - exchange: payment_exchange
 
-      queue_payment_redirect:
-          durable: true
-          bindings:
-            - exchange: payment_redirect_exchange
+      queue_payment_redirect_delay:
+        durable: true
+        bindings:
+          - exchange: payment_redirect_exchange
+        arguments:
+          x-message-ttl : 30000 # Delay until the message is transferred in milliseconds.
+          x-dead-letter-exchange : 'gateway_exchange' # Exchange used to transfer the message from A to B.
 
 services:

@@ -72,12 +72,11 @@ class MessageProcessor
             $processor = $this->processors['HTTPProcessor'];
         }
 
-
-
         $response = $processor->process($message);
-        $this->logger->addRecord($error, 209);
+
         if ($response['status'] === 'error' && array_key_exists('repeat', $response) && $response['repeat'] === true) {
-            $this->producer->publish(serialize($message), 'paymentredirect');
+            throw new \RuntimeException();
+//            $this->producer->publish(serialize($message), 'paymentredirect');
        }
     }
 

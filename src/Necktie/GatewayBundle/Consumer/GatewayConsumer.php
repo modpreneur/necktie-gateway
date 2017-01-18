@@ -58,19 +58,22 @@ class GatewayConsumer
         try{
             $this->errors = 0;
 
-            $channel->ack($bunnyMessage);
+            echo "KOKOS JE 1<br>\n";
+            sleep(5);
             $this->consumerProxy->handleMessage(self::QUEUE_NAME, $message, $bunnyMessage->deliveryTag);
+            $channel->ack($bunnyMessage);
+            echo "KOKOS JE 3<br>\n\n";
         }catch (\Exception $ex){
-            $this->errors++;
-
+//            $this->errors++;
+            echo "KOKOS JE SPATNY<br>\n\n";
             echo $ex->getMessage();
 
-            if ($this->errors > $this->maxRepeat) {
-                $channel->reject($bunnyMessage);
-                return;
-            }
+//            if ($this->errors > $this->maxRepeat) {
+//                $channel->reject($bunnyMessage);
+//                return;
+//            }
 
-            $channel->nack($bunnyMessage);
+            $channel->nack($bunnyMessage, false, false);
         }
     }
 }
