@@ -62,6 +62,10 @@ bunny:
         durable: true
         type: fanout
 
+      decrypt_exchange:
+        durable: true
+        type: fanout
+
     queues:
       queue_gateway:
         durable: true
@@ -87,5 +91,10 @@ bunny:
         arguments:
           x-message-ttl : 30000 # Delay until the message is transferred in milliseconds.
           x-dead-letter-exchange : 'gateway_exchange' # Exchange used to transfer the message from A to B.
+
+      queue_decrypt:
+        durable: true
+        bindings:
+          - exchange: decrypt_exchange
 
 services:

@@ -1,7 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: polki
+ * Date: 20.1.17
+ * Time: 11:14
+ */
 
 namespace Necktie\GatewayBundle\Consumer;
-
 use Bunny\Client;
 use Bunny\Channel;
 use Bunny\Message as BunnyMessage;
@@ -10,16 +15,15 @@ use Trinity\Bundle\BunnyBundle\Annotation\Consumer;
 
 /**
  * @Consumer(
- *     queue="queue_gateway",
- *     maxMessages=100,
+ *     queue="queue_decrypt",
+ *     maxMessages=1000,
  *     maxSeconds=3600.0,
  *     prefetchCount=1
  * )
  */
-class GatewayConsumer
+class DecryptConsumer
 {
-
-    const QUEUE_NAME = 'queue_gateway';
+    const QUEUE_NAME = 'queue_decrypt';
 
     /**
      * @var ConsumerProxy
@@ -61,7 +65,8 @@ class GatewayConsumer
 
         } catch (\Exception $ex) {
             echo $ex->getMessage();
-            $channel->nack($bunnyMessage, false, false);
+            $channel->nack($bunnyMessage, false, true);
         }
     }
+
 }

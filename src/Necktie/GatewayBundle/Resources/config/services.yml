@@ -23,6 +23,11 @@ services:
           - "@gw.proxy.consumer"
 
 
+    decrypt.consumer:
+        class: Necktie\GatewayBundle\Consumer\DecryptConsumer
+        arguments:
+          - "@gw.proxy.consumer"
+
     gw.producer:
         class: Necktie\GatewayBundle\Producer\NecktieProducer
 
@@ -33,6 +38,9 @@ services:
 
     payment_redirect.producer:
         class: Necktie\GatewayBundle\Producer\PaymentRedirectProducer
+
+    decrypt.producer:
+        class: Necktie\GatewayBundle\Producer\DecryptProducer
 
 
     ### proxy
@@ -65,8 +73,7 @@ services:
             - [ addProcessor, ['@gw.processor.http'] ]
             - [ addProcessor, ['@gw.processor.aweber'] ]
             - [ addProcessor, ['@gw.processor.httpcheck'] ]
-
-
+            - [ addProcessor, ['@gw.processor.decrypt'] ]
 
 
     gw.message.listener:
@@ -92,6 +99,13 @@ services:
 
     gw.processor.httpcheck:
       class: Necktie\GatewayBundle\Gateway\RequestProcessor\HTTPCheckProcessor
+      arguments:
+        - "@doctrine.orm.entity_manager"
+        - "@gw.api"
+        - "@gw.logger"
+
+    gw.processor.decrypt:
+      class: Necktie\GatewayBundle\Gateway\RequestProcessor\DecryptProcessor
       arguments:
         - "@doctrine.orm.entity_manager"
         - "@gw.api"
