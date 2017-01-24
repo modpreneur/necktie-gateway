@@ -72,14 +72,6 @@ class MessageProcessor
             $processor = $this->processors['HTTPProcessor'];
         }
 
-//        echo "BABABAB";
-//        $error =  [
-//            'status'     => 'error',
-//            'url'        => 'http: '.$message['processorName']
-//        ];
-//
-//        $this->logger->addRecord($error, 280);
-
         $response = $processor->process($message);
 
         if ($response['status'] === 'error' && array_key_exists('repeat', $response) && $response['repeat'] === true) {
