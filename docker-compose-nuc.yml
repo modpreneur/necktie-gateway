@@ -36,4 +36,3 @@ services:
     extends:
       file: docker-compose.yml
       service: mysql
-
