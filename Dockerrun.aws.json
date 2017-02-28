@@ -1,0 +1,62 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "php-app",
+      "host": {
+        "sourcePath": "/var/app/current"
+      }
+    },
+    {
+      "name": "nginx-logs",
+      "host": {
+        "sourcePath": "/var/app/current/logs"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "php_fpm",
+      "image": "modpreneur/necktie-fpm:0.6",
+      "entryPoint": ["sh", "./entrypoint.sh"],
+      "essential": true,
+      "memory": 768,
+      "mountPoints": [
+        {
+          "sourceVolume": "php-app",
+          "containerPath": "/var/app"
+        },
+        {
+          "sourceVolume": "awseb-logs-php_fpm",
+          "containerPath": "/var/log/sample-app"
+        }
+      ]
+    },
+    {
+      "name": "nginx-proxy",
+      "image": "modpreneur/necktie-nginx:0.3",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "php_fpm"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "php-app",
+          "containerPath": "/var/app",
+          "readOnly": true
+        },
+        {
+          "sourceVolume": "awseb-logs-nginx-proxy",
+          "containerPath": "/var/log/nginx"
+        }
+      ]
+    }
+  ]
+}

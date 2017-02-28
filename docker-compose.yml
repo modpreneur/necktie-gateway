@@ -1,30 +1,41 @@
 version: '2'
 services:
-  gateway:
+
+
+  php_fpm:
     build:
       context: .
-      dockerfile: docker/dev/Dockerfile
+      dockerfile: docker/phpFpm/dev/Dockerfile
+    env_file: docker/.env
     links:
-      - mysql_database:mysql_database
+      - mysql:mysql
     ports:
-      - "9608:9608"
-      - "9005:9005"
-      - "8666:8666"
-      - "9080:80"
+      #php-fpm
+      - "9091:9090"
+      #supervisor
+      - "9005:9055"
     expose:
-      - "9608"
       - "9005"
-      - "8666"
-      - "9080"
     volumes:
       - .:/var/app
-
     external_links:
       - necktie_rabbit_mq_1:rabbit_mq
 
 
-  mysql_database:
-    image: mysql
+  nginx:
+        image: modpreneur/necktie-nginx-dev:0.3
+        ports:
+            - 9080:80
+        links:
+            - php_fpm
+        volumes_from:
+            - php_fpm
+        volumes:
+          - ./logs/nginx/:/var/log/nginx
+
+
+  mysql:
+    image: mysql/mysql-server
     ports:
       - "3307:3306"
     expose:
@@ -34,6 +45,7 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pass
       - MYSQL_ROOT_PASSWORD=pass
+
 
 networks:
   default:

@@ -1,0 +1,134 @@
+version: '2'
+
+services:
+
+php_fpm:
+    build:
+      context: .
+      dockerfile: docker/phpFpm/dev/Dockerfile
+    env_file: docker/.env
+    links:
+#      - mysql:mysql
+      - postgres:database
+      - redis
+      - rabbit_mq
+      - elasticsearch
+      - electron_render_service
+      - mail_dev
+    ports:
+      #php-fpm
+      - "9090:9090"
+      #supervisor
+      - "9002:9002"
+      #livJs
+      - "3001:3001"
+    expose:
+      - "9002"
+      - "3001"
+    external_links:
+      - necktiegateway_gateway_1:gateway
+    volumes:
+      - .:/var/app
+      - /Volumes/RAM_Disk:/var/app/var/cache
+    environment:
+      - GLOB_RUN_NPM=true
+
+
+  nginx:
+        image: modpreneur/necktie-nginx-dev:0.3
+        ports:
+            - 80:80
+        links:
+            - php_fpm
+        volumes_from:
+            - php_fpm
+        volumes:
+          - ./logs/nginx/:/var/log/nginx
+
+#  web:
+#    build:
+#      context: .
+#      dockerfile: docker/dev/Dockerfile
+#    ports:
+#      - "80:80"
+#      - "9002:9002"
+#    expose:
+#      - "8000"
+#      - "9002"
+#    links:
+#      - postgres:database
+#      - redis
+#      - rabbit_mq
+#      - elasticsearch
+#      - electron_render_service
+#      - mail_dev
+#    external_links:
+#      - necktiegateway_gateway_1:gateway
+#    volumes:
+#      - .:/var/app
+#      - /Volumes/RAM_Disk:/var/app/var/cache
+#    environment:
+#      - GLOB_RUN_NPM=true
+
+
+  elasticsearch:
+    extends:
+      file: docker-compose.yml
+      service: elasticsearch
+
+
+  redis:
+    extends:
+      file: docker-compose.yml
+      service: redis
+
+
+  postgres:
+    extends:
+      file: docker-compose.yml
+      service: postgres
+
+
+  rabbit_mq:
+    extends:
+      file: docker-compose.yml
+      service: rabbit_mq
+
+
+  electron_render_service:
+    extends:
+      file: docker-compose.yml
+      service: electron_render_service
+
+
+  mail_dev:
+      extends:
+        file: docker-compose.yml
+        service: mail_dev
+
+
+#  blackfire:
+#      extends:
+#        file: docker-compose.yml
+#        service: blackfire
+
+
+#  hub:
+#    image: selenium/hub
+#    ports:
+#      - 4444:4444
+
+
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+        - 5900
+        - 5901
+        - 49160
+    privileged: true
+    links:
+        - hub:hub
+        - web
+    shm_size: 1g
+
+

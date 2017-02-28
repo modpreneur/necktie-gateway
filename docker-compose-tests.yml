@@ -1,29 +1,26 @@
 version: '2'
-
 services:
 
   php_fpm:
-    restart: always
-    build:
-      context: .
-      dockerfile: docker/phpFpm/nuc/Dockerfile
+    image: modpreneur/necktie-fpm-test:0.7
     links:
       - mysql:mysql
     ports:
       #php-fpm
-      - "9091:9090"
+      - "9080:80"
       #supervisor
       - "9005:9005"
     expose:
-      - "9005"
+      - "9002"
     volumes:
       - .:/var/app
+    external_links:
+      - necktietests_rabbit_mq_1:rabbit_mq
 
   nginx:
-    restart: always
     image: modpreneur/necktie-nginx:0.3
     ports:
-        - 9080:80
+        - 8000:80
     links:
         - php_fpm
     volumes_from:
@@ -32,8 +29,11 @@ services:
       - ./logs/nginx/:/var/log/nginx
 
   mysql:
-    restart: always
     extends:
       file: docker-compose.yml
       service: mysql
 
+networks:
+  default:
+    external:
+      name: necktietests_default

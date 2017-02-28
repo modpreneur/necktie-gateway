@@ -7,7 +7,7 @@ parameters:
   rabbit_vhost: /
 
   database_driver:   pdo_mysql
-  database_host:     mysql_database
+  database_host:     mysql
   database_name:     gateway
   database_user:     user
   database_password: pass

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "414292603a3a22be329c3114f1c1a6d5",
-    "content-hash": "7b650119422c201e01d2a4ddb9d28645",
+    "hash": "7604ef26d890dff98fc4a86ea8a7120c",
+    "content-hash": "34a25daa0e6ac4c2c8398b1b5f4c06a5",
     "packages": [
         {
             "name": "aweber/aweber",

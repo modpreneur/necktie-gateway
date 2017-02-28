@@ -29,12 +29,8 @@
     }
   ],
   "autoload": {
-    "files": [
-      "app/AppKernel.php"
-    ],
-    "psr-4": {
-      "": "src"
-    },
+    "files": ["app/AppKernel.php"],
+    "psr-4": {"Necktie\\GatewayBundle\\": "src/Necktie/GatewayBundle/"},
     "classmap": ["src", "vendor/aweber"],
     "exclude-from-classmap": [
       "/Tests/"
