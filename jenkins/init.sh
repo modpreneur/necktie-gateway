@@ -13,6 +13,9 @@ chown -R www-data:www-data /var/app/var/logs
 chown -R www-data:www-data /var/app/var/cache
 chmod -R 777 /var/app/var/cache
 
+#wait for supervisor to run
+sleep 5
+
 mkdir /var/app/build
 /var/app/bin/phpunit -c /var/app/phpunit.xml /var/app/src --log-junit /var/app/build/phpunit.xml
 
