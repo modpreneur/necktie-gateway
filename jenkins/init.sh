@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /var/app
-composer update
+composer install
 
 /var/app/bin/console doctrine:schema:update --force
 
