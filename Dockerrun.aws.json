@@ -21,6 +21,12 @@
       "entryPoint": ["sh", "./entrypoint.sh"],
       "essential": true,
       "memory": 768,
+      "portMappings": [
+        {
+          "hostPort": 9005,
+          "containerPort": 9005
+        }
+      ],
       "mountPoints": [
         {
           "sourceVolume": "php-app",

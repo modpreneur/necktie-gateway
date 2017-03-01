@@ -17,4 +17,3 @@ rm docker-compose-nuc.yml
 rm phpunit.xml
 rm -R jenkins
 rm -R tests/
-
