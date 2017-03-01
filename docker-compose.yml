@@ -1,7 +1,6 @@
 version: '2'
 services:
 
-
   php_fpm:
     build:
       context: .
@@ -23,15 +22,15 @@ services:
 
 
   nginx:
-        image: modpreneur/necktie-nginx-dev:0.3
-        ports:
-            - 9080:80
-        links:
-            - php_fpm
-        volumes_from:
-            - php_fpm
-        volumes:
-          - ./logs/nginx/:/var/log/nginx
+    image: modpreneur/necktie-nginx-dev:0.3
+    ports:
+        - 9080:80
+    links:
+        - php_fpm
+    volumes_from:
+        - php_fpm
+    volumes:
+      - ./logs/nginx/:/var/log/nginx
 
 
   mysql:

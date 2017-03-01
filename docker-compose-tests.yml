@@ -7,7 +7,7 @@ services:
       - mysql:mysql
     ports:
       #php-fpm
-      - "9080:80"
+      - "9091:9090"
       #supervisor
       - "9005:9005"
     expose:
@@ -20,7 +20,6 @@ services:
   nginx:
     image: modpreneur/necktie-nginx:0.3
     ports:
-    #this port number is required by necktie tests, if changed change parameters.yml.dist on Necktie
         - 9080:80
     links:
         - php_fpm
