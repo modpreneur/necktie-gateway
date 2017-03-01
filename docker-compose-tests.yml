@@ -11,7 +11,7 @@ services:
       #supervisor
       - "9005:9005"
     expose:
-      - 9003:9002
+      - 9005
     volumes:
       - .:/var/app
     external_links:
