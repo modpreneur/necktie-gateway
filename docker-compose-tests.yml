@@ -20,7 +20,8 @@ services:
   nginx:
     image: modpreneur/necktie-nginx:0.3
     ports:
-        - 8008:80
+    #this port number is required by necktie tests, if changed change parameters.yml.dist on Necktie
+        - 9080:80
     links:
         - php_fpm
     volumes_from:

@@ -13,7 +13,7 @@ chown -R www-data:www-data /var/app/var/logs
 chown -R www-data:www-data /var/app/var/cache
 chmod -R 777 /var/app/var/cache
 
-#wait for supervisor to run
+#wait for supervisor to start (tests result in error "expected RUNNING, got STARTING instead" otherwise)
 sleep 5
 
 mkdir /var/app/build
