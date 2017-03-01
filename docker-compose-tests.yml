@@ -11,7 +11,7 @@ services:
       #supervisor
       - "9005:9005"
     expose:
-      - "9002"
+      - 9003:9002
     volumes:
       - .:/var/app
     external_links:
@@ -20,7 +20,7 @@ services:
   nginx:
     image: modpreneur/necktie-nginx:0.3
     ports:
-        - 8000:80
+        - 8008:80
     links:
         - php_fpm
     volumes_from:
