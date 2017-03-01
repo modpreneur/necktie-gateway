@@ -12,7 +12,7 @@ services:
       #php-fpm
       - "9091:9090"
       #supervisor
-      - "9005:9055"
+      - "9005:9005"
     expose:
       - "9005"
     volumes:
