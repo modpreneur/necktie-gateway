@@ -6,7 +6,9 @@ mkdir -p /var/app/var/logs/supervisord
 
 composer install
 
-ENV=dev supervisord -c /var/app/supervisor/supervisord.conf
+pkill python
+ENV=test supervisord -c /var/app/supervisor/supervisord.conf
+sleep 2
 supervisorctl -c /var/app/supervisor/supervisord.conf status
 
 bin/console bunny:setup
