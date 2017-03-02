@@ -27,9 +27,7 @@ class PaymentController extends Controller
      */
     public function indexAction(Request $request, string $paySystem, string $type, string $vendor)
     {
-        var_dump('tu');
         if (0 === strpos($type, self::DEV_TAG)) {
-            var_dump('_jsem_');
             $type = substr($type, strlen(self::DEV_TAG));
             $log = new PaymentLog(
                 $request->getRequestUri(), //contains type, and vendor
