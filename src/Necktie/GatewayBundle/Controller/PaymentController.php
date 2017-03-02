@@ -2,6 +2,7 @@
 
 namespace Necktie\GatewayBundle\Controller;
 
+use Necktie\GatewayBundle\Entity\PaymentLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PaymentController extends Controller
 {
-    
+    const DEV_TAG = 'dev_';
     /**
      * @Route("/{paySystem}/{type}/{vendor}")
      * @param Request $request
@@ -26,6 +27,18 @@ class PaymentController extends Controller
      */
     public function indexAction(Request $request, string $paySystem, string $type, string $vendor)
     {
+        var_dump('tu');
+        if (0 === strpos($type, self::DEV_TAG)) {
+            var_dump('_jsem_');
+            $type = substr($type, strlen(self::DEV_TAG));
+            $log = new PaymentLog(
+                $request->getRequestUri(), //contains type, and vendor
+                $request->getContent()
+            );
+            $this->getDoctrine()->getManager()->persist($log);
+            $this->getDoctrine()->getManager()->flush();
+        }
+
         $content = [
             'content' => $request->getContent(),
             'vendor'  => $vendor,
