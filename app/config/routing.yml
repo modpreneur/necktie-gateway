@@ -4,10 +4,29 @@ gateway:
     defaults:  { _controller: GatewayBundle:Home:index }
 
 
-gateway_restart:
+supervisor_restart:
      path : /restart
      defaults:  { _controller: GatewayBundle:Home:restart }
 
+
+supervisor_stop_process:
+     path : /stop-process/{group}/{name}
+     defaults:  { _controller: GatewayBundle:Home:stopProcess }
+
+
+supervisor_start_process:
+     path : /start-process/{group}/{name}
+     defaults:  { _controller: GatewayBundle:Home:startProcess }
+
+
+supervisor_logs_process:
+     path : /process-logs/{group}/{name}
+     defaults:  { _controller: GatewayBundle:Home:processLogs }
+
+
+supervisor_clean_log_process:
+     path : /process-logs-clean/{group}/{name}
+     defaults:  { _controller: GatewayBundle:Home:cleanLog }
 
 gateway_run:
      path : /run
