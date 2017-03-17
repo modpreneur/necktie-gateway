@@ -3,5 +3,9 @@ imports:
 
 framework:
   test: ~
+  
+parameters:
+  rabbit_url: ci.corp.modpreneur.com
+  rabbit_port: 5679
 
 
