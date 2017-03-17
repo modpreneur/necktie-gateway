@@ -37,7 +37,6 @@
             <table class="table">
                 <tr>
                     <th>Name</th>
-                    <th>Messages</th>
                     <th>Messages ready</th>
                     <th>vhost</th>
                     <th>State</th>
@@ -46,13 +45,12 @@
                 {% for queue in rabbit.getQueues() %}
                     <tr>
                         <td>{{ queue.name }}</td>
-                        <td>{{ queue.messages }}</td>
                         <td>{{ queue.messages_ready }}</td>
                         <td>{{ queue.vhost }}</td>
                         <td>{{ queue.state }}</td>
                     </tr>
                     <tr>
-                        <td colspan="6">
+                        <td colspan="4">
                             <div style="width:100%; word-wrap: break-word; padding-left: 15px;">
                                 {% for message in rabbit.queueMessages[queue.name] %}
                                     <strong>JSON:</strong>
@@ -118,7 +116,6 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Message</th>
                             <th>Delivered at</th>
                             <th>Delivery tag</th>
                         </tr>
@@ -128,9 +125,13 @@
                         {% for message in messages %}
                             <tr>
                                 <td>{{ message.id }}</td>
-                                <td class="json">{{ message.message }}</td>
                                 <td>{{ message.deliveredAt|date('d.m.Y H.i') }}</td>
                                 <td>{{ message.deliveryTag }}</td>
+                            </tr>
+                            <tr>
+                                <td class="json" colspan="3">
+                                    {{ message.message }}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
