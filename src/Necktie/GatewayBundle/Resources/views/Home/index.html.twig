@@ -55,6 +55,7 @@
                         <td colspan="6">
                             <div style="width:100%; word-wrap: break-word; padding-left: 15px;">
                                 {% for message in rabbit.queueMessages[queue.name] %}
+                                    <strong>JSON:</strong>
                                     <div class="json">
                                         {{ message.payload }}
                                     </div>
@@ -128,7 +129,7 @@
                             <tr>
                                 <td>{{ message.id }}</td>
                                 <td class="json">{{ message.message }}</td>
-                                <td>{{ message.deliveredAt|date('d.m.Y H.I') }}</td>
+                                <td>{{ message.deliveredAt|date('d.m.Y H.i') }}</td>
                                 <td>{{ message.deliveryTag }}</td>
                             </tr>
                         {% endfor %}
@@ -142,7 +143,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Log</th>
+                            <th width="30%">Log</th>
                             <th>Level</th>
                             <th>Url</th>
                             <th>Created At</th>
@@ -152,10 +153,10 @@
                         {% for log in systemLogs %}
                             <tr>
                                 <td>{{ log.id }}</td>
-                                <td class="json">{{ log.log }}</td>
+                                <td class="json" style="width: 250px;overflow: hidden;display: block;word-wrap: break-word;">{{ log.log }}</td>
                                 <td>{{ log.level }}</td>
                                 <td>{{ log.url }}</td>
-                                <td>{{ log.createdAt|date('d.m.Y H.I') }}</td>
+                                <td>{{ log.createdAt|date('d.m.Y H.i') }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
