@@ -92,6 +92,7 @@
 
         "rabbit_url": "SYMFONY__RABBIT_URL",
         "rabbit_port": "SYMFONY__RABBIT_PORT",
+        "rabbit_manager_port": "SYMFONY_RABBIT_MANAGER_PORT",
         "rabbit_user": "SYMFONY__RABBIT_USER",
         "rabbit_password": "SYMFONY__RABBIT_PASSWORD",
 
