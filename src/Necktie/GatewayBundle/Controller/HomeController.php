@@ -51,13 +51,17 @@ class HomeController extends Controller
             ->getRepository(SystemLog::class)
             ->findBy([], ['id' => 'desc'], 20);
 
+        $rabbit = $this->get('gw.rabbitmq.reader');
+        $rabbit->process();
+
         return $this->render('GatewayBundle:Home:index.html.twig', [
             'version'    => exec("git rev-parse --verify HEAD"),
             'datetime'   => new \DateTime(),
             'rabbitUrl'  => $this->getParameter('rabbit_url'),
             'supervisorCommands' => $this->getProcesses(),
             'messages'   => $messages,
-            'systemLogs' => $systemLogs
+            'systemLogs' => $systemLogs,
+            'rabbit'     => $rabbit,
         ]);
     }
 

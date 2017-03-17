@@ -27,9 +27,41 @@
                 Server time: <strong>{{ datetime|date('d.m.Y H:i') }}</strong>
             </li>
             <li>
-                Rabbit uri: <strong>rabbit_mq</strong>
+                Rabbit uri: <strong>{{ rabbitUrl }}</strong>
             </li>
         </ul>
+
+        <hr>
+
+        <h4>Rabbit</h4>
+
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Messages</th>
+                <th>Messages ready</th>
+                <th>vhost</th>
+                <th>State</th>
+            </tr>
+
+            {% for queue in rabbit.getQueues() %}
+                <tr>
+                    <td>{{ queue.name }}</td>
+                    <td>{{ queue.messages }}</td>
+                    <td>{{ queue.messages_ready }}</td>
+                    <td>{{ queue.vhost }}</td>
+                    <td>{{ queue.state }}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        {% for message in rabbit.queueMessages[queue.name] %}
+                            {{ dump(message) }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
 
         <hr>
 
@@ -93,6 +125,7 @@
                     {% for message in messages %}
                         <tr>
                             <td>{{ message.id }}</td>
+                            <td>{{ message.message }}</td>
                             <td>{{ message.deliveredAt|date('d.m.Y H.I') }}</td>
                             <td>{{ message.deliveryTag }}</td>
                         </tr>

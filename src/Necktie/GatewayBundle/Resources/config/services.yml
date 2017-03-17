@@ -83,4 +83,12 @@ services:
       arguments:
         - "@gw.logger"
 
+    gw.rabbitmq.reader:
+        class: Necktie\GatewayBundle\Services\RabbitReader
+        arguments:
+              - "%rabbit_url%"
+              - "%rabbit_manager_port%"
+              - "%rabbit_user%"
+              - "%rabbit_password%"
+
 

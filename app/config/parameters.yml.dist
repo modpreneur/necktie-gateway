@@ -16,3 +16,4 @@ parameters:
   necktie_api:  "/app_dev.php/rabbitmq/results"
 
   secret: secret
+  rabbit_manager_port: 15671
