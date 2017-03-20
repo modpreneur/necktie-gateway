@@ -79,7 +79,7 @@ class RabbitReader
 
         try {
             $response = $client->get(
-                $this->url('queues'),
+                $this->url('/queues'),
                 $this->getAuth()
             );
 
@@ -115,7 +115,7 @@ class RabbitReader
     public function hasError()
     {
         try {
-            $this->getClient()->get($this->url(''));
+            $this->getClient()->get($this->url('/'));
         } catch (ConnectException $exception) {
             return true;
         }
@@ -130,7 +130,7 @@ class RabbitReader
     public function getConnectionError()
     {
         try {
-            $this->getClient()->get($this->url(''));
+            $this->getClient()->get($this->url('/'));
         } catch (ConnectException | RequestException $exception) {
             return $exception->getMessage();
         }
@@ -152,7 +152,7 @@ class RabbitReader
 
         $request = new R7(
             'POST',
-            $this->url('queues/%2f/' . $queue . '/get'),
+            $this->url('/queues/%2f/' . $queue . '/get'),
             [
                 'Accept'       => 'application/json',
                 'content-type' => 'application/json',
@@ -177,7 +177,7 @@ class RabbitReader
      */
     private function getEndPoint() : string
     {
-        return 'http://' . $this->rabbitUrl . ':' . $this->rabbitPort . '/api/';
+        return 'http://' . $this->rabbitUrl . ':' . $this->rabbitPort . '/api';
     }
 
 
