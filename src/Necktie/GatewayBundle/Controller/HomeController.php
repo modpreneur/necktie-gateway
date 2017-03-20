@@ -67,6 +67,52 @@ class HomeController extends Controller
 
 
     /**
+     * @return Response
+     */
+    public function rabbitAction()
+    {
+        $rabbit = $this->get('gw.rabbitmq.reader');
+        $rabbit->process();
+
+        return $this->render('@Gateway/Home/rabbitmq.html.twig', [
+            'rabbit'     => $rabbit,
+        ]);
+    }
+
+
+    /**
+     * @return Response
+     */
+    public function supervisorAction()
+    {
+        return $this->render('@Gateway/Home/supervisor.html.twig', [
+            'supervisorCommands' => $this->getProcesses(),
+        ]);
+    }
+
+
+    /**
+     * @return Response
+     */
+    public function logsAction()
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $messages = $em
+            ->getRepository(Message::class)
+            ->findBy([], ['id' => 'desc'], 20);
+
+        $systemLogs = $em
+            ->getRepository(SystemLog::class)
+            ->findBy([], ['id' => 'desc'], 20);
+
+        return $this->render('@Gateway/Home/logs.html.twig', [
+            'systemLogs' => $systemLogs,
+            'messages'   => $messages,
+        ]);
+    }
+
+
+    /**
      * @param string $group
      * @param string $name
      *
@@ -90,7 +136,7 @@ class HomeController extends Controller
     {
         $result = '';
 
-        foreach ($this->supervisor->tailProcessStdoutLog($group . ':' . $name, 0, -1) as $item) {
+        foreach ($this->supervisor->tailProcessStdoutLog($group . ':' . $name, 0, 10000) as $item) {
             $result .= $item . PHP_EOL;
         }
 

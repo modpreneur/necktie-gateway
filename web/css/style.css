@@ -1,0 +1,109 @@
+html,
+body {
+    height: 100%;
+    background: #293a46;
+    color: #ebebeb;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+
+body {
+    padding-top: 5rem;
+
+}
+
+
+/*
+ * Typography
+ */
+
+h1 {
+    margin-bottom: 20px;
+    padding-bottom: 9px;
+    font-weight: 200;
+}
+
+.table th{
+    border-color: #161037 !important;
+    background: #1997c6;
+    font-weight: 300;
+}
+
+table td{
+    border-color: #161037 !important;
+}
+
+.table-white tbody td{
+    background: #fff;
+    color: #000000;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #1b2e38;
+    background: #293a46;
+}
+
+/* Sidebar navigation */
+.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sidebar .nav {
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+    width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+    margin-left: 0;
+}
+
+.sidebar .nav-link {
+    border-radius: 0;
+    font-weight: 300;
+    color: #fff;
+    font-size: 14px;
+}
+
+.sidebar .nav-link:hover{
+    color: #e0e0e0;
+}
+
+.sidebar .nav-link.active{
+    background: #1997c6;
+}
+
+/*
+ * Dashboard
+ */
+
+/* Placeholders */
+.placeholders {
+    padding-bottom: 3rem;
+}
+
+.placeholder img {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.btn, .table{
+    font-weight: 300;
+}

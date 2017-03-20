@@ -1,176 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gateway</title>
+{% extends '@Gateway/layout.html.twig' %}
 
-    <link rel="stylesheet" href="{{ asset('css/jquery.json-viewer.css') }}">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container">
-        <div style="margin-top: 30px" class="well">
+{% block content %}
+    <section>
+        <h1>Overview</h1>
 
-            <h3>Gateway</h3>
-            <ul class="list-unstyled">
-                <li>
-                    Git version: <strong>{{ version }}</strong>
-                </li>
-                <li>
-                    Server time: <strong>{{ datetime|date('d.m.Y H:i') }}</strong>
-                </li>
-                <li>
-                    Rabbit uri: <strong>{{ rabbitUrl }}</strong>
-                </li>
-            </ul>
-
-            <hr>
-
-            <h4>Rabbit</h4>
-
-            <table class="table">
+        <table class="table table-white">
+            <tbody>
                 <tr>
-                    <th>Name</th>
-                    <th>Messages ready</th>
-                    <th>vhost</th>
-                    <th>State</th>
+                    <th style="width: 20%">Git version:</th>
+                    <td>{{ version }}</td>
                 </tr>
-
-                {% for queue in rabbit.getQueues() %}
-                    <tr>
-                        <td>{{ queue.name }}</td>
-                        <td>{{ queue.messages_ready }}</td>
-                        <td>{{ queue.vhost }}</td>
-                        <td>{{ queue.state }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <div style="width:100%; word-wrap: break-word; padding-left: 15px;">
-                                {% for message in rabbit.queueMessages[queue.name] %}
-                                    <strong>JSON:</strong>
-                                    <div class="json">
-                                        {{ message.payload }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-
-            <hr>
-
-            <h4>Supervisor</h4>
-            <div class="btn-group">
-                <a role="button" class="btn btn-default" href="{{ path('gateway') }}">Refresh data</a>
-                <a role="button" class="btn btn-danger" href="{{ path('supervisor_restart') }}">Restart</a>
-            </div>
-
-            <div style="margin-top: 20px">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>PID</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Run time</th>
-                        <th style="width: 20%">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for command in  supervisorCommands %}
-                            <tr title="{{ command.description }}" class="{% if command.statename == 'RUNNING' %} success {% elseif command.statename == 'STOPPED' %} warning {% endif %}">
-                                <td>{{ command.pid }}</td>
-                                <td>{{ command.group }}:{{ command.name }}</td>
-                                <td>{{ command.statename }}</td>
-                                <td>
-                                    {% if command.statename == 'RUNNING' %}
-                                        {{ (command.now - command.start)|date('H:i')}}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a class="btn btn-info" href="{{ path('supervisor_logs_process', {'group': command.group, 'name': command.name}) }}">Log</a>
-                                        <a class="btn btn-default" href="{{ path('supervisor_clean_log_process', {'group': command.group, 'name': command.name}) }}">Clear log</a>
-                                        {% if command.statename == 'RUNNING' %}
-                                            <a class="btn btn-danger" href="{{ path('supervisor_stop_process', {'group': command.group, 'name': command.name}) }}">Stop</a>
-                                        {% else %}
-                                            <a class="btn btn-success" href="{{ path('supervisor_start_process', {'group': command.group, 'name': command.name}) }}">Start</a>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <hr>
-
-                <h4>Messages [max 20]</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Delivered at</th>
-                            <th>Delivery tag</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {% for message in messages %}
-                            <tr>
-                                <td>{{ message.id }}</td>
-                                <td>{{ message.deliveredAt|date('d.m.Y H.i') }}</td>
-                                <td>{{ message.deliveryTag }}</td>
-                            </tr>
-                            <tr>
-                                <td class="json" colspan="3">
-                                    {{ message.message }}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-                <hr>
-
-                <h4>System logs</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th width="30%">Log</th>
-                            <th>Level</th>
-                            <th>Url</th>
-                            <th>Created At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for log in systemLogs %}
-                            <tr>
-                                <td>{{ log.id }}</td>
-                                <td class="json" style="width: 250px;overflow: hidden;display: block;word-wrap: break-word;">{{ log.log }}</td>
-                                <td>{{ log.level }}</td>
-                                <td>{{ log.url }}</td>
-                                <td>{{ log.createdAt|date('d.m.Y H.i') }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/jquery.json-viewer.js') }}?x=3"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-</body>
-</html>
+                <tr>
+                    <th>Server time:</th>
+                    <td>{{ datetime|date('d.m.Y H:i') }}</td>
+                </tr>
+                <tr>
+                    <th>Rabbit uri:</th>
+                    <td>{{ rabbitUrl }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

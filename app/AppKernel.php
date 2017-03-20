@@ -8,6 +8,7 @@ use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -30,6 +31,7 @@ class AppKernel extends Kernel
             new GatewayBundle(),
             new TrinityBunnyBundle(),
             new SensioFrameworkExtraBundle(),
+            new SecurityBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

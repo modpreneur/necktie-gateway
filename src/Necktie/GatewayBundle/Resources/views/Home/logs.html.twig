@@ -1,0 +1,66 @@
+{% extends '@Gateway/layout.html.twig' %}
+
+
+{% block content %}
+
+    <h1>Logs</h1>
+
+    <h4>Messages</h4>
+    <table class="table table-white">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Delivered at</th>
+            <th>Delivery tag</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td>{{ message.id }}</td>
+                <td>{{ message.deliveredAt|date('d.m.Y H.i') }}</td>
+                <td>{{ message.deliveryTag }}</td>
+            </tr>
+            <tr>
+                <td class="json" colspan="3">
+                    {{ message.message }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>
+        [max: 20]
+    </p>
+
+    <hr>
+
+    <h4>System logs</h4>
+    <table class="table table-white">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th width="30%">Log</th>
+            <th>Level</th>
+            <th>Url</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for log in systemLogs %}
+            <tr>
+                <td>{{ log.id }}</td>
+                <td class="json" style="width: 250px;overflow: hidden;display: block;word-wrap: break-word;">{{ log.log }}</td>
+                <td>{{ log.level }}</td>
+                <td>{{ log.url }}</td>
+                <td>{{ log.createdAt|date('d.m.Y H.i') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>
+        [max: 20]
+    </p>
+
+{% endblock %}

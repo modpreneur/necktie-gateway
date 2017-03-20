@@ -1,0 +1,44 @@
+{% extends '@Gateway/layout.html.twig' %}
+
+
+{% block content %}
+
+    <h1>RabbitMQ</h1>
+
+    <section>
+        <table class="table table-white">
+            <thead class="">
+                <tr>
+                    <th>Name</th>
+                    <th>Messages ready</th>
+                    <th>vhost</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for queue in rabbit.getQueues() %}
+                    <tr>
+                        <td>{{ queue.name }}</td>
+                        <td>{{ queue.messages_ready }}</td>
+                        <td>{{ queue.vhost }}</td>
+                        <td>{{ queue.state }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div style="width:100%; word-wrap: break-word; padding-left: 15px;">
+                                {% for message in rabbit.queueMessages[queue.name] %}
+                                    <strong>JSON:</strong>
+                                    <div class="json">
+                                        {{ message.payload }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

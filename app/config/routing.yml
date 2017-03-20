@@ -4,6 +4,21 @@ gateway:
     defaults:  { _controller: GatewayBundle:Home:index }
 
 
+gateway_rabbitmq:
+  path: /rabbitmq
+  defaults:  { _controller: GatewayBundle:Home:rabbit }
+
+
+gateway_supervisor:
+  path: /supervisor
+  defaults:  { _controller: GatewayBundle:Home:supervisor }
+
+
+gateway_logs:
+  path: /logs
+  defaults:  { _controller: GatewayBundle:Home:logs }
+
+
 supervisor_restart:
      path : /restart
      defaults:  { _controller: GatewayBundle:Home:restart }
