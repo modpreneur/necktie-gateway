@@ -131,7 +131,7 @@ class RabbitReader
     {
         try {
             $this->getClient()->get($this->url('/'));
-        } catch (ConnectException $exception) {
+        } catch (ConnectException | RequestException $exception) {
             return $exception->getMessage();
         }
 
