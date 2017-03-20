@@ -115,7 +115,7 @@ class RabbitReader
     public function hasError()
     {
         try {
-            $this->getClient()->get($this->url('/'));
+            $this->getClient()->get($this->url(''));
         } catch (ConnectException $exception) {
             return true;
         }
@@ -130,7 +130,7 @@ class RabbitReader
     public function getConnectionError()
     {
         try {
-            $this->getClient()->get($this->url('/'));
+            $this->getClient()->get($this->url(''));
         } catch (ConnectException | RequestException $exception) {
             return $exception->getMessage();
         }
