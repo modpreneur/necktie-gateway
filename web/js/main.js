@@ -6,3 +6,9 @@ for(var i = 0; i < json.length; i++) {
     $(json[i]).jsonViewer(data, {collapsed: true});
 }
 
+
+$('.queue-info').hide();
+
+$('.queue-info-btn').click(function(){
+    $(this).next('').toggle();
+});

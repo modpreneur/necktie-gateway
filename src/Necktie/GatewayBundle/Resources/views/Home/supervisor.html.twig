@@ -27,20 +27,26 @@
                     <td>{{ command.group }}:{{ command.name }}</td>
                     <td>{{ command.statename }}</td>
                     <td>
-                        {% if command.statename == 'RUNNING' %}
-                            {{ (command.now - command.start)|date('H:i')}}
+                        {% if not rabbitError and supervisorGroup != command.group %}
+                            {% if command.statename == 'RUNNING' %}
+                                {{ (command.now - command.start)|date('H:i:s')}}
+                            {% endif %}
                         {% endif %}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <a class="btn btn-info" href="{{ path('supervisor_logs_process', {'group': command.group, 'name': command.name}) }}">Log</a>
-                            <a class="btn btn-primary" href="{{ path('supervisor_clean_log_process', {'group': command.group, 'name': command.name}) }}">Clear log</a>
-                            {% if command.statename == 'RUNNING' %}
-                                <a class="btn btn-danger" href="{{ path('supervisor_stop_process', {'group': command.group, 'name': command.name}) }}">Stop</a>
-                            {% else %}
-                                <a class="btn btn-success" href="{{ path('supervisor_start_process', {'group': command.group, 'name': command.name}) }}">Start</a>
-                            {% endif %}
-                        </div>
+                        {% if not rabbitError and supervisorGroup == command.group %}
+                            <div class="btn-group">
+                                <a class="btn btn-info" href="{{ path('supervisor_logs_process', {'group': command.group, 'name': command.name}) }}">Log</a>
+                                <a class="btn btn-primary" href="{{ path('supervisor_clean_log_process', {'group': command.group, 'name': command.name}) }}">Clear log</a>
+                                {% if command.statename == 'RUNNING' %}
+                                    <a class="btn btn-danger" href="{{ path('supervisor_stop_process', {'group': command.group, 'name': command.name}) }}">Stop</a>
+                                {% else %}
+                                    <a class="btn btn-success" href="{{ path('supervisor_start_process', {'group': command.group, 'name': command.name}) }}">Start</a>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <strong title="{{ rabbitError }}">Rabbit error</strong>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

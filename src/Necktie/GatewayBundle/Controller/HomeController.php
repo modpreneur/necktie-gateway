@@ -85,8 +85,13 @@ class HomeController extends Controller
      */
     public function supervisorAction()
     {
+        $rabbit = $this->get('gw.rabbitmq.reader');
+        $rabbit->process();
+
         return $this->render('@Gateway/Home/supervisor.html.twig', [
             'supervisorCommands' => $this->getProcesses(),
+            'supervisorGroup' => $this->getParameter('rabbit_supervisor_group'),
+            'rabbitError' => $rabbit->getError(),
         ]);
     }
 
@@ -122,7 +127,7 @@ class HomeController extends Controller
     {
         $this->supervisor->stopProcess($group . ':' . $name, 10);
 
-        return $this->redirectToRoute('gateway');
+        return $this->redirectToRoute('gateway_supervisor');
     }
 
 
@@ -153,7 +158,7 @@ class HomeController extends Controller
     public function cleanLogAction(string $group, string $name)
     {
         $this->supervisor->clearProcessLogs($group . ':' . $name);
-        return $this->redirectToRoute('gateway');
+        return $this->redirectToRoute('gateway_supervisor');
     }
 
 
@@ -167,9 +172,8 @@ class HomeController extends Controller
     {
         $this->supervisor->startProcess($group . ':' . $name, 10);
 
-        return $this->redirectToRoute('gateway');
+        return $this->redirectToRoute('gateway_supervisor');
     }
-
 
 
     /**

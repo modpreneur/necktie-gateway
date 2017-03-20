@@ -11,8 +11,8 @@ use Trinity\Bundle\BunnyBundle\Annotation\Consumer;
 /**
  * @Consumer(
  *     queue="queue_gateway",
- *     maxMessages=100,
- *     maxSeconds=3600.0,
+ *     maxMessages=30,
+ *     maxSeconds=60.0,
  *     prefetchCount=1
  * )
  */

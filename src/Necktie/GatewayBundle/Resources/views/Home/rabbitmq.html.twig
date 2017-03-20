@@ -24,15 +24,38 @@
                         <td>{{ queue.vhost }}</td>
                         <td>{{ queue.state }}</td>
                     </tr>
+
                     <tr>
                         <td colspan="4">
-                            <div style="width:100%; word-wrap: break-word; padding-left: 15px;">
-                                {% for message in rabbit.queueMessages[queue.name] %}
-                                    <strong>JSON:</strong>
-                                    <div class="json">
-                                        {{ message.payload }}
-                                    </div>
-                                {% endfor %}
+                            <div class="row-queue">
+                                <div>
+                                    <a class="btn btn-info queue-info-btn" href="#">Queue info</a>
+                                    <ul class="queue-info">
+                                        {% for index, value in queue %}
+                                            {% if value is iterable %}
+                                                <ul>
+                                                    {% for index2, value2 in queue %}
+                                                        {% if value2 is iterable %}
+
+                                                        {% else %}
+                                                            <li><strong>{{ index2 }}</strong> : {{ value2 }}</li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                <li><strong>{{ index }}</strong> : {{ value }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <p></p>
+                                <div style="width:100%; word-wrap: break-word; padding-left: 15px;">
+                                    {% for message in rabbit.queueMessages[queue.name] %}
+                                        <div class="json">
+                                            {{ message.payload }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </td>
                     </tr>
