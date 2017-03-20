@@ -3,22 +3,42 @@
 
 {% block content %}
     <section>
-        <h1>Overview</h1>
+        <h1><i class="fa fa-tachometer" aria-hidden="true"></i> Overview</h1>
 
         <table class="table table-white">
             <tbody>
                 <tr>
+                    <td><i class="fa fa-git" aria-hidden="true"></i></td>
                     <th style="width: 20%">Git version:</th>
                     <td>{{ version }}</td>
                 </tr>
                 <tr>
+                    <td><i class="fa fa-clock-o" aria-hidden="true"></i></td>
                     <th>Server time:</th>
                     <td>{{ datetime|date('d.m.Y H:i') }}</td>
                 </tr>
                 <tr>
-                    <th>Rabbit uri:</th>
+                    <td class="table-rabbit"><i class="fa fa-external-link" aria-hidden="true"></i></td>
+                    <th>Rabbit URI:</th>
                     <td>{{ rabbitUrl }}</td>
                 </tr>
+                {% if rabbitError %}
+                    <tr>
+                        <td class="table-rabbit"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+                        <th>Rabbit error:</th>
+                        <td class="table-warning">
+                            {{ rabbitError }}
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+                        <th>Supervisor</th>
+                        <td class="table-warning">
+                            If the rabbit does not run some <strong>SUPERVISOR</strong> commands do not work correctly.
+                        </td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </section>

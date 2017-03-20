@@ -6,6 +6,7 @@
     <h1>RabbitMQ</h1>
 
     <section>
+        {% if not rabbitError %}
         <table class="table table-white">
             <thead class="">
                 <tr>
@@ -15,7 +16,6 @@
                     <th>State</th>
                 </tr>
             </thead>
-
             <tbody>
                 {% for queue in rabbit.getQueues() %}
                     <tr>
@@ -39,6 +39,16 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Error</th>
+                        <td class="table-warning">{{ rabbitError }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
     </section>
 
 {% endblock %}

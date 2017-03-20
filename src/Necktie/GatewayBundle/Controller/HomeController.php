@@ -54,14 +54,13 @@ class HomeController extends Controller
         $rabbit = $this->get('gw.rabbitmq.reader');
         $rabbit->process();
 
+
         return $this->render('GatewayBundle:Home:index.html.twig', [
             'version'    => exec("git rev-parse --verify HEAD"),
             'datetime'   => new \DateTime(),
             'rabbitUrl'  => $this->getParameter('rabbit_url'),
-            'supervisorCommands' => $this->getProcesses(),
-            'messages'   => $messages,
-            'systemLogs' => $systemLogs,
             'rabbit'     => $rabbit,
+            'rabbitError' => $rabbit->getConnectionError(),
         ]);
     }
 
@@ -75,7 +74,8 @@ class HomeController extends Controller
         $rabbit->process();
 
         return $this->render('@Gateway/Home/rabbitmq.html.twig', [
-            'rabbit'     => $rabbit,
+            'rabbit'      => $rabbit,
+            'rabbitError' => $rabbit->getError(),
         ]);
     }
 

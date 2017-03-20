@@ -45,9 +45,9 @@ class RabbitReader
      */
     public function __construct($rabbitUrl, $rabbitPort, $rabbitUser, $rabbitPassword)
     {
-        $this->rabbitUrl      = $rabbitUrl;
-        $this->rabbitPort     = $rabbitPort;
-        $this->rabbitUser     = $rabbitUser;
+        $this->rabbitUrl = $rabbitUrl;
+        $this->rabbitPort = $rabbitPort;
+        $this->rabbitUser = $rabbitUser;
         $this->rabbitPassword = $rabbitPassword;
     }
 
@@ -55,7 +55,7 @@ class RabbitReader
     /**
      * @return Client
      */
-    private function getClient() : Client
+    private function getClient(): Client
     {
         return new Client(['connect_timeout' => 3]);
     }
@@ -67,13 +67,14 @@ class RabbitReader
      * @param Request $request A Request instance
      * @param Response $response A Response instance
      * @param \Exception $exception An Exception instance
+     *
      * @throws \LogicException
      */
     public function process()
     {
-        $client   = $this->getClient();
-        $queues   = [];
-        $error    = null;
+        $client = $this->getClient();
+        $queues = [];
+        $error = null;
         $messages = [];
 
         try {
@@ -101,13 +102,48 @@ class RabbitReader
         }
 
         $this->data = [
-            'error'    => $error,
-            'queues'   => $queues,
+            'error' => $error,
+            'queues' => $queues,
             'messages' => $messages,
         ];
     }
 
 
+    /**
+     * @return bool
+     */
+    public function hasError()
+    {
+        try {
+            $this->getClient()->get($this->url('/'));
+        } catch (ConnectException $exception) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getConnectionError()
+    {
+        try {
+            $this->getClient()->get($this->url('/'));
+        } catch (ConnectException $exception) {
+            return $exception->getMessage();
+        }
+
+        return '';
+    }
+
+
+    /**
+     * @param string $queue
+     *
+     * @return mixed
+     */
     public function getMessages(string $queue)
     {
         $client = $this->getClient();
@@ -156,24 +192,36 @@ class RabbitReader
     }
 
 
+    /**
+     * @return array
+     */
     private function getAuth()
     {
         return ['auth' => [$this->rabbitUser, $this->rabbitPassword]];
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getQueues()
     {
         return $this->data['queues'];
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getError()
     {
         return $this->data['error'];
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getQueueMessages()
     {
         return $this->data['messages'];

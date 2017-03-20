@@ -39,6 +39,16 @@ table td{
     color: #000000;
 }
 
+.table-warning{
+    background: #b73018 !important;
+    color: #fff !important;
+}
+
+.table-rabbit{
+    background: #f93 !important;
+    color: #000 !important;
+}
+
 /*
  * Sidebar
  */
