@@ -16,5 +16,5 @@ parameters:
   necktie_api:  "/app_dev.php/rabbitmq/results"
 
   secret: secret
-  rabbit_manager_port: 15671
+  rabbit_manager_port: 15679
   rabbit_supervisor_group: 'gatewayConsumer'
