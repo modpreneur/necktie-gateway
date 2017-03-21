@@ -59,6 +59,8 @@ class HomeController extends Controller
             'version'    => exec("git rev-parse --verify HEAD"),
             'datetime'   => new \DateTime(),
             'rabbitUrl'  => $this->getParameter('rabbit_url'),
+            'rabbitPort'  => $this->getParameter('rabbit_port'),
+            'rabbitManagerPort'  => $this->getParameter('rabbit_manager_port'),
             'rabbit'     => $rabbit,
             'rabbitError' => $rabbit->getConnectionError(),
         ]);
