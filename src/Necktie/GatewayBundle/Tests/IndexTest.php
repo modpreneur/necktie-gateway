@@ -22,8 +22,7 @@ class IndexTest extends WebTestCase
        $client = self::createClient();
        $client->request('GET', '/');
        $content = $client->getResponse()->getContent();
-       self::assertContains('RUNNING', $content);
-       self::assertContains('gatewayConsumer', $content);
+       self::assertNotContains('error', $content);
        self::assertJson($content);
     }
 }
