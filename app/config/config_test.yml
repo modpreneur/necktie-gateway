@@ -7,5 +7,6 @@ framework:
 parameters:
   rabbit_url: ci.corp.modpreneur.com
   rabbit_port: 5679
+  rabbit_manager_port: 15679
 
 
