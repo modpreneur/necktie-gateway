@@ -16,13 +16,11 @@ class IndexTest extends WebTestCase
         return AppKernel::class;
     }
 
-
     public function testIndex()
     {
        $client = self::createClient();
        $client->request('GET', '/');
        $content = $client->getResponse()->getContent();
        self::assertNotContains('error', $content);
-       self::assertJson($content);
     }
 }
