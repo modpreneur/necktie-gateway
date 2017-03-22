@@ -3,7 +3,7 @@ gateway:
     defaults:  { _controller: GatewayBundle:Home:index }
 
 
-dashboard:
+gateway_dashboard:
     path : /gw/
     defaults:  { _controller: GatewayBundle:Home:dashboard }
 
