@@ -37,14 +37,16 @@ class HomeController extends Controller
     }
 
 
-
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function indexAction()
     {
-        $login = $this->get('router')->generate('hwi_oauth_service_redirect', ['service'=> 'necktie']);
+        if ($this->getUser()) {
+            return $this->redirectToRoute('gateway_dashboard');
+        }
 
         return $this->render('@Gateway/Login/login.html.twig', []);
-
-        return new Response('Please <a href="'.$login.'">login</a>');
     }
 
 
