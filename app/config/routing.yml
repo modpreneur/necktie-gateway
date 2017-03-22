@@ -1,7 +1,11 @@
-
 gateway:
     path : /
     defaults:  { _controller: GatewayBundle:Home:index }
+
+
+dashboard:
+    path : /gw/
+    defaults:  { _controller: GatewayBundle:Home:dashboard }
 
 
 gateway_rabbitmq:
@@ -43,11 +47,26 @@ supervisor_clean_log_process:
      path : /process-logs-clean/{group}/{name}
      defaults:  { _controller: GatewayBundle:Home:cleanLog }
 
-gateway_run:
-     path : /run
-     defaults:  { _controller: GatewayBundle:Home:run }
-
 
 payment:
     resource: "@GatewayBundle/Controller"
     type:     annotation
+
+
+hwi_oauth_connect:
+  path: /login
+  defaults:  { _controller: HWIOAuthBundle:Connect:connect }
+
+
+hwi_oauth_service_redirect:
+  path: /login/{service}
+  defaults: { _controller: HWIOAuthBundle:Connect:redirectToService }
+
+
+hwi_oauth_connect_registration:
+  path: /registration/{key}
+  defaults: { _controller: HWIOAuthBundle:Connect:registration }
+
+
+necktie:
+    path: /login/check-necktie

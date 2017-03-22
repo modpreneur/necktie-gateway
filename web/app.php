@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 Debug::enable();
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
-$kernel = new Necktie\Gateway\AppKernel('dev', true);
+$kernel = new Necktie\Gateway\AppKernel('prod', false);
 
 $request  = Request::createFromGlobals();
 $response = $kernel->handle($request);

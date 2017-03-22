@@ -22,7 +22,9 @@
     "php-http/message": "^1.5",
     "php-http/guzzle6-adapter": "^1.1",
     "lstrojny/fxmlrpc": "~0.14",
-    "supervisorphp/supervisor": "~3.0"
+    "supervisorphp/supervisor": "~3.0",
+    "symfony/security-bundle" : "3.2",
+    "hwi/oauth-bundle": "0.5"
   },
 
   "require-dev": {
@@ -107,7 +109,11 @@
 
         "debug_toolbar": "SYMFONY__DEBUG_TOOLBAR",
         "debug_redirects": "SYMFONY__DEBUG_REDIRECTS",
-        "use_assetic_controller": "SYMFONY__ASSETIC_CONTROLLER"
+        "use_assetic_controller": "SYMFONY__ASSETIC_CONTROLLER",
+
+        "necktie_url":    "SYMFONY__NECKTIE_URL",
+        "necktie_public": "SYMFONY__NECKTIE_PUBLIC",
+        "necktie_secret": "SYMFONY_NECKTIE_SECRET"
       }
     }
   }

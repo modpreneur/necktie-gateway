@@ -1,11 +1,12 @@
 imports:
    - { resource: parameters.yml }
    - { resource: security.yml }
+   - { resource: services.yml }
 
 framework:
     secret: "%secret%"
     templating:
-            engines: ['twig']
+        engines: ['twig']
 
     session:
 
@@ -74,5 +75,25 @@ bunny:
           durable: true
           bindings:
             - exchange: payment_exchange
+
+hwi_oauth:
+
+    firewall_names: [secured_area]
+    resource_owners:
+        necktie:
+            type: 'oauth2'
+            client_id:         %necktie_public%
+            client_secret:     %necktie_secret%
+            access_token_url:  %necktie_url%/oauth/v2/token
+            authorization_url: %necktie_url%/oauth/v2/auth
+            infos_url:         %necktie_url%/api/v1/user
+            user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+            options:
+              csrf: true
+            paths:
+              identifier: id
+              nickname:   username
+              realname:   fullname
+
 
 services:

@@ -37,10 +37,21 @@ class HomeController extends Controller
     }
 
 
+
+    public function indexAction()
+    {
+        $login = $this->get('router')->generate('hwi_oauth_service_redirect', ['service'=> 'necktie']);
+
+        return $this->render('@Gateway/Login/login.html.twig', []);
+
+        return new Response('Please <a href="'.$login.'">login</a>');
+    }
+
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function dashboardAction()
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $messages = $em
@@ -53,7 +64,6 @@ class HomeController extends Controller
 
         $rabbit = $this->get('gw.rabbitmq.reader');
         $rabbit->process();
-
 
         return $this->render('GatewayBundle:Home:index.html.twig', [
             'version'    => exec("git rev-parse --verify HEAD"),

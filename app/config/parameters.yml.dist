@@ -12,7 +12,9 @@ parameters:
   database_user:     user
   database_password: pass
 
-  necktie_url:  http://web
+  necktie_url: http://dev.getnecktie.com
+  necktie_public: '5_nirqva9vs4gggwk08s0w8swsos0k8kowk04wg0w0gww0okk4w'
+  necktie_secret: '2groey7qx9es4gcks0k888k80gskkk8wkgww0gsoosocksk44c'
   necktie_api:  "/app_dev.php/rabbitmq/results"
 
   secret: secret

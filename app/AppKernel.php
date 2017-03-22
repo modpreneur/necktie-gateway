@@ -3,6 +3,8 @@
 namespace Necktie\Gateway;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use FOS\UserBundle\FOSUserBundle;
+use HWI\Bundle\OAuthBundle\HWIOAuthBundle;
 use Necktie\GatewayBundle\GatewayBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
@@ -31,7 +33,8 @@ class AppKernel extends Kernel
             new GatewayBundle(),
             new TrinityBunnyBundle(),
             new SensioFrameworkExtraBundle(),
-            new SecurityBundle()
+            new SecurityBundle(),
+            new HWIOAuthBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {
@@ -58,7 +61,7 @@ class AppKernel extends Kernel
 
     public function getLogDir()
     {
-        return dirname(__DIR__).'/var/logs';
+        return dirname(__DIR__).'/var/logs/'.$this->environment;
     }
 
 
