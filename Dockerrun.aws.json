@@ -17,10 +17,10 @@
   "containerDefinitions": [
     {
       "name": "php_fpm",
-      "image": "modpreneur/necktie-fpm:0.6",
+      "image": "modpreneur/necktie-fpm:0.9",
       "entryPoint": ["sh", "./entrypoint.sh"],
       "essential": true,
-      "memory": 768,
+      "memoryReservation": 768,
       "portMappings": [
         {
           "hostPort": 9005,
@@ -34,7 +34,7 @@
         },
         {
           "sourceVolume": "awseb-logs-php_fpm",
-          "containerPath": "/var/log/sample-app"
+          "containerPath": "/var/app/var/logs"
         }
       ]
     },
@@ -42,7 +42,7 @@
       "name": "nginx-proxy",
       "image": "modpreneur/necktie-nginx:0.3",
       "essential": true,
-      "memory": 128,
+      "memoryReservation": 128,
       "portMappings": [
         {
           "hostPort": 80,

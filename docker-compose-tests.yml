@@ -2,7 +2,7 @@ version: '2'
 services:
 
   php_fpm:
-    image: modpreneur/necktie-fpm-test:0.7
+    image: modpreneur/necktie-fpm-test:0.10.1
     links:
       - mysql:mysql
     ports:

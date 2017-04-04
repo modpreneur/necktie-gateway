@@ -1,4 +1,15 @@
 /.idea
-
 supervisord.log
 var/
+app/config/parameters.yml
+bin/doctrine
+bin/doctrine-dbal
+bin/doctrine.php
+bin/phpunit
+bin/security-checker
+docker/.env
+logs/
+supervisord.pid
+Would skip repository vendor/trinity/bunny-bundle
+vendor/
+web/bundles/
