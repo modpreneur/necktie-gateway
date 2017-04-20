@@ -1,6 +1,8 @@
-/.idea
+/.idea/
 supervisord.log
-var/
+/var/cache/
+/var/logs/
+/var/bootstrap.php.cache
 app/config/parameters.yml
 bin/doctrine
 bin/doctrine-dbal
@@ -13,3 +15,4 @@ supervisord.pid
 Would skip repository vendor/trinity/bunny-bundle
 vendor/
 web/bundles/
+var/

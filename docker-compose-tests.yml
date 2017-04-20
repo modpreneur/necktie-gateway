@@ -1,7 +1,7 @@
 version: '2'
 services:
 
-  php_fpm:
+  gw_php_fpm:
     image: modpreneur/necktie-fpm-test:0.10.1
     links:
       - mysql:mysql
@@ -17,14 +17,14 @@ services:
     external_links:
       - necktietests_rabbit_mq_1:rabbit_mq
 
-  nginx:
+  gw_nginx:
     image: modpreneur/necktie-nginx:0.3
     ports:
         - 9080:80
     links:
-        - php_fpm
+        - gw_php_fpm
     volumes_from:
-        - php_fpm
+        - gw_php_fpm
     volumes:
       - ./logs/nginx/:/var/log/nginx
 
