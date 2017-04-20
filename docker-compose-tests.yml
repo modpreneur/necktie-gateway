@@ -28,7 +28,7 @@ services:
     volumes:
       - ./logs/nginx/:/var/log/nginx
 
-  gw_mysql:
+  mysql:
     extends:
       file: docker-compose.yml
       service: mysql
