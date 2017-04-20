@@ -13,6 +13,4 @@ use Trinity\Bundle\BunnyBundle\Annotation\Producer;
  */
 class PaymentProducer extends AbstractProducer
 {
-
-
 }
