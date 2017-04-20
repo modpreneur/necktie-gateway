@@ -1,7 +1,7 @@
 version: '2'
 services:
 
-  gw_php_fpm:
+  php_fpm:
     image: modpreneur/necktie-fpm-test:0.10.1
     links:
       - mysql:mysql
@@ -22,9 +22,9 @@ services:
     ports:
         - 9080:80
     links:
-        - gw_php_fpm
+        - php_fpm
     volumes_from:
-        - gw_php_fpm
+        - php_fpm
     volumes:
       - ./logs/nginx/:/var/log/nginx
 
