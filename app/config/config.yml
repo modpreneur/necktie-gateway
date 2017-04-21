@@ -3,13 +3,15 @@ imports:
    - { resource: security.yml }
    - { resource: services.yml }
 
+
 framework:
+    cache:
+       app: cache.adapter.apcu
     secret: "%secret%"
     templating:
         engines: ['twig']
-
     session:
-
+      name: necktiegw
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
 
@@ -34,7 +36,6 @@ doctrine:
         password: %database_password%
     orm:
         auto_mapping: true
-
 
 
 bunny:
