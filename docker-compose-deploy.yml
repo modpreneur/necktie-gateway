@@ -3,6 +3,6 @@ version: '2'
 services:
 
   php_fpm:
-    image: modpreneur/necktie-fpm:0.9
+    image: modpreneur/necktie-fpm:0.10
     volumes:
       - .:/var/app

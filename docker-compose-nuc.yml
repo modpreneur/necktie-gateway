@@ -21,7 +21,7 @@ services:
 
   nginx:
     restart: always
-    image: modpreneur/necktie-nginx:0.3
+    image: modpreneur/necktie-nginx:0.4
     ports:
         - 9080:80
     links:

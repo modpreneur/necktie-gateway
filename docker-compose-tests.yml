@@ -2,7 +2,7 @@ version: '2'
 services:
 
   php_fpm:
-    image: modpreneur/necktie-fpm-test:0.10.1
+    image: modpreneur/necktie-fpm-test:0.11
     links:
       - mysql:mysql
     ports:
@@ -18,7 +18,7 @@ services:
       - necktietests_rabbit_mq_1:rabbit_mq
 
   gw_nginx:
-    image: modpreneur/necktie-nginx:0.3
+    image: modpreneur/necktie-nginx:0.4
     ports:
         - 9080:80
     links:

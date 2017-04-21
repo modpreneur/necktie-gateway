@@ -17,7 +17,7 @@
   "containerDefinitions": [
     {
       "name": "php_fpm",
-      "image": "modpreneur/necktie-fpm:0.9",
+      "image": "modpreneur/necktie-fpm:0.10",
       "entryPoint": ["sh", "./entrypoint.sh"],
       "essential": true,
       "memoryReservation": 768,
@@ -40,7 +40,7 @@
     },
     {
       "name": "nginx-proxy",
-      "image": "modpreneur/necktie-nginx:0.3",
+      "image": "modpreneur/necktie-nginx:0.4",
       "essential": true,
       "memoryReservation": 128,
       "portMappings": [

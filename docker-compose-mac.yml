@@ -25,7 +25,7 @@ services:
 
 
   nginx:
-        image: modpreneur/necktie-nginx-dev:0.3
+        image: modpreneur/necktie-nginx-dev:0.4
         ports:
             - 8889:80
         links:
