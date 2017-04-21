@@ -20,3 +20,4 @@ parameters:
   secret: secret
   rabbit_manager_port: 15679
   rabbit_supervisor_group: 'gatewayConsumer'
+  elastic_host: dev.getnecktie.com

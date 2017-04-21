@@ -4,7 +4,7 @@ namespace Necktie\GatewayBundle\Gateway\RequestProcessor;
 
 use Exception;
 use Necktie\GatewayBundle\Gateway\ApiGateway;
-use Necktie\GatewayBundle\Logger\Logger;
+use Necktie\GatewayBundle\Logger\LoggerService;
 
 /**
  * Class HTTPFilter
@@ -21,15 +21,22 @@ class HTTPProcessor extends BaseProcessor
     /**
      * HTTPFilter constructor.
      * @param ApiGateway $apiGateway
-     * @param Logger $logger
+     * @param LoggerService $logger
      */
-    public function __construct(ApiGateway $apiGateway, Logger $logger)
+    public function __construct(ApiGateway $apiGateway, LoggerService $logger)
     {
         parent::__construct($logger);
         $this->gateway = $apiGateway;
     }
 
 
+    /**
+     * @param array $message
+     *
+     * @return array
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\ORMInvalidArgumentException
+     */
     public function process(array $message = []){
 
         if (isset($message['header'])) {
@@ -57,7 +64,6 @@ class HTTPProcessor extends BaseProcessor
         }
 
         try {
-
             $response = $this
                 ->gateway
                 ->request(
@@ -69,13 +75,17 @@ class HTTPProcessor extends BaseProcessor
                     $attributes
                 );
 
+            dump($response);
+
             $this->logger->addRecord($response);
 
-            if ($response['status'] == 'error') {
+            if ($response['status'] === 'error') {
                 echo $response['response'] . PHP_EOL;
                 $this->logger->addRecord($response);
                 throw new \RuntimeException($response['response']);
             }
+
+            dump($response);
 
             return [
                 'status'     => $response['status'],
@@ -88,7 +98,7 @@ class HTTPProcessor extends BaseProcessor
 
             $error =  [
                 'status'     => 'error',
-                'response'   => $ex->getMessage(),
+                'response'   => $ex->getMessage() . ' ' . $ex->getFile() . ':' . $ex->getLine(),
                 'url'        => $message['url'],
                 'tag'        => $tag,
                 'attributes' => $attributes
@@ -98,5 +108,4 @@ class HTTPProcessor extends BaseProcessor
             return $error;
         }
     }
-
 }

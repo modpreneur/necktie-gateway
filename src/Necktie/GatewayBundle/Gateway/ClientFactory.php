@@ -19,5 +19,4 @@ class ClientFactory implements ClientFactoryInterface
         return new Client();
 
     }
-
 }

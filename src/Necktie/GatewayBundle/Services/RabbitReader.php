@@ -9,7 +9,6 @@ use GuzzleHttp\Psr7\Request as R7;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-
 /**
  * Class RabbitReader
  * @package Necktie\GatewayBundle\Services
@@ -226,5 +225,4 @@ class RabbitReader
     {
         return $this->data['messages'];
     }
-
 }

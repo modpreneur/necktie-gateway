@@ -32,6 +32,8 @@ class ConsumerProxy implements ConsumerInterface
      * @param string $queueName
      * @param string $message
      * @param string $deliveryTag
+     *
+     * @return mixed|void
      */
     public function handleMessage(string $queueName, string $message, string $deliveryTag)
     {

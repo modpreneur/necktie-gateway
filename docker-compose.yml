@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
 
   php_fpm:
@@ -19,7 +19,7 @@ services:
       - .:/var/app
     external_links:
       - necktie_rabbit_mq_1:rabbit_mq
-
+      - necktie_nginx_1:necktie
 
   nginx:
     image: modpreneur/necktie-nginx-dev:0.3
@@ -44,7 +44,6 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pass
       - MYSQL_ROOT_PASSWORD=pass
-
 
 networks:
   default:

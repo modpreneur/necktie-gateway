@@ -1,8 +1,7 @@
 <?php
 namespace Necktie\GatewayBundle\Gateway\RequestProcessor;
 
-use Necktie\GatewayBundle\Logger\Logger;
-use Necktie\GatewayBundle\Proxy\ProducerProxy;
+use Necktie\GatewayBundle\Logger\LoggerService;
 
 /**
  * Class BaseFilter
@@ -11,20 +10,23 @@ use Necktie\GatewayBundle\Proxy\ProducerProxy;
 abstract class BaseProcessor
 {
     /**
-     * @var Logger
+     * @var LoggerService
      */
     protected $logger;
 
     /**
      * BaseFilter constructor.
-     * @param Logger $logger
+     * @param LoggerService $logger
      */
-    public function __construct(Logger $logger)
+    public function __construct(LoggerService $logger)
     {
         $this->logger = $logger;
     }
 
 
+    /**
+     * @return string
+     */
     public function getName() : string
     {
         $ref = new \ReflectionClass($this);
@@ -32,5 +34,10 @@ abstract class BaseProcessor
     }
 
 
+    /**
+     * @param array $message
+     *
+     * @return mixed
+     */
     abstract public function process(array $message = []);
 }

@@ -1,10 +1,17 @@
 
 services:
 
+    gw.api_caller:
+      class: Necktie\GatewayBundle\Services\ApiCaller
+      arguments:
+        - "@trinity.logger.elastic_log_service"
+        - { "verify": false }
+
+
     gw.logger:
-        class: Necktie\GatewayBundle\Logger\Logger
+        class: Necktie\GatewayBundle\Logger\LoggerService
         arguments:
-          - "@doctrine.orm.entity_manager"
+          - "@trinity.logger.elastic_log_service"
 
 
     gw.client_factory:
@@ -14,7 +21,7 @@ services:
     gw.api:
       class: Necktie\GatewayBundle\Gateway\ApiGateway
       arguments:
-          - "@gw.client_factory"
+          - "@gw.api_caller"
 
 
     gw.consumer:
@@ -47,13 +54,13 @@ services:
     gw.message.logger:
       class: Necktie\GatewayBundle\Message\MessagesLogger
       arguments:
-        - "@doctrine.orm.entity_manager"
+        - "@trinity.logger.elastic_log_service"
 
 
     gw.message.processor:
         class:  Necktie\GatewayBundle\Message\MessageProcessor
         arguments:
-            - "@doctrine.orm.entity_manager"
+            - "@trinity.logger.elastic_log_service"
             - "@gw.api"
             - "@gw.logger"
             - "@gw.proxy.producer"
@@ -82,6 +89,7 @@ services:
       class: Necktie\GatewayBundle\Gateway\RequestProcessor\AWeberProcessor
       arguments:
         - "@gw.logger"
+
 
     gw.rabbitmq.reader:
         class: Necktie\GatewayBundle\Services\RabbitReader

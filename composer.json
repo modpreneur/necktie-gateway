@@ -22,7 +22,11 @@
     "lstrojny/fxmlrpc": "~0.14",
     "supervisorphp/supervisor": "~3.0",
     "symfony/security-bundle" : "3.2",
-    "hwi/oauth-bundle": "0.5"
+    "hwi/oauth-bundle": "0.5",
+    "trinity/core-interfaces": "dev-master",
+    "trinity/utils": "dev-master",
+    "trinity/search": "dev-master",
+    "trinity/logger": "dev-master"
   },
 
   "require-dev": {

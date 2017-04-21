@@ -1,0 +1,53 @@
+{% extends '@Gateway/layout.html.twig' %}
+
+
+{% block content %}
+
+    <h1>Loggers</h1>
+
+    <table class="table table-white">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Delivered at</th>
+                <th>Uri</th>
+                <th>Level</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for log in loggers %}
+                <tr>
+                    <td><strong>{{ loop.index }}.</strong></td>
+                    <td>{{ log.id }}</td>
+                    <td>
+                        {{ log.createdAt|date('d.m. Y') }} <br>
+                        {{ log.createdAt|date('H.i:s') }}
+                    </td>
+                    <td>{{ log.url }}</td>
+                    <td>
+                        {% if log.level == '200' %}
+                            <span class="badge badge-success">{{ log.level }}</span>
+                        {% elseif log.level == '500' %}
+                            <span class="badge badge-danger">{{ log.level }}</span>
+                        {% elseif log.level == '400' or log.level == '404' %}
+                            <span class="badge badge-warning">{{ log.level }}</span>
+                        {% else %}
+                            {{ log.level }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr class="hide">
+                    <td></td>
+                    <td class="json" colspan="4">
+                        {% if  log.log is defined %}
+                            {{ log.log }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

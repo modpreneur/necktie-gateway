@@ -77,7 +77,6 @@ bunny:
             - exchange: payment_exchange
 
 hwi_oauth:
-
     firewall_names: [secured_area]
     resource_owners:
         necktie:
@@ -94,6 +93,13 @@ hwi_oauth:
               identifier: id
               nickname:   username
               realname:   fullname
+
+
+trinity_logger:
+  elastic_logs:
+    elastic_host: '%elastic_host%'
+    managed_index: 'necktie'
+  logger_user_provider: '@gw.user_provider'
 
 
 services:

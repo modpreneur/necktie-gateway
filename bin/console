@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+use Necktie\GatewayBundle\Command\TimeTestCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
@@ -32,6 +33,8 @@ if ($debug) {
 require_once __DIR__.'/../app/AppKernel.php';
 $kernel = new \Necktie\Gateway\AppKernel($env, $debug);
 $application = new Application($kernel);
+
+$application->addCommands([new TimeTestCommand()]);
 
 $application->run($input);
 

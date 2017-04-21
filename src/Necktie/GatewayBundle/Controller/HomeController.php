@@ -17,6 +17,9 @@ use GuzzleHttp\Client;
 use fXmlRpc\Transport\HttpAdapterTransport;
 use Http\Adapter\Guzzle6\Client as ClientGuzzle;
 use Http\Message\MessageFactory\DiactorosMessageFactory;
+use Trinity\Bundle\LoggerBundle\Entity\ExceptionLog;
+use Trinity\Bundle\LoggerBundle\Services\ElasticLogService;
+use Trinity\Bundle\LoggerBundle\Services\ElasticReadLogService;
 
 /**
  * Class HomeController
@@ -82,7 +85,7 @@ class HomeController extends Controller
     /**
      * @return Response
      */
-    public function rabbitAction()
+    public function rabbitAction() : Response
     {
         $rabbit = $this->get('gw.rabbitmq.reader');
         $rabbit->process();
@@ -90,6 +93,21 @@ class HomeController extends Controller
         return $this->render('@Gateway/Home/rabbitmq.html.twig', [
             'rabbit'      => $rabbit,
             'rabbitError' => $rabbit->getError(),
+        ]);
+    }
+
+
+    /**
+     * @return Response
+     */
+    public function loggerAction() : Response
+    {
+        /** @var ElasticReadLogService $elReader */
+        $elReader = $this->get('trinity.logger.elastic_read_log_service');
+        $loggers = $elReader->getMatchingEntities('Logger');
+
+        return $this->render('@Gateway/Home/logger.html.twig', [
+            'loggers' => $loggers,
         ]);
     }
 
@@ -113,20 +131,29 @@ class HomeController extends Controller
     /**
      * @return Response
      */
-    public function logsAction()
+    public function messagesAction()
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-        $messages = $em
-            ->getRepository(Message::class)
-            ->findBy([], ['id' => 'desc'], 20);
+        /** @var ElasticReadLogService $elReader */
+        $elReader = $this->get('trinity.logger.elastic_read_log_service');
+        $messages = $elReader->getMatchingEntities('Message');
 
-        $systemLogs = $em
-            ->getRepository(SystemLog::class)
-            ->findBy([], ['id' => 'desc'], 20);
-
-        return $this->render('@Gateway/Home/logs.html.twig', [
-            'systemLogs' => $systemLogs,
+        return $this->render('@Gateway/Home/messages.html.twig', [
             'messages'   => $messages,
+        ]);
+    }
+
+
+    /**
+     * @return Response
+     */
+    public function requestsAction()
+    {
+        /** @var ElasticReadLogService $elReader */
+        $elReader = $this->get('trinity.logger.elastic_read_log_service');
+        $requests = $elReader->getMatchingEntities('Request');
+
+        return $this->render('@Gateway/Home/requests.html.twig', [
+            'requests' => $requests
         ]);
     }
 

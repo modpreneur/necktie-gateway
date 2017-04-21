@@ -1,13 +1,10 @@
 <?php
 
-
 namespace Necktie\GatewayBundle\Message;
 
-
-use Doctrine\ORM\EntityManager;
-use Necktie\GatewayBundle\Entity\Message;
 use Necktie\GatewayBundle\Event\MessageEvent;
-
+use Necktie\GatewayBundle\Logger\Entity\Message;
+use Trinity\Bundle\LoggerBundle\Services\ElasticLogService;
 
 /**
  * Class MessagesLogger
@@ -16,42 +13,39 @@ use Necktie\GatewayBundle\Event\MessageEvent;
 class MessagesLogger
 {
 
-    /** @var  EntityManager */
-    protected $em;
+    /** @var  ElasticLogService */
+    protected $elasticLog;
 
 
     /**
      * MessagesListener constructor.
-     * @param EntityManager $em
+     * @param ElasticLogService $elasticLog
      */
-    public function __construct(EntityManager $em)
+    public function __construct(ElasticLogService $elasticLog)
     {
-        $this->em = $em;
+        $this->elasticLog = $elasticLog;
     }
 
 
+    /**
+     * @param MessageEvent $messageEvent
+     *
+     * @throws \Exception
+     */
     public function saveMessage(MessageEvent $messageEvent)
     {
-        $em = $this->em;
-
-        $em->beginTransaction();
         try {
-            // @todo log content
+            $elasticLog = $this->elasticLog;
             $message = new Message();
             $message->setMessage(json_encode($messageEvent->getContent()));
-            $message->setDeliveredAt(new \DateTime());
-            $message->setDeliveryTag($messageEvent->getDeliveryTag());
-
-            $em->persist($message);
-            $em->flush($message);
-            $em->commit();
+            $message->setCreatedAt((new \DateTime())->getTimestamp());
+            $message->setTag($messageEvent->getDeliveryTag());
+            $elasticLog->writeInto('Message', $message);
             echo 'Logged message from '.$messageEvent->getQueue().PHP_EOL;
 
         } catch (\Exception $ex) {
-            $em->rollback();
-            //@todo - log error
+            echo 'Error' . $ex->getMessage();
             throw $ex;
         }
     }
-
 }

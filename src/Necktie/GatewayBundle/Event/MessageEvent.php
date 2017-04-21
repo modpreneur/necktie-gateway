@@ -79,6 +79,4 @@ class MessageEvent extends Event
     {
         return $this->deliveryTag;
     }
-
-
 }

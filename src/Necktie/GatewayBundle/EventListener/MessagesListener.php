@@ -22,7 +22,6 @@ class MessagesListener
      */
     private $messageProcessor;
 
-
     /**
      * MessagesListener constructor.
      * @param MessagesLogger $logger
@@ -45,6 +44,5 @@ class MessagesListener
 
         $this->logger->saveMessage($consumedEvent);
         $this->messageProcessor->process($consumedEvent);
-
     }
 }

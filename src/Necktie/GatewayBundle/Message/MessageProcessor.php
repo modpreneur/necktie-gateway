@@ -2,12 +2,12 @@
 
 namespace Necktie\GatewayBundle\Message;
 
-use Doctrine\ORM\EntityManager;
 use Necktie\GatewayBundle\Event\MessageEvent;
 use Necktie\GatewayBundle\Gateway\ApiGateway;
 use Necktie\GatewayBundle\Gateway\RequestProcessor\BaseProcessor;
-use Necktie\GatewayBundle\Logger\Logger;
+use Necktie\GatewayBundle\Logger\LoggerService;
 use Necktie\GatewayBundle\Proxy\ProducerProxy;
+use Trinity\Bundle\LoggerBundle\Services\ElasticLogService;
 
 /**
  * Class MessageProcessor
@@ -16,13 +16,11 @@ use Necktie\GatewayBundle\Proxy\ProducerProxy;
 class MessageProcessor
 {
 
-    /** @var  EntityManager */
-    protected $em;
+    /** @var  ElasticLogService */
+    protected $elasticLog;
 
 
-    /**
-     * @var ProducerProxy
-     */
+    /** @var ProducerProxy */
     private $producer;
 
 
@@ -32,26 +30,33 @@ class MessageProcessor
 
     /**
      * MessageProcessor constructor.
-     * @param EntityManager $em
+     *
+     * @param ElasticLogService $elasticLog
      * @param ApiGateway $gateway
-     * @param Logger $logger
+     * @param LoggerService $logger
      * @param ProducerProxy $producer
      */
-    public function __construct(EntityManager $em, ApiGateway $gateway, Logger $logger, ProducerProxy $producer)
+    public function __construct(ElasticLogService $elasticLog, ApiGateway $gateway, LoggerService $logger, ProducerProxy $producer)
     {
-        $this->em = $em;
+        $this->elasticLog = $elasticLog;
         $this->logger   = $logger;
         $this->gateway  = $gateway;
         $this->producer = $producer;
     }
 
 
+    /**
+     * @param BaseProcessor $filter
+     */
     public function addProcessor(BaseProcessor $filter)
     {
         $this->processors[$filter->getName()] = $filter;
     }
 
 
+    /**
+     * @param MessageEvent $messageEvent
+     */
     public function process(MessageEvent $messageEvent)
     {
         $this->execute($messageEvent->getContent());
@@ -71,9 +76,10 @@ class MessageProcessor
         }else{
             $processor = $this->processors['HTTPProcessor'];
         }
-
         $response = $processor->process($message);
+
+        dump($response);
+
         $this->producer->publish(serialize($response), 'necktie');
     }
-
 }

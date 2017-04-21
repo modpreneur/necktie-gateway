@@ -1,0 +1,49 @@
+{% extends '@Gateway/layout.html.twig' %}
+
+
+{% block content %}
+
+    <h1>Requests</h1>
+
+    <table class="table table-white">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th width="30%">Response</th>
+            <th>Status</th>
+            <th>Url</th>
+            <th>Message tag</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for request in requests %}
+            <tr>
+                <td>{{ loop.index }}.</td>
+                <td>{{ request.id }}</td>
+                <td class="json">
+                    <div style="width: 250px;overflow: hidden;display: block;word-wrap: break-word;">
+                        {{ request.response }}
+                    </div>
+                </td>
+                <td>
+                    {% if request.status == '200' %}
+                        <span class="badge badge-success">{{ request.status }}</span>
+                    {% elseif request.status == '500' %}
+                        <span class="badge badge-danger">{{ request.status }}</span>
+                    {% elseif request.status == '400' or request.status == '404' %}
+                        <span class="badge badge-warning">{{ request.status }}</span>
+                    {% else %}
+                        {{ request.status }}
+                    {% endif %}
+                </td>
+                <td>[{{ request.method|upper }}] {{ request.url }}</td>
+                <td>{{ request.tag }}</td>
+                <td>{{ request.createdAt|date('d.m.Y H.i') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

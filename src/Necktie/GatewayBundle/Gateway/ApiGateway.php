@@ -2,9 +2,12 @@
 
 namespace Necktie\GatewayBundle\Gateway;
 
+use Elasticsearch\Common\Exceptions\ClientErrorResponseException;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use Necktie\GatewayBundle\Exceptions\URLException;
+use Necktie\GatewayBundle\Services\ApiCaller;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ValidatorBuilder;
@@ -20,27 +23,19 @@ class ApiGateway
      */
     protected $validator;
 
-    /** @var ClientFactoryInterface */
-    protected $clientFactory;
+    /** @var  ApiCaller */
+    protected $apiCaller;
 
 
     /**
      * ApiGateway constructor.
-     * @param ClientFactoryInterface $clientFactory
+     *
+     * @param ApiCaller $apiCaller
      */
-    public function __construct(ClientFactoryInterface $clientFactory)
+    public function __construct(ApiCaller $apiCaller)
     {
         $this->validator = (new ValidatorBuilder())->getValidator();
-        $this->clientFactory = $clientFactory;
-    }
-
-
-    /**
-     * @return Client
-     */
-    protected function getClient()
-    {
-        return $this->clientFactory->createClient();
+        $this->apiCaller = $apiCaller;
     }
 
 
@@ -52,34 +47,33 @@ class ApiGateway
      *
      * @param null $tag
      * @param array $data
+     *
      * @return string
+     * @throws \RuntimeException
      * @throws URLException
      */
     public function request($method, $url, array $header = [], $body = '', $tag = null, array $data = [])
     {
+        $response = null;
+
         if (($val = $this->validateUrl($url))) {
             throw new URLException($val);
         }
 
-        $request = new Request($method, $url, $header, json_encode($body));
-        $client  = $this->getClient();
         $datetime = (new \DateTime())->format(DATE_W3C);
 
-
         try {
-            $response = $client->send($request, [
-                'verify' => false,
-            ]);
+           $response = $this->apiCaller->request($method, $url, ['headers' => $header, 'body' => json_encode($body)], $tag);
 
-        } catch (\Exception $ex) {
+        } catch (ClientException $ex) {
 
             echo 'API[ERROR][' . $datetime .'][' . $method . '] ('.$url.'):' . $ex->getMessage() . PHP_EOL;
 
             return [
                 'status'   => 'error',
                 'url'      => $url,
-                'response' => $ex->getMessage(),
-                'error'    => $ex->getMessage(),
+                'response' => (string)($ex->getResponse()->getBody()),
+                'error'    => $ex->getMessage() . ' ' . $ex->getFile() . ':' . $ex->getLine(),
                 'data'     => $data,
             ];
         }
@@ -89,7 +83,7 @@ class ApiGateway
         return [
             'status'   => 'ok',
             'url'      => $url,
-            'response' => (string)$response->getBody()->getContents(), // todo here
+            'response' => (string)$response->getBody(), // todo here
             'tag'      => $tag,
             'data'     => $data,
         ];
@@ -105,5 +99,4 @@ class ApiGateway
     {
         return (string)$this->validator->validate($url, new Url());
     }
-
 }

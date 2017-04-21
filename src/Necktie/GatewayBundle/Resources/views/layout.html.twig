@@ -40,7 +40,13 @@
                         <a class="nav-link {{ theme.is_active('gateway_rabbitmq') }}" href="{{ path('gateway_rabbitmq') }}">RabbitMQ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ theme.is_active('gateway_logs') }}" href="{{ path('gateway_logs') }}">Logs</a>
+                        <a class="nav-link {{ theme.is_active('gateway_messages') }}" href="{{ path('gateway_messages') }}">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ theme.is_active('gateway_requests') }}" href="{{ path('gateway_requests') }}">Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ theme.is_active('gateway_logger') }}" href="{{ path('gateway_logger') }}">Logger</a>
                     </li>
                 </ul>
             </nav>

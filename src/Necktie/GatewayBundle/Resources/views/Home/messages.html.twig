@@ -1,0 +1,40 @@
+{% extends '@Gateway/layout.html.twig' %}
+
+
+{% block content %}
+
+    <h1>Messages</h1>
+
+    <table class="table table-white">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>Delivered at</th>
+            <th>Delivery tag</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td><strong>{{ loop.index }}.</strong></td>
+                <td>{{ message.id }}</td>
+                <td>{{ message.createdAt|date('d.m.Y H.i:s') }}</td>
+                <td>{{ message.tag }}</td>
+                <td width="10%"><a class="btn btn-primary show-message" href="#">View message</a></td>
+            </tr>
+            <tr class="hide">
+                <td class="json" colspan="5">
+
+                    {% if  message.message is defined %}
+                        {{ message.message }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
