@@ -45,7 +45,7 @@ class PaymentController extends Controller
             'method'  => $request->getMethod(), // should be only POST
         ];
         $this->get('payment.producer')->publish(
-            serialize($content)
+            json_encode($content)
         );
         return $this->json(['message' => 'OK'], 200);
     }
