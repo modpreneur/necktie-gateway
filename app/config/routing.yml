@@ -62,6 +62,9 @@ payment:
     resource: "@GatewayBundle/Controller"
     type:     annotation
 
+driver:
+    resource: "@GatewayBundle/Controller"
+    type: annotation
 
 hwi_oauth_connect:
   path: /login

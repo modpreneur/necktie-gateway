@@ -61,6 +61,10 @@ bunny:
         durable: false
         type: direct
 
+      payment_exchange:
+        durable: false
+        type: direct
+
     queues:
       queue_gateway:
         durable: false
@@ -76,6 +80,11 @@ bunny:
           durable: true
           bindings:
             - exchange: payment_exchange
+
+      queue_driver:
+          durable: true
+          bindings:
+            - exchange: driver_exchange
 
 hwi_oauth:
     firewall_names: [secured_area]
