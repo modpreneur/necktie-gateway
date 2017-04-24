@@ -24,7 +24,7 @@ services:
       - GLOB_RUN_NPM=true
 
 
-  nginx:
+  gw_nginx:
         image: modpreneur/necktie-nginx-dev:0.4
         ports:
             - 8889:80
