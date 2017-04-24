@@ -276,6 +276,7 @@ class HomeController extends Controller
      */
     private function checkElastic() : bool
     {
+        return true;
         $client = new Client();
         try {
             $result = $client->get($this->getParameter('elastic_host'));
