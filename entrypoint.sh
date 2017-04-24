@@ -1,18 +1,16 @@
 #!/bin/bash sh
 
-mkdir -p /var/app/var/cache
-mkdir -p /var/app/var/logs
-mkdir -p /var/app/var/logs/supervisord
+composer run-script after-deploy-cmd
 
-#bin/console redis:flushdb
+composer dump-autoload --optimize --apcu
 
-composer run-script post-install-cmd --no-interaction
+bin/console necktie:bunny:setup
 
 ##supervisor - load config from necktie
 ENV=prod supervisord -c /var/app/supervisor/supervisord.conf
 supervisorctl -c /var/app/supervisor/supervisord.conf reload
 
-bin/console necktie:bunny:setup
+bin/console cache:clear -n -e=prod
 
 chmod -R 0777 /var/app/var/cache
 chmod -R 0777 /var/app/var/logs
