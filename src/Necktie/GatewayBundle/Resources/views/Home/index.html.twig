@@ -52,6 +52,25 @@
                         </td>
                     </tr>
                 {% endif %}
+
+                <tr>
+                    <td {% if elasticIsOk == false %}class="table-warning"{% endif %} ><i class="fa fa-external-link" aria-hidden="true"></i></td>
+                    <th>Elastic URI</th>
+                    <td>{{ elasticUri }}</td>
+                </tr>
+
+                {% if error %}
+                    <tr>
+                        <td class="table-warning">
+                        </td>
+                        <th>
+                            Error
+                        </th>
+                        <td>
+                            {{ error }}
+                        </td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </section>
