@@ -24,18 +24,6 @@ class DriverControllerController extends Controller
      */
     public function indexAction(Request $request, string $driver)
     {
-
-//        if (0 === strpos($driver, self::DEV_TAG)) {
-//            $log = new DriverLog(
-//                $request->getRequestUri(), //contains type, and vendor
-//                $request->getContent(),
-//                $driver
-//            );
-//
-//            $this->getDoctrine()->getManager()->persist($log);
-//            $this->getDoctrine()->getManager()->flush();
-//        }
-
         $content = [
             'content' => $request->getContent(),
             'driver' => $driver,
