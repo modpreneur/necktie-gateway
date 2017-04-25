@@ -66,6 +66,14 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
       "php bin/console doctrine:schema:update --force"
+    ],
+    "before-deploy-cmd": [
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+    ],
+    "after-deploy-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
     ]
   },
 
@@ -112,6 +120,7 @@
         "debug_toolbar": "SYMFONY__DEBUG_TOOLBAR",
         "debug_redirects": "SYMFONY__DEBUG_REDIRECTS",
         "use_assetic_controller": "SYMFONY__ASSETIC_CONTROLLER",
+        "elastic_host": "SYMFONY__ELASTIC_HOST",
 
         "necktie_url":    "SYMFONY__NECKTIE_URL",
         "necktie_public": "SYMFONY__NECKTIE_PUBLIC",

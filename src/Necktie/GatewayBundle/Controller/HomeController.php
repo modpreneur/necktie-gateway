@@ -2,6 +2,8 @@
 
 namespace Necktie\GatewayBundle\Controller;
 
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\ServerException;
 use Necktie\GatewayBundle\Entity\Message;
 use Necktie\GatewayBundle\Entity\SystemLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,6 +30,9 @@ use Trinity\Bundle\LoggerBundle\Services\ElasticReadLogService;
 class HomeController extends Controller
 {
     protected $supervisor;
+
+    /** @var  string */
+    private $error;
 
 
     /**
@@ -78,6 +83,9 @@ class HomeController extends Controller
             'rabbitManagerPort'  => $this->getParameter('rabbit_manager_port'),
             'rabbit'     => $rabbit,
             'rabbitError' => $rabbit->getConnectionError(),
+            'elasticUri'  => $this->getParameter('elastic_host'),
+            'elasticIsOk' => $this->checkElastic(),
+            'error'       => $this->getError(),
         ]);
     }
 
@@ -260,5 +268,31 @@ class HomeController extends Controller
         );
 
         return new XmlRpc($client);
+    }
+
+
+    /**
+     * @return bool
+     */
+    private function checkElastic() : bool
+    {
+        return true;
+        $client = new Client();
+        try {
+            $result = $client->get($this->getParameter('elastic_host'));
+            return $result->getStatusCode() === 200;
+        } catch (ConnectException | ServerException $e) {
+            $this->error = ($e->hasResponse())? $e->getResponse()->getBody() : null;
+            return false;
+        }
+    }
+
+
+    /**
+     * @return string
+     */
+    private function getError() : ?string
+    {
+        return $this->error;
     }
 }

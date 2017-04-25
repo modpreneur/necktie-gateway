@@ -21,7 +21,7 @@ services:
       - necktie_rabbit_mq_1:rabbit_mq
       - necktie_nginx_1:necktie
 
-  nginx:
+  gw_nginx:
     image: modpreneur/necktie-nginx-dev:0.4
     ports:
         - 9080:80

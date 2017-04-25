@@ -6,8 +6,14 @@ mkdir -p /var/app/var/logs
 mkdir -p /var/app/var/logs/supervisord
 
 composer install --no-scripts --no-suggest --optimize-autoloader
+composer run-script before-deploy-cmd
 
 rm -R /var/app/var/cache/prod/*
+
+chmod -R 0777 /var/app/var/cache
+chmod -R 0777 /var/app/var/logs
+chown -R www-data:www-data /var/app/var/cache
+chown -R www-data:www-data /var/app/var/logs
 
 rm docker-compose.yml
 rm docker-compose-deploy.yml
