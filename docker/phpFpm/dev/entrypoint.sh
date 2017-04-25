@@ -21,11 +21,11 @@ fi
 chown -R www-data:www-data /var/app/var/logs
 chmod -R 0777 /var/app/var/logs
 
+bin/console bunny:setup
+
 #supervisor - load config from necktie
 ENV=dev supervisord -c /var/app/supervisor/supervisord.conf
 supervisorctl -c /var/app/supervisor/supervisord.conf reload
-
-bin/console bunny:setup
 
 chmod -R 0777 /var/app/var/cache
 chmod -R 0777 /var/app/var/logs
