@@ -73,6 +73,7 @@ class HomeController extends Controller
             'elasticUri'  => $this->getParameter('elastic_host'),
             'elasticIsOk' => $this->checkElastic(),
             'error'       => $this->getError(),
+            'processes' => $this->getProcesses(),
         ]);
     }
 

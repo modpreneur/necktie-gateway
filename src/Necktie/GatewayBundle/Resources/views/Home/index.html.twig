@@ -54,6 +54,18 @@
                 {% endif %}
 
                 <tr>
+                    <td></td>
+                    <th>Supervisor</th>
+                    <td>
+                        {% for process in processes %}
+                                <div class="alert {% if process.running %} alert-success{% else %}alert-danger{% endif %}">
+                                    {{ process.group }}: {{ process.name }} | {{ process.statename }}
+                                </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr>
                     <td {% if elasticIsOk == false %}class="table-warning"{% endif %} ><i class="fa fa-external-link" aria-hidden="true"></i></td>
                     <th>Elastic URI</th>
                     <td>{{ elasticUri }}</td>
