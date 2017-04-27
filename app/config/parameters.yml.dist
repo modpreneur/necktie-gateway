@@ -21,3 +21,5 @@ parameters:
   rabbit_manager_port: 15672
   rabbit_supervisor_group: 'gatewayConsumer'
   elastic_host: 127.0.0.1
+
+  supervisor_api_token: b1d237e227dee2ae7544fdad33d3970f06a82914a271b79a8d2e178cec84465e_supervisor

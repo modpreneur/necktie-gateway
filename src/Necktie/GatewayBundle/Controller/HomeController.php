@@ -6,6 +6,7 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ServerException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -267,8 +268,12 @@ class HomeController extends Controller
      * @return Response
      * @throws \InvalidArgumentException
      */
-    public function stopAllProcessesAction() : Response
+    public function stopAllProcessesAction(Request $request) : Response
     {
+        $token = $request->get('token');
+        if ($token !== $this->getParameter('supervisor_api_token'))
+            return new Response('Token is not valid', 400);
+
         $this->supervisor->stopAllProcesses();
 
         return new Response('ok');
@@ -279,8 +284,12 @@ class HomeController extends Controller
      * @return Response
      * @throws \InvalidArgumentException
      */
-    public function startAllProcessesAction() : Response
+    public function startAllProcessesAction(Request $request) : Response
     {
+        $token = $request->get('token');
+        if ($token !== $this->getParameter('supervisor_api_token'))
+            return new Response('Token is not valid', 400);
+
         $this->supervisor->startAllProcesses();
 
         return new Response('ok');
