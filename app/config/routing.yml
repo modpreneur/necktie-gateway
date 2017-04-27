@@ -9,67 +9,67 @@ gateway_dashboard:
 
 
 gateway_rabbitmq:
-  path: /rabbitmq
+  path: /gw/rabbitmq
   defaults:  { _controller: GatewayBundle:Home:rabbit }
 
 
 gateway_logger:
-  path: /logger
+  path: /gw/logger
   defaults:  { _controller: GatewayBundle:Home:logger }
 
 
 gateway_status:
-  path: /status
+  path: /gw/status
   defaults:  { _controller: GatewayBundle:Home:status }
 
 
 gateway_stop_all_processes:
-  path: /stop-all
+  path: /gw/stop-all
   defaults:  { _controller: GatewayBundle:Home:stopAllProcesses }
 
 
 gateway_start_all_processes:
-  path: /start-all
+  path: /gw/start-all
   defaults:  { _controller: GatewayBundle:Home:startAllProcesses }
 
 
 gateway_supervisor:
-  path: /supervisor
+  path: /gw/supervisor
   defaults:  { _controller: GatewayBundle:Home:supervisor }
 
 
 gateway_messages:
-  path: /messages
+  path: /gw/messages
   defaults:  { _controller: GatewayBundle:Home:messages }
 
 
 gateway_requests:
-  path: /requests
+  path: /gw/requests
   defaults:  { _controller: GatewayBundle:Home:requests }
 
 
 supervisor_restart:
-     path : /restart
+     path : /gw/restart
      defaults:  { _controller: GatewayBundle:Home:restart }
 
 
 supervisor_stop_process:
-     path : /stop-process/{group}/{name}
+     path : /gw/stop-process/{group}/{name}
      defaults:  { _controller: GatewayBundle:Home:stopProcess }
 
 
 supervisor_start_process:
-     path : /start-process/{group}/{name}
+     path : /gw/start-process/{group}/{name}
      defaults:  { _controller: GatewayBundle:Home:startProcess }
 
 
 supervisor_logs_process:
-     path : /process-logs/{group}/{name}
+     path : /gw/process-logs/{group}/{name}
      defaults:  { _controller: GatewayBundle:Home:processLogs }
 
 
 supervisor_clean_log_process:
-     path : /process-logs-clean/{group}/{name}
+     path : /gw/process-logs-clean/{group}/{name}
      defaults:  { _controller: GatewayBundle:Home:cleanLog }
 
 
@@ -77,9 +77,11 @@ payment:
     resource: "@GatewayBundle/Controller"
     type:     annotation
 
+
 driver:
     resource: "@GatewayBundle/Controller"
     type: annotation
+
 
 hwi_oauth_connect:
   path: /login

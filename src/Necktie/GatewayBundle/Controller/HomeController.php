@@ -63,9 +63,9 @@ class HomeController extends Controller
         $rabbit->process();
 
         return $this->render('GatewayBundle:Home:index.html.twig', [
-            'version'    => exec("git rev-parse --verify HEAD"),
-            'datetime'   => new \DateTime(),
-            'rabbitUrl'  => $this->getParameter('rabbit_url'),
+            'version'     => exec("git rev-parse --verify HEAD"),
+            'datetime'    => new \DateTime(),
+            'rabbitUrl'   => $this->getParameter('rabbit_url'),
             'rabbitPort'  => $this->getParameter('rabbit_port'),
             'rabbitManagerPort'  => $this->getParameter('rabbit_manager_port'),
             'rabbit'      => $rabbit,
@@ -73,7 +73,7 @@ class HomeController extends Controller
             'elasticUri'  => $this->getParameter('elastic_host'),
             'elasticIsOk' => $this->checkElastic(),
             'error'       => $this->getError(),
-            'processes' => $this->getProcesses(),
+            'processes'   => $this->getProcesses(),
         ]);
     }
 
