@@ -2,6 +2,7 @@
 
 namespace Necktie\GatewayBundle\Controller;
 
+use fXmlRpc\Exception\FaultException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ServerException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -237,9 +238,13 @@ class HomeController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function startProcessAction(string $group, string $name) : RedirectResponse
+    public function startProcessAction(string $group, string $name) : Response
     {
-        $this->supervisor->startProcess($group . ':' . $name, 10);
+        try {
+            $this->supervisor->startProcess($group . ':' . $name, 10);
+        } catch (FaultException $exception) {
+            return new Response('ERROR: ' . $exception->getMessage());
+        }
 
         return $this->redirectToRoute('gateway_supervisor');
     }
