@@ -124,7 +124,7 @@
 
         "necktie_url":    "SYMFONY__NECKTIE_URL",
         "necktie_public": "SYMFONY__NECKTIE_PUBLIC",
-        "necktie_secret": "SYMFONY_NECKTIE_SECRET"
+        "necktie_secret": "SYMFONY__NECKTIE_SECRET"
       }
     }
   }
