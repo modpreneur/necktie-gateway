@@ -13,9 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Route("/driver")
  */
-class DriverControllerController extends Controller
+class DriverController extends Controller
 {
     const DEV_TAG = 'dev_';
+
     /**
      * @Route("/{driver}")
      * @param Request $request
@@ -26,7 +27,7 @@ class DriverControllerController extends Controller
     {
         $content = [
             'content' => $request->getContent(),
-            'driver' => $driver,
+            'driver'  => $driver,
             'method'  => $request->getMethod(), // should be only POST
         ];
 
