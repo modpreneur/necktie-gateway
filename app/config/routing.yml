@@ -23,6 +23,16 @@ gateway_status:
   defaults:  { _controller: GatewayBundle:Home:status }
 
 
+gateway_stop_all_processes:
+  path: /stop-all
+  defaults:  { _controller: GatewayBundle:Home:stopAllProcesses }
+
+
+gateway_start_all_processes:
+  path: /start-all
+  defaults:  { _controller: GatewayBundle:Home:startAllProcesses }
+
+
 gateway_supervisor:
   path: /supervisor
   defaults:  { _controller: GatewayBundle:Home:supervisor }

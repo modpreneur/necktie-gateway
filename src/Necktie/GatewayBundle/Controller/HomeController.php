@@ -263,6 +263,30 @@ class HomeController extends Controller
 
 
     /**
+     * @return Response
+     * @throws \InvalidArgumentException
+     */
+    public function stopAllProcessesAction() : Response
+    {
+        $this->supervisor->stopAllProcesses();
+
+        return new Response('ok');
+    }
+
+
+    /**
+     * @return Response
+     * @throws \InvalidArgumentException
+     */
+    public function startAllProcessesAction() : Response
+    {
+        $this->supervisor->startAllProcesses();
+
+        return new Response('ok');
+    }
+
+
+    /**
      * @return \Supervisor\Process[]
      */
     private function getProcesses() : array
