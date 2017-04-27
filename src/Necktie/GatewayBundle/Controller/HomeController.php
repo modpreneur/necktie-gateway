@@ -4,14 +4,11 @@ namespace Necktie\GatewayBundle\Controller;
 
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ServerException;
-use Necktie\GatewayBundle\Entity\Message;
-use Necktie\GatewayBundle\Entity\SystemLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-
 use Supervisor\Supervisor;
 use Supervisor\Connector\XmlRpc;
 use fXmlRpc\Client as ClientRpc;
@@ -19,9 +16,8 @@ use GuzzleHttp\Client;
 use fXmlRpc\Transport\HttpAdapterTransport;
 use Http\Adapter\Guzzle6\Client as ClientGuzzle;
 use Http\Message\MessageFactory\DiactorosMessageFactory;
-use Trinity\Bundle\LoggerBundle\Entity\ExceptionLog;
-use Trinity\Bundle\LoggerBundle\Services\ElasticLogService;
 use Trinity\Bundle\LoggerBundle\Services\ElasticReadLogService;
+
 
 /**
  * Class HomeController
@@ -48,7 +44,7 @@ class HomeController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function indexAction()
+    public function indexAction() : Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('gateway_dashboard');
@@ -61,17 +57,8 @@ class HomeController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function dashboardAction()
+    public function dashboardAction() : Response
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-        $messages = $em
-            ->getRepository(Message::class)
-            ->findBy([], ['id' => 'desc'], 20);
-
-        $systemLogs = $em
-            ->getRepository(SystemLog::class)
-            ->findBy([], ['id' => 'desc'], 20);
-
         $rabbit = $this->get('gw.rabbitmq.reader');
         $rabbit->process();
 
@@ -81,12 +68,41 @@ class HomeController extends Controller
             'rabbitUrl'  => $this->getParameter('rabbit_url'),
             'rabbitPort'  => $this->getParameter('rabbit_port'),
             'rabbitManagerPort'  => $this->getParameter('rabbit_manager_port'),
-            'rabbit'     => $rabbit,
+            'rabbit'      => $rabbit,
             'rabbitError' => $rabbit->getConnectionError(),
             'elasticUri'  => $this->getParameter('elastic_host'),
             'elasticIsOk' => $this->checkElastic(),
             'error'       => $this->getError(),
         ]);
+    }
+
+
+    /**
+     * @return Response
+     */
+    public function statusAction() : Response
+    {
+        $checkDashboard = $this->dashboardAction();
+
+        if ($checkDashboard->getStatusCode() !== 200) {
+            return new Response('Dashboard has error', $checkDashboard->getStatusCode());
+        }
+
+        $rabbit = $this->get('gw.rabbitmq.reader');
+        $rabbit->process();
+
+        if ($rabbit->getConnectionError() !== '') {
+            return new Response($rabbit->getConnectionError(), 500);
+        }
+
+        foreach ($this->getProcesses() as $process) {
+            /** @var $process \Supervisor\Process */
+            if (false === $process->isRunning()) {
+                //return new Response((string)$process . 'has error', 500);
+            }
+        }
+
+        return new Response('All is fine');
     }
 
 
@@ -112,7 +128,7 @@ class HomeController extends Controller
     {
         /** @var ElasticReadLogService $elReader */
         $elReader = $this->get('trinity.logger.elastic_read_log_service');
-        $loggers = $elReader->getMatchingEntities('Logger');
+        $loggers  = $elReader->getMatchingEntities('Logger');
 
         return $this->render('@Gateway/Home/logger.html.twig', [
             'loggers' => $loggers,
@@ -123,7 +139,7 @@ class HomeController extends Controller
     /**
      * @return Response
      */
-    public function supervisorAction()
+    public function supervisorAction() : Response
     {
         $rabbit = $this->get('gw.rabbitmq.reader');
         $rabbit->process();
@@ -139,7 +155,7 @@ class HomeController extends Controller
     /**
      * @return Response
      */
-    public function messagesAction()
+    public function messagesAction() : Response
     {
         /** @var ElasticReadLogService $elReader */
         $elReader = $this->get('trinity.logger.elastic_read_log_service');
@@ -172,7 +188,7 @@ class HomeController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function stopProcessAction(string $group, string $name)
+    public function stopProcessAction(string $group, string $name) : RedirectResponse
     {
         $this->supervisor->stopProcess($group . ':' . $name, 10);
 
@@ -185,8 +201,9 @@ class HomeController extends Controller
      * @param string $name
      *
      * @return Response
+     * @throws \InvalidArgumentException
      */
-    public function processLogsAction(string $group, string $name)
+    public function processLogsAction(string $group, string $name) : Response
     {
         $result = '';
 
@@ -204,9 +221,10 @@ class HomeController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function cleanLogAction(string $group, string $name)
+    public function cleanLogAction(string $group, string $name) : RedirectResponse
     {
         $this->supervisor->clearProcessLogs($group . ':' . $name);
+
         return $this->redirectToRoute('gateway_supervisor');
     }
 
@@ -217,7 +235,7 @@ class HomeController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function startProcessAction(string $group, string $name)
+    public function startProcessAction(string $group, string $name) : RedirectResponse
     {
         $this->supervisor->startProcess($group . ':' . $name, 10);
 
@@ -226,9 +244,10 @@ class HomeController extends Controller
 
 
     /**
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function restartAction(){
+    public function restartAction() : RedirectResponse
+    {
         $process = new Process('supervisorctl -c /var/app/supervisor/supervisord.conf restart all');
         $process->run();
 
@@ -277,6 +296,7 @@ class HomeController extends Controller
     private function checkElastic() : bool
     {
         return true;
+
         $client = new Client();
         try {
             $result = $client->get($this->getParameter('elastic_host'));
