@@ -6,6 +6,15 @@ imports:
 jms_serializer:
     enable_short_alias: false
 
+
+monolog:
+  handlers:
+    error:
+       type: service
+       id: trinity.logger.database_handler
+       level: ERROR
+
+
 framework:
     cache:
        app: cache.adapter.apcu
@@ -27,17 +36,6 @@ sensio_framework_extra:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
-
-doctrine:
-    dbal:
-        driver:   %database_driver%
-        host:     %database_host%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
-    orm:
-        auto_mapping: true
 
 
 bunny:

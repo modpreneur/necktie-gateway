@@ -33,7 +33,6 @@ class AppKernel extends Kernel
     {
         $bundles = [
             new FrameworkBundle(),
-            new DoctrineBundle(),
             new TwigBundle(),
             new GatewayBundle(),
             new TrinityBunnyBundle(),

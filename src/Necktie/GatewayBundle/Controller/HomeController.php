@@ -45,6 +45,7 @@ class HomeController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws \LogicException
      */
     public function indexAction() : Response
     {
@@ -58,6 +59,7 @@ class HomeController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \LogicException
      */
     public function dashboardAction() : Response
     {
@@ -65,7 +67,7 @@ class HomeController extends Controller
         $rabbit->process();
 
         return $this->render('GatewayBundle:Home:index.html.twig', [
-            'version'     => exec("git rev-parse --verify HEAD"),
+            'version'     => \exec('git rev-parse --verify HEAD'),
             'datetime'    => new \DateTime(),
             'rabbitUrl'   => $this->getParameter('rabbit_url'),
             'rabbitPort'  => $this->getParameter('rabbit_port'),
@@ -82,6 +84,8 @@ class HomeController extends Controller
 
     /**
      * @return Response
+     * @throws \LogicException
+     * @throws \InvalidArgumentException
      */
     public function statusAction() : Response
     {
@@ -111,6 +115,7 @@ class HomeController extends Controller
 
     /**
      * @return Response
+     * @throws \LogicException
      */
     public function rabbitAction() : Response
     {
@@ -141,6 +146,7 @@ class HomeController extends Controller
 
     /**
      * @return Response
+     * @throws \LogicException
      */
     public function supervisorAction() : Response
     {
@@ -237,6 +243,7 @@ class HomeController extends Controller
      * @param string $name
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \InvalidArgumentException
      */
     public function startProcessAction(string $group, string $name) : Response
     {
@@ -252,6 +259,9 @@ class HomeController extends Controller
 
     /**
      * @return RedirectResponse
+     * @throws \Symfony\Component\Process\Exception\RuntimeException
+     * @throws \Symfony\Component\Process\Exception\LogicException
+     * @throws \Symfony\Component\Process\Exception\ProcessFailedException
      */
     public function restartAction() : RedirectResponse
     {

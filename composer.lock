@@ -4018,12 +4018,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/modpreneur/trinity-logger.git",
-                "reference": "c9333104e248c15019627e607d7876c26864d6fb"
+                "reference": "852db73f5504c65f4aae5b450d272ee69b9615dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modpreneur/trinity-logger/zipball/c9333104e248c15019627e607d7876c26864d6fb",
-                "reference": "c9333104e248c15019627e607d7876c26864d6fb",
+                "url": "https://api.github.com/repos/modpreneur/trinity-logger/zipball/852db73f5504c65f4aae5b450d272ee69b9615dd",
+                "reference": "852db73f5504c65f4aae5b450d272ee69b9615dd",
                 "shasum": ""
             },
             "require": {
@@ -4069,7 +4069,7 @@
                 }
             ],
             "description": "Trinity Logger bundle",
-            "time": "2017-04-21 08:48:38"
+            "time": "2017-04-28 13:41:01"
         },
         {
             "name": "trinity/search",
