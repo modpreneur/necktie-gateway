@@ -2,9 +2,9 @@ version: '2'
 services:
 
   php_fpm:
-    image: modpreneur/necktie-fpm-test:0.11
+    image: modpreneur/necktie-fpm-test:0.12
     links:
-      - mysql:mysql
+#      - mysql:mysql
     ports:
       #php-fpm
       - "9091:9090"
@@ -28,10 +28,10 @@ services:
     volumes:
       - ./logs/nginx/:/var/log/nginx
 
-  mysql:
-    extends:
-      file: docker-compose.yml
-      service: mysql
+#  mysql:
+#    extends:
+#      file: docker-compose.yml
+#      service: mysql
 
 networks:
   default:

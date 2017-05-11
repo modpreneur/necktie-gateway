@@ -7,7 +7,7 @@ services:
       dockerfile: docker/phpFpm/dev/Dockerfile
     env_file: docker/.env
     links:
-      - mysql:mysql
+#      - mysql:mysql
     ports:
       #php-fpm
       - "9091:9090"
@@ -33,17 +33,17 @@ services:
       - ./logs/nginx/:/var/log/nginx
 
 
-  mysql:
-    image: mysql/mysql-server:5.7
-    ports:
-      - "3307:3306"
-    expose:
-      - "3307"
-    environment:
-      - MYSQL_DATABASE=gateway
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=pass
-      - MYSQL_ROOT_PASSWORD=pass
+#  mysql:
+#    image: mysql/mysql-server:5.7
+#    ports:
+#      - "3307:3306"
+#    expose:
+#      - "3307"
+#    environment:
+#      - MYSQL_DATABASE=gateway
+#      - MYSQL_USER=user
+#      - MYSQL_PASSWORD=pass
+#      - MYSQL_ROOT_PASSWORD=pass
 
 networks:
   default:

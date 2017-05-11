@@ -9,7 +9,7 @@ services:
     env_file: docker/.env
     links:
 #      - mysql:mysql
-      - mysql:database
+#      - mysql:database
     ports:
       #php-fpm
       - "9091:9090"
@@ -35,8 +35,8 @@ services:
         volumes:
           - ./logs/nginx/:/var/log/nginx
 
-  mysql:
-    extends:
-      file: docker-compose.yml
-      service: mysql
+#  mysql:
+#    extends:
+#      file: docker-compose.yml
+#      service: mysql
 

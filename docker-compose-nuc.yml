@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: docker/phpFpm/nuc/Dockerfile
     links:
-      - mysql:mysql
+#      - mysql:mysql
     ports:
       #php-fpm
       - "9091:9090"
@@ -31,8 +31,8 @@ services:
     volumes:
       - ./logs/nginx/:/var/log/nginx
 
-  mysql:
-    restart: always
-    extends:
-      file: docker-compose.yml
-      service: mysql
+#  mysql:
+#    restart: always
+#    extends:
+#      file: docker-compose.yml
+#      service: mysql
