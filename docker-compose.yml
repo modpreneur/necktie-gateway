@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: docker/phpFpm/dev/Dockerfile
     env_file: docker/.env
-    links:
-#      - mysql:mysql
     ports:
       #php-fpm
       - "9091:9090"
