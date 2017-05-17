@@ -4,6 +4,11 @@
 create `docker/.env` file. It should be same as `.env` file in necktie project
 
 ## FAQ
+### Don't miss
+- We recommend to look into all possible logs during debug. How to do that is explained below.
+- Before restarting consumer, we recommend to clear its log. **Its not automatic!**
+- If you get stuck, and this page didn't help you. Don't hesitate to ask.
+
 ### How can I run local session?
 1. `docker-compose up` will start gateway
 2. Update `gateway_host` parameter in `parameters.yml` in necktie project to your local IP address (NOT localhost or 127..1). 
@@ -27,4 +32,5 @@ This redirects necktie to your local necktie-gateway
 ### How can I see errors of gateway itself?
 1. Go to [localhost:9080/app_dev.php/](localhost:9080/app_dev.php/).
 2. In left menu click to `Logger`
+
 
