@@ -75,8 +75,6 @@ class HTTPProcessor extends BaseProcessor
                     $attributes
                 );
 
-            dump($response);
-
             $this->logger->addRecord($response);
 
             if ($response['status'] === 'error') {
@@ -84,8 +82,6 @@ class HTTPProcessor extends BaseProcessor
                 $this->logger->addRecord($response);
                 throw new \RuntimeException($response['response']);
             }
-
-            dump($response);
 
             return [
                 'status'     => $response['status'],

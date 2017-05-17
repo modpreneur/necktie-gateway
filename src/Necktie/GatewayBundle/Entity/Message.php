@@ -64,7 +64,8 @@ class Message
      */
     public function getData()
     {
-        return unserialize($this->message);
+        echo 'yyy';
+        return \unserialize($this->message);
     }
 
 

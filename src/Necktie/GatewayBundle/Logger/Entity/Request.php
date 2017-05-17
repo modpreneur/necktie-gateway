@@ -42,7 +42,7 @@ class Request extends BaseElasticLog
     /**
      * @param string $url
      */
-    public function setUrl(string $url)
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
@@ -51,7 +51,7 @@ class Request extends BaseElasticLog
     /**
      * @return string
      */
-    public function getResponse(): string
+    public function getResponse(): ?string
     {
         return $this->response;
     }
@@ -60,7 +60,7 @@ class Request extends BaseElasticLog
     /**
      * @param string $response
      */
-    public function setResponse(string $response)
+    public function setResponse(string $response): void
     {
         $this->response = $response;
     }
@@ -78,7 +78,7 @@ class Request extends BaseElasticLog
     /**
      * @param int|string $status
      */
-    public function setStatus($status)
+    public function setStatus($status): void
     {
         $this->status = $status;
     }
@@ -96,7 +96,7 @@ class Request extends BaseElasticLog
     /**
      * @param array $options
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->options = $options;
     }
@@ -114,7 +114,7 @@ class Request extends BaseElasticLog
     /**
      * @param string $tag
      */
-    public function setTag(string $tag)
+    public function setTag(string $tag): void
     {
         $this->tag = $tag;
     }
@@ -132,7 +132,7 @@ class Request extends BaseElasticLog
     /**
      * @param string $method
      */
-    public function setMethod(string $method)
+    public function setMethod(string $method): void
     {
         $this->method = $method;
     }

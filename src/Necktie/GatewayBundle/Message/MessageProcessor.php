@@ -36,8 +36,12 @@ class MessageProcessor
      * @param LoggerService $logger
      * @param ProducerProxy $producer
      */
-    public function __construct(ElasticLogService $elasticLog, ApiGateway $gateway, LoggerService $logger, ProducerProxy $producer)
-    {
+    public function __construct(
+        ElasticLogService $elasticLog,
+        ApiGateway $gateway,
+        LoggerService $logger,
+        ProducerProxy $producer
+    ) {
         $this->elasticLog = $elasticLog;
         $this->logger   = $logger;
         $this->gateway  = $gateway;
@@ -70,16 +74,14 @@ class MessageProcessor
     {
         $processor = null;
 
-        if(array_key_exists('processorName', $message)){
+        if (\array_key_exists('processorName', $message)) {
             /** @var BaseProcessor $processor */
             $processor = $this->processors[$message['processorName']];
-        }else{
+        } else {
             $processor = $this->processors['HTTPProcessor'];
         }
         $response = $processor->process($message);
 
-        dump($response);
-
-        $this->producer->publish(serialize($response), 'necktie');
+        $this->producer->publish(\serialize($response), 'necktie');
     }
 }

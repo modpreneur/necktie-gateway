@@ -10,7 +10,6 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class MessageEvent extends Event
 {
-
     const EVENT = 'message.consume';
 
     /**
@@ -23,13 +22,19 @@ class MessageEvent extends Event
      */
     protected $deliveryTag;
 
-
     /**
      * @var string
      */
     private $queue;
 
 
+    /**
+     * MessageEvent constructor.
+     *
+     * @param string $content
+     * @param string $queue
+     * @param $deliveryTag
+     */
     public function __construct(string $content, string $queue, $deliveryTag)
     {
         $this->content = $content;
@@ -43,7 +48,7 @@ class MessageEvent extends Event
      */
     public function getContent()
     {
-        return unserialize($this->content);
+        return \unserialize($this->content);
     }
 
 
@@ -51,12 +56,12 @@ class MessageEvent extends Event
      * @param string $content
      * @return $this
      */
-    public function setContent($content)
+    public function setContent(string $content)
     {
         if (is_string($content)) {
             $this->content = $content;
         } else {
-            $this->content = serialize($content);
+            $this->content = \serialize($content);
         }
 
         return $this;
@@ -66,7 +71,7 @@ class MessageEvent extends Event
     /**
      * @return string
      */
-    public function getQueue()
+    public function getQueue(): string
     {
         return $this->queue;
     }
@@ -75,7 +80,7 @@ class MessageEvent extends Event
     /**
      * @return mixed
      */
-    public function getDeliveryTag()
+    public function getDeliveryTag(): string
     {
         return $this->deliveryTag;
     }

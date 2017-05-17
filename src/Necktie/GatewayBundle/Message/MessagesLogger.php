@@ -32,12 +32,12 @@ class MessagesLogger
      *
      * @throws \Exception
      */
-    public function saveMessage(MessageEvent $messageEvent)
+    public function saveMessage(MessageEvent $messageEvent): void
     {
         try {
             $elasticLog = $this->elasticLog;
             $message = new Message();
-            $message->setMessage(json_encode($messageEvent->getContent()));
+            $message->setMessage(\json_encode($messageEvent->getContent()));
             $message->setCreatedAt((new \DateTime())->getTimestamp());
             $message->setTag($messageEvent->getDeliveryTag());
             $elasticLog->writeInto('Message', $message);

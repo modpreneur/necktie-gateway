@@ -48,25 +48,25 @@ class ApiGateway
      * @param null $tag
      * @param array $data
      *
-     * @return string
+     * @return array
      * @throws \RuntimeException
      * @throws URLException
      */
-    public function request($method, $url, array $header = [], $body = '', $tag = null, array $data = [])
+    public function request($method, $url, array $header = [], $body = '', $tag = null, array $data = []): array
     {
         $response = null;
 
         if (($val = $this->validateUrl($url))) {
-            throw new URLException($val);
+            //throw new URLException($val);
         }
 
         $datetime = (new \DateTime())->format(DATE_W3C);
 
         try {
-           $response = $this->apiCaller->request($method, $url, ['headers' => $header, 'body' => json_encode($body)], $tag);
-
+            $response = $this
+               ->apiCaller
+               ->request($method, $url, ['headers' => $header, 'body' => json_encode($body)], $tag);
         } catch (ClientException $ex) {
-
             echo 'API[ERROR][' . $datetime .'][' . $method . '] ('.$url.'):' . $ex->getMessage() . PHP_EOL;
 
             return [
@@ -95,7 +95,7 @@ class ApiGateway
      * @return string
      * @throws \Symfony\Component\Validator\Exception\ConstraintDefinitionException
      */
-    protected function validateUrl($url)
+    protected function validateUrl($url): string
     {
         return (string)$this->validator->validate($url, new Url());
     }
