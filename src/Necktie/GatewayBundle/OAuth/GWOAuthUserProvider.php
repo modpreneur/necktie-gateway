@@ -6,6 +6,7 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Trinity\Bundle\LoggerBundle\Interfaces\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Trinity\Component\Core\Interfaces\UserInterface;
 
 /**
  * Class GWOAuthUserProvider
@@ -36,7 +37,7 @@ class GWOAuthUserProvider extends OAuthUserProvider implements UserProviderInter
      *
      * @return \Trinity\Component\Core\Interfaces\UserInterface
      */
-    public function getUserById(int $userId)
+    public function getUserById(int $userId): UserInterface
     {
         return $this->token->getToken()->getUser();
     }
