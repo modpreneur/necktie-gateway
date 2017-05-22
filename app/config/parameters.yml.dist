@@ -6,12 +6,6 @@ parameters:
   rabbit_password: b1d237e227dee2ae7544fdad33d3970f06a82914a271b79a8d2e178cec84465e
   rabbit_vhost: /
 
-  database_driver:   pdo_mysql
-  database_host:     mysql
-  database_name:     gateway
-  database_user:     user
-  database_password: pass
-
   necktie_url: http://dev.getnecktie.com
   necktie_public: '5_nirqva9vs4gggwk08s0w8swsos0k8kowk04wg0w0gww0okk4w'
   necktie_secret: '2groey7qx9es4gcks0k888k80gskkk8wkgww0gsoosocksk44c'
