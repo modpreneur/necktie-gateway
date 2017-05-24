@@ -1,5 +1,9 @@
 #!/bin/bash sh
 
+mkdir -p /var/app/var/cache
+mkdir -p /var/app/var/cache/prod
+mkdir -p /var/app/var/logs
+
 composer run-script after-deploy-cmd
 
 composer dump-autoload --optimize --apcu

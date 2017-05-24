@@ -78,6 +78,7 @@ class HomeController extends Controller
             'elasticIsOk' => $this->checkElastic(),
             'error'       => $this->getError(),
             'processes'   => $this->getProcesses(),
+            'necktieUrl' => $this->getParameter('necktie_url'),
         ]);
     }
 
