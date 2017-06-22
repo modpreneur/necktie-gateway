@@ -19,6 +19,7 @@ framework:
     cache:
        app: cache.adapter.apcu
     secret: "%secret%"
+    translator: { fallback: "en" }
     templating:
         engines: ['twig']
     session:

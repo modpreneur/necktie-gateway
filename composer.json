@@ -3,8 +3,8 @@
   "type": "project",
   "require": {
     "php": "~7.1",
-    "symfony/symfony": "~3.2",
-    "twig/twig": "2.2.*",
+    "symfony/symfony": "~3.3",
+    "twig/twig": "~2.2",
     "twig/extensions": "~1.4",
     "doctrine/orm": "~2.5",
     "doctrine/doctrine-bundle": "~1.6",
@@ -20,8 +20,8 @@
     "php-http/guzzle6-adapter": "^1.1",
     "lstrojny/fxmlrpc": "~0.14",
     "supervisorphp/supervisor": "~3.0",
-    "symfony/security-bundle" : "3.2",
-    "hwi/oauth-bundle": "0.5",
+    "symfony/security-bundle" : "~3.2",
+    "hwi/oauth-bundle": "~0.5",
     "trinity/bunny-bundle": "dev-master",
     "trinity/core-interfaces": "dev-master",
     "trinity/utils": "dev-master",
@@ -31,7 +31,7 @@
 
   "require-dev": {
       "lusitanian/oauth": "~0.3",
-      "phpunit/phpunit": "~5.6"
+      "phpunit/phpunit": "~6.0"
   },
 
   "authors": [

@@ -2,7 +2,7 @@ version: '2'
 services:
 
   php_fpm:
-    image: modpreneur/necktie-fpm-test:0.12
+    image: modpreneur/necktie-fpm-test:0.14
     ports:
       #php-fpm
       - "9091:9090"
