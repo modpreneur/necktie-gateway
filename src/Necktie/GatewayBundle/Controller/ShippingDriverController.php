@@ -2,36 +2,35 @@
 
 namespace Necktie\GatewayBundle\Controller;
 
-use Necktie\GatewayBundle\Entity\DriverLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class DriverController
+ * Class ShippingDriverController
  * @package Necktie\GatewayBundle\Controller
  *
- * @Route("/driver")
+ * @Route("/shipping-driver")
  */
-class DriverController extends Controller
+class ShippingDriverController extends Controller
 {
     const DEV_TAG = 'dev_';
 
     /**
-     * @Route("/{driver}")
+     * @Route("/{shippingDriver}")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \LogicException
      */
-    public function indexAction(Request $request, string $driver)
+    public function indexAction(Request $request, string $shippingDriver)
     {
         $content = [
             'content' => $request->getContent(),
-            'driver'  => $driver,
+            'shippingDriver'  => $shippingDriver,
             'method'  => $request->getMethod(), // should be only POST
         ];
 
-        $this->get('driver.producer')->publish(
+        $this->get('shipping_driver.producer')->publish(
             json_encode($content)
         );
 

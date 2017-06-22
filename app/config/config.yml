@@ -81,10 +81,10 @@ bunny:
           bindings:
             - exchange: payment_exchange
 
-      queue_driver:
+      queue_shipping_driver:
           durable: true
           bindings:
-            - exchange: driver_exchange
+            - exchange: shipping_driver_exchange
 
 hwi_oauth:
     firewall_names: [secured_area]

@@ -37,8 +37,8 @@ services:
     payment.producer:
         class: Necktie\GatewayBundle\Producer\PaymentProducer
 
-    driver.producer:
-        class: Necktie\GatewayBundle\Producer\DriverProducer
+    shipping_driver.producer:
+        class: Necktie\GatewayBundle\Producer\ShippingDriverProducer
 
     ### proxy
     gw.proxy.producer:
