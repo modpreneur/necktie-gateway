@@ -1,4 +1,4 @@
-FROM modpreneur/necktie-fpm-dev:0.14
+FROM modpreneur/necktie-fpm-dev:0.15
 
 MAINTAINER Martin Kolek <kolek@modpreneur.com>
 

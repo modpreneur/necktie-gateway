@@ -3,8 +3,10 @@ imports:
    - { resource: security.yml }
    - { resource: services.yml }
 
+
 jms_serializer:
-    enable_short_alias: false
+    metadata:
+        auto_detection: true
 
 
 monolog:

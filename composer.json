@@ -20,7 +20,7 @@
     "php-http/guzzle6-adapter": "^1.1",
     "lstrojny/fxmlrpc": "~0.14",
     "supervisorphp/supervisor": "~3.0",
-    "symfony/security-bundle" : "~3.2",
+    "symfony/security-bundle" : "~3.3",
     "hwi/oauth-bundle": "~0.5",
     "trinity/bunny-bundle": "dev-master",
     "trinity/core-interfaces": "dev-master",
