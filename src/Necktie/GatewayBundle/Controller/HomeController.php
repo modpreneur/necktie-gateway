@@ -125,6 +125,7 @@ class HomeController extends Controller
 
         return $this->render('@Gateway/Home/rabbitmq.html.twig', [
             'rabbit'      => $rabbit,
+            'necktieUrl' => $this->getParameter('necktie_url'),
             'rabbitError' => $rabbit->getError(),
         ]);
     }
@@ -140,6 +141,7 @@ class HomeController extends Controller
         $loggers  = $elReader->getMatchingEntities('Logger');
 
         return $this->render('@Gateway/Home/logger.html.twig', [
+            'necktieUrl' => $this->getParameter('necktie_url'),
             'loggers' => $loggers,
         ]);
     }
@@ -157,6 +159,7 @@ class HomeController extends Controller
         return $this->render('@Gateway/Home/supervisor.html.twig', [
             'supervisorCommands' => $this->getProcesses(),
             'supervisorGroup' => $this->getParameter('rabbit_supervisor_group'),
+            'necktieUrl' => $this->getParameter('necktie_url'),
             'rabbitError' => $rabbit->getError(),
         ]);
     }
@@ -172,6 +175,7 @@ class HomeController extends Controller
         $messages = $elReader->getMatchingEntities('Message');
 
         return $this->render('@Gateway/Home/messages.html.twig', [
+            'necktieUrl' => $this->getParameter('necktie_url'),
             'messages'   => $messages,
         ]);
     }
@@ -187,6 +191,7 @@ class HomeController extends Controller
         $requests = $elReader->getMatchingEntities('Request');
 
         return $this->render('@Gateway/Home/requests.html.twig', [
+            'necktieUrl' => $this->getParameter('necktie_url'),
             'requests' => $requests
         ]);
     }
